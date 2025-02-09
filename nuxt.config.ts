@@ -21,6 +21,8 @@ export default defineNuxtConfig({
           additionalData: `
             @use "~/assets/scss/_vars.scss" as *;
             @use "~/assets/scss/_mixins.scss" as *;
+            @use "~/assets/scss/_reset.scss" as *;
+            @use "~/assets/scss/_base.scss" as *;
           `,
         },
       },
