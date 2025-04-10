@@ -1,0 +1,84 @@
+@use "vars" as *;
+
+/* Header */
+.header {
+  min-height: 190px;
+}
+
+/* Верхня плашка */
+.header-top {
+  width: 100%;
+  background-color: $bg-color-white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.container {
+  max-width: 1600px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 100px;
+}
+
+.header-top__menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.header-top__nav ul {
+  display: flex;
+  gap: 15px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.header-top__nav a {
+  text-decoration: none;
+  color: #333;
+}
+
+.header-top__nav a:hover {
+  color: #ff5722;
+}
+
+/* Нижня плашка */
+.header-bottom {
+  width: 100%;
+  background-color: $bg-color-brown;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-nav {
+  padding: 15px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo img {
+  width: 120px;
+}
+
+.menu ul {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+}
+
+.menu a:hover {
+  color: #ff5722;
+}

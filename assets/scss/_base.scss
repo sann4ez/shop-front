@@ -1,6 +1,22 @@
+@use "vars" as *;
+
 /* Глобальні стилі */
-.container {
-  max-width: 1600px;
-  margin: 0 auto;
-  padding: 0 20px;
+body {
+  font-family: $font-montserrat;
+  font-size: 16px;
+  background-color: $bg-color-white;
+  color: $text-color-low-black;
+}
+
+a {
+  color: $text-color-white;
+  transition: color 0.2s ease-in;
+
+  &:hover {
+    color: $text-color-brown;
+  }
+}
+
+.text {
+  color: $text-color-low_black;
 }

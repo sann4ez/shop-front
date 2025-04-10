@@ -10,9 +10,9 @@ const closeMenu = () => (isOpen.value = false);
 
 <template>
   <header class="header">
-    <div class="container">
-      <!--Верхній header-->
-      <div class="header-top">
+    <!--Верхній header-->
+    <div class="header-top">
+      <div class="container">
         <ul class="header-top__menu">
           <!-- Лого -->
           <li class="header-top__item header-top__item--logo">
@@ -30,15 +30,16 @@ const closeMenu = () => (isOpen.value = false);
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    м. Луцьк, вул. Волі, 34, офіс 54
+                    <span class="header-top__text header-top__address text"
+                      >м. Луцьк, вул. Волі, 34, офіс 54</span
+                    >
                   </a>
                 </address>
               </li>
               <li class="header-top__info-item">
-                <span>Пн-Пт: 10:00 - 18:00</span>
-              </li>
-              <li class="header-top__info-item">
-                <span>Сб-Нд: 10:00 - 16:00</span>
+                <span class="header-top__text header-top__schedule text"
+                  >Пн-Пт: 10:00 - 18:00 Сб-Нд: 10:00 - 16:00</span
+                >
               </li>
             </ul>
           </li>
@@ -49,14 +50,14 @@ const closeMenu = () => (isOpen.value = false);
               <li class="header-top__contacts-item">
                 <address class="header-top__address">
                   <a href="tel:+380671234567" class="header-top__link">
-                    +380 67 123 45 67
+                    <span class="text">+380 67 123 45 67</span>
                   </a>
                 </address>
               </li>
               <li class="header-top__contacts-item">
                 <address class="header-top__address">
                   <a href="tel:+380671234566" class="header-top__link">
-                    +380 67 123 45 66
+                    <span class="text">+380 67 123 45 66</span>
                   </a>
                 </address>
               </li>
@@ -64,9 +65,11 @@ const closeMenu = () => (isOpen.value = false);
           </li>
         </ul>
       </div>
+    </div>
 
-      <!-- Нижній header -->
-      <div class="header-bottom">
+    <!-- Нижній header -->
+    <div class="header-bottom">
+      <div class="container">
         <!-- Контейнер для навігації -->
         <nav class="nav">
           <ul class="nav__list">
@@ -132,75 +135,6 @@ const closeMenu = () => (isOpen.value = false);
 </template>
 
 <style scoped lang="scss">
-/* Header */
-.header {
-  background: #fff;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-/* Верхня плашка */
-.header-top {
-  background: #f5f5f5;
-  padding: 10px 0;
-  font-size: 14px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.header-top__contacts a {
-  text-decoration: none;
-  color: #333;
-  font-weight: bold;
-}
-
-.header-top__nav ul {
-  display: flex;
-  gap: 15px;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.header-top__nav a {
-  text-decoration: none;
-  color: #333;
-}
-
-.header-top__nav a:hover {
-  color: #ff5722;
-}
-
-/* Нижня плашка */
-.header-nav {
-  padding: 15px 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.logo img {
-  width: 120px;
-}
-
-.menu ul {
-  display: flex;
-  gap: 20px;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.menu a {
-  text-decoration: none;
-  color: #333;
-  font-weight: bold;
-}
-
-.menu a:hover {
-  color: #ff5722;
-}
-
 /* Footer */
 .footer {
   background: #222;
