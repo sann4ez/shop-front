@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted } from "vue";
+import { ref } from "vue";
 import Catalog, { MenuItem } from "~/components/Catalog.vue";
 
 const menuData: MenuItem[] = [
@@ -13,31 +13,16 @@ const menuData: MenuItem[] = [
   { label: "Одяг", to: "/clothing" },
 ];
 
-onMounted(() => {
-  const menu = document.querySelector<HTMLElement>(".menu");
-  const openMenuBtn =
-    document.querySelector<HTMLButtonElement>(".open-menu-btn");
-  const closeMenuBtn =
-    document.querySelector<HTMLButtonElement>(".close-menu-btn");
+const isMenuOpen = ref(false);
+const openDropdowns = ref<{ [key: number]: boolean }>({});
 
-  [openMenuBtn, closeMenuBtn].forEach((btn) => {
-    btn.addEventListener("click", () => {
-      console.log(menu);
-      menu.classList.toggle("open");
-      menu.style.transition = "transform 0.5s ease";
-    });
-  });
+function toggleMenu() {
+  isMenuOpen.value = !isMenuOpen.value;
+}
 
-  menu.addEventListener("click", function () {
-    menu.removeAttribute("style");
-  });
-
-  menu.querySelectorAll(".dropdown > svg").forEach((arrow) => {
-    arrow.addEventListener("click", function () {
-      this.closest(".dropdown").classList.toggle("active");
-    });
-  });
-});
+function toggleDropdown(index: number) {
+  openDropdowns.value[index] = !openDropdowns.value[index];
+}
 </script>
 
 <template>
@@ -47,40 +32,40 @@ onMounted(() => {
         <img src="../public/favicon.ico" alt="logo" />
       </div>
 
-      <nav class="menu active">
+      <nav class="menu" :class="{ open: isMenuOpen }">
         <div class="head">
-          <div class="logo">
-            <img src="../public/favicon.ico" alt="logo" />
-          </div>
-          <button class="close-menu-btn"></button>
+          <!--          <div class="logo">-->
+          <!--            <img src="../public/favicon.ico" alt="logo" />-->
+          <!--          </div>-->
+          <button class="close-menu-btn" @click="toggleMenu"></button>
         </div>
 
         <ul>
-          <li class="dropdown">
+          <li class="dropdown" :class="{ active: openDropdowns[0] }">
             <a href="#">каталог</a>
-            <svg class="icon">
+            <svg class="icon" @click.stop="toggleDropdown(0)">
               <use xlink:href="/images/sprite.svg#arrow-down" />
             </svg>
 
-            <ul class="sub-menu">
+            <ul class="sub-menu" v-show="openDropdowns[0]">
               <li>
                 <a href="#"><span>Ворота</span></a>
               </li>
 
-              <li class="dropdown">
+              <li class="dropdown" :class="{ active: openDropdowns[0] }">
                 <a href="#"><span>Комплектуючі для воріт</span></a>
-                <svg class="icon">
+                <svg class="icon" @click.stop="toggleMenu">
                   <use xlink:href="/images/sprite.svg#arrow-down" />
                 </svg>
 
-                <ul class="sub-menu sub-menu-right">
+                <ul class="sub-menu sub-menu-right" v-show="isMenuOpen">
                   <li>
                     <a href="#"><span>Комплектуючі 1</span></a>
                   </li>
                   <li>
                     <a href="#"><span>Комплектуючі 2</span></a>
                   </li>
-                  <li class="dropdown">
+                  <li class="dropdown" :class="{ active: openDropdowns[0] }">
                     <a href="#"><span>Комплектуючі 3</span></a>
                     <svg class="icon">
                       <use xlink:href="/images/sprite.svg#arrow-down" />
@@ -122,12 +107,12 @@ onMounted(() => {
           </li>
 
           <li><a href="#">про нас</a></li>
-          <li class="dropdown">
+          <li class="dropdown" :class="{ active: openDropdowns[1] }">
             <a href="#">послуги</a>
-            <svg class="icon">
+            <svg class="icon" @click.stop="toggleDropdown(1)">
               <use xlink:href="/images/sprite.svg#arrow-down" />
             </svg>
-            <ul class="sub-menu">
+            <ul class="sub-menu" v-show="openDropdowns[1]">
               <li>
                 <a href="#"><span>portfolio 1</span></a>
               </li>
@@ -137,7 +122,7 @@ onMounted(() => {
               <li>
                 <a href="#"><span>portfolio 3</span></a>
               </li>
-              <li class="dropdown">
+              <li class="dropdown" :class="{ active: openDropdowns[0] }">
                 <a href="#"><span>portfolio 4</span></a>
                 <svg class="icon">
                   <use xlink:href="/images/sprite.svg#arrow-down" />
@@ -179,7 +164,7 @@ onMounted(() => {
           </svg>
         </button>
 
-        <button type="button" class="open-menu-btn">
+        <button type="button" class="open-menu-btn" @click="toggleMenu">
           <span class="line line-1"></span>
           <span class="line line-2"></span>
           <span class="line line-3"></span>
@@ -229,7 +214,7 @@ onMounted(() => {
   @media (max-width: 991px) {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-end;
     margin-bottom: 25px;
   }
 }
@@ -287,7 +272,7 @@ onMounted(() => {
   left: 0;
   width: 300px;
   padding: 15px 0;
-  background-color: $bg-color-white;
+  background-color: $bg-color-light-grey;
   border-radius: 3px;
   box-shadow: 0 0 5px hsla(0, 0%, 0%, 0.5);
   z-index: 1;
@@ -386,7 +371,7 @@ onMounted(() => {
   display: none;
 
   @media (max-width: 991px) {
-    display: inline-block;
+    display: flex;
     align-items: center;
     justify-content: center;
     height: 40px;
@@ -399,21 +384,35 @@ onMounted(() => {
 }
 
 @media (max-width: 991px) {
+  .container {
+    padding: 0 25px;
+  }
+
   .header .menu {
     position: fixed;
     right: 0;
     top: 0;
     width: 320px;
     height: 100%;
-    background-color: hsl(229, 54%, 51%);
+    background-color: $bg-color-light-grey;
     padding: 15px 30px 30px;
     overflow-y: auto;
     z-index: 1;
-    transform: translateX(100%);
-  }
 
-  .header .menu.open {
-    transform: none;
+    transform: translateX(100%);
+    transition: transform 0.5s ease;
+
+    &.open {
+      transform: translateX(0);
+    }
+
+    .sub-menu {
+      display: none;
+    }
+
+    .dropdown.active > .sub-menu {
+      display: block;
+    }
   }
 
   .header .menu .close-menu-btn {
@@ -434,7 +433,7 @@ onMounted(() => {
     position: absolute;
     width: 80%;
     height: 2px;
-    background-color: hsl(0, 0%, 100%);
+    background-color: $bg-color-brown;
   }
 
   .header .menu .close-menu-btn::before {
@@ -487,17 +486,17 @@ onMounted(() => {
   }
 
   .header .menu .sub-menu a {
-    padding-right: 30px;
+    padding-left: 15px;
   }
 
   .header .menu .sub-menu .sub-menu a {
-    padding-right: 45px;
+    padding-left: 30px;
   }
 
   .header-right .open-menu-btn .line {
     height: 2px;
     width: 30px;
-    background-color: hsl(0, 100%, 50%);
+    background-color: $bg-color-brown;
     position: absolute;
   }
 
