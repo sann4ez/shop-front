@@ -14,14 +14,14 @@ const menuData: MenuItem[] = [
 ];
 
 const isMenuOpen = ref(false);
-const openDropdowns = ref<{ [key: number]: boolean }>({});
+const openDropdowns = ref<Record<string, boolean>>({});
 
 function toggleMenu() {
   isMenuOpen.value = !isMenuOpen.value;
 }
 
-function toggleDropdown(index: number) {
-  openDropdowns.value[index] = !openDropdowns.value[index];
+function toggleDropdown(id: string) {
+  openDropdowns.value[id] = !openDropdowns.value[id];
 }
 </script>
 
@@ -41,36 +41,45 @@ function toggleDropdown(index: number) {
         </div>
 
         <ul>
-          <li class="dropdown" :class="{ active: openDropdowns[0] }">
+          <li class="dropdown" :class="{ active: openDropdowns['0'] }">
             <a href="#">каталог</a>
-            <svg class="icon" @click.stop="toggleDropdown(0)">
+            <svg class="icon" @click.stop="toggleDropdown('0')">
               <use xlink:href="/images/sprite.svg#arrow-down" />
             </svg>
 
-            <ul class="sub-menu" v-show="openDropdowns[0]">
+            <ul class="sub-menu" :class="{ 'is-open': openDropdowns['0'] }">
               <li>
                 <a href="#"><span>Ворота</span></a>
               </li>
 
-              <li class="dropdown" :class="{ active: openDropdowns[0] }">
+              <li class="dropdown" :class="{ active: openDropdowns['01'] }">
                 <a href="#"><span>Комплектуючі для воріт</span></a>
-                <svg class="icon" @click.stop="toggleMenu">
+                <svg class="icon" @click.stop="toggleDropdown('01')">
                   <use xlink:href="/images/sprite.svg#arrow-down" />
                 </svg>
 
-                <ul class="sub-menu sub-menu-right" v-show="isMenuOpen">
+                <ul
+                  class="sub-menu sub-menu-right"
+                  v-show="openDropdowns['01']"
+                >
                   <li>
                     <a href="#"><span>Комплектуючі 1</span></a>
                   </li>
                   <li>
                     <a href="#"><span>Комплектуючі 2</span></a>
                   </li>
-                  <li class="dropdown" :class="{ active: openDropdowns[0] }">
+                  <li
+                    class="dropdown"
+                    :class="{ active: openDropdowns['001'] }"
+                  >
                     <a href="#"><span>Комплектуючі 3</span></a>
-                    <svg class="icon">
+                    <svg class="icon" @click.stop="toggleDropdown('001')">
                       <use xlink:href="/images/sprite.svg#arrow-down" />
                     </svg>
-                    <ul class="sub-menu sub-menu-right">
+                    <ul
+                      class="sub-menu sub-menu-right"
+                      v-show="openDropdowns['001']"
+                    >
                       <li>
                         <a href="#"><span>Комплектуючі 11</span></a>
                       </li>
@@ -107,12 +116,12 @@ function toggleDropdown(index: number) {
           </li>
 
           <li><a href="#">про нас</a></li>
-          <li class="dropdown" :class="{ active: openDropdowns[1] }">
+          <li class="dropdown" :class="{ active: openDropdowns['1'] }">
             <a href="#">послуги</a>
-            <svg class="icon" @click.stop="toggleDropdown(1)">
+            <svg class="icon" @click.stop="toggleDropdown('1')">
               <use xlink:href="/images/sprite.svg#arrow-down" />
             </svg>
-            <ul class="sub-menu" v-show="openDropdowns[1]">
+            <ul class="sub-menu" v-show="openDropdowns['1']">
               <li>
                 <a href="#"><span>portfolio 1</span></a>
               </li>
@@ -122,12 +131,12 @@ function toggleDropdown(index: number) {
               <li>
                 <a href="#"><span>portfolio 3</span></a>
               </li>
-              <li class="dropdown" :class="{ active: openDropdowns[0] }">
+              <li class="dropdown" :class="{ active: openDropdowns['11'] }">
                 <a href="#"><span>portfolio 4</span></a>
-                <svg class="icon">
+                <svg class="icon" @click.stop="toggleDropdown('11')">
                   <use xlink:href="/images/sprite.svg#arrow-down" />
                 </svg>
-                <ul class="sub-menu sub-menu-left">
+                <ul class="sub-menu sub-menu-left" v-show="openDropdowns['1']">
                   <li>
                     <a href="#"><span>portfolio 11</span></a>
                   </li>
@@ -294,6 +303,10 @@ function toggleDropdown(index: number) {
   }
 }
 
+.header .menu .sub-menu {
+  display: block;
+}
+
 .header .menu .sub-menu-right {
   left: 100%;
   top: 0;
@@ -410,7 +423,15 @@ function toggleDropdown(index: number) {
       display: none;
     }
 
+    .sub-menu.is-open {
+      display: block !important;
+    }
+
     .dropdown.active > .sub-menu {
+      display: block;
+    }
+
+    .dropdown:hover > .sub-menu {
       display: block;
     }
   }
@@ -486,10 +507,14 @@ function toggleDropdown(index: number) {
   }
 
   .header .menu .sub-menu a {
-    padding-left: 15px;
+    padding-left: 10px;
   }
 
   .header .menu .sub-menu .sub-menu a {
+    padding-left: 20px;
+  }
+
+  .header .menu .sub-menu .sub-menu .sub-menu a {
     padding-left: 30px;
   }
 
@@ -508,4 +533,10 @@ function toggleDropdown(index: number) {
     transform: translateY(8px);
   }
 }
+
+//@media (min-width: 992px) {
+//  .dropdown:hover > .sub-menu {
+//    display: block;
+//  }
+//}
 </style>
