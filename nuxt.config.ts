@@ -14,6 +14,7 @@ export default defineNuxtConfig({
     families: [{ name: "montserrat", provider: "google" }],
   },
   css: ["~/assets/scss/global.scss"],
+  srcDir: "src/",
   vite: {
     css: {
       preprocessorOptions: {

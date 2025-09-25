@@ -1,17 +1,5 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import Catalog, { MenuItem } from "~/components/Catalog.vue";
-
-const menuData: MenuItem[] = [
-  {
-    label: "Електроніка",
-    children: [
-      { label: "Смартфони", to: "/smartphones" },
-      { label: "Ноутбуки", to: "/laptops" },
-    ],
-  },
-  { label: "Одяг", to: "/clothing" },
-];
 
 const isMenuOpen = ref(false);
 const openDropdowns = ref<Record<string, boolean>>({});
@@ -34,9 +22,6 @@ function toggleDropdown(id: string) {
 
       <nav class="menu" :class="{ open: isMenuOpen }">
         <div class="head">
-          <!--          <div class="logo">-->
-          <!--            <img src="../public/favicon.ico" alt="logo" />-->
-          <!--          </div>-->
           <button class="close-menu-btn" @click="toggleMenu"></button>
         </div>
 
@@ -60,7 +45,7 @@ function toggleDropdown(id: string) {
 
                 <ul
                   class="sub-menu sub-menu-right"
-                  v-show="openDropdowns['01']"
+                  :class="{ 'is-open': openDropdowns['01'] }"
                 >
                   <li>
                     <a href="#"><span>Комплектуючі 1</span></a>
@@ -78,7 +63,7 @@ function toggleDropdown(id: string) {
                     </svg>
                     <ul
                       class="sub-menu sub-menu-right"
-                      v-show="openDropdowns['001']"
+                      :class="{ 'is-open': openDropdowns['001'] }"
                     >
                       <li>
                         <a href="#"><span>Комплектуючі 11</span></a>
@@ -121,7 +106,7 @@ function toggleDropdown(id: string) {
             <svg class="icon" @click.stop="toggleDropdown('1')">
               <use xlink:href="/images/sprite.svg#arrow-down" />
             </svg>
-            <ul class="sub-menu" v-show="openDropdowns['1']">
+            <ul class="sub-menu" :class="{ 'is-open': openDropdowns['1'] }">
               <li>
                 <a href="#"><span>portfolio 1</span></a>
               </li>
@@ -136,7 +121,10 @@ function toggleDropdown(id: string) {
                 <svg class="icon" @click.stop="toggleDropdown('11')">
                   <use xlink:href="/images/sprite.svg#arrow-down" />
                 </svg>
-                <ul class="sub-menu sub-menu-left" v-show="openDropdowns['1']">
+                <ul
+                  class="sub-menu sub-menu-left"
+                  :class="{ 'is-open': openDropdowns['11'] }"
+                >
                   <li>
                     <a href="#"><span>portfolio 11</span></a>
                   </li>
@@ -181,16 +169,6 @@ function toggleDropdown(id: string) {
       </div>
     </div>
   </header>
-
-  <main class="main">
-    <slot />
-  </main>
-
-  <footer class="footer">
-    <div class="container">
-      <p>© 2024 Всі права захищені</p>
-    </div>
-  </footer>
 </template>
 
 <style scoped lang="scss">
@@ -420,7 +398,7 @@ function toggleDropdown(id: string) {
     }
 
     .sub-menu {
-      display: none;
+      display: none !important;
     }
 
     .sub-menu.is-open {
@@ -533,10 +511,4 @@ function toggleDropdown(id: string) {
     transform: translateY(8px);
   }
 }
-
-//@media (min-width: 992px) {
-//  .dropdown:hover > .sub-menu {
-//    display: block;
-//  }
-//}
 </style>
