@@ -6,16 +6,11 @@ body {
   font-size: 16px;
   background-color: $bg-color-white;
   color: $text-color-low-black;
-  overflow: hidden;
+  //overflow: hidden;
 }
 
 a {
   color: $text-color-low_black;
-  transition: color 0.2s ease-in;
-
-  &:hover {
-    color: $text-color-brown;
-  }
 }
 
 .text {
@@ -32,4 +27,13 @@ a {
   max-width: 1920px;
   margin: 0 auto;
   padding: 0 80px;
+}
+
+.card__title {
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 1.16;
+  letter-spacing: 0.03em;
+  text-align: center;
+  color: $text-color-brown;
 }

@@ -172,6 +172,14 @@ function toggleDropdown(id: string) {
 </template>
 
 <style scoped lang="scss">
+a {
+  transition: color 0.2s ease-in;
+
+  &:hover {
+    color: $text-color-brown;
+  }
+}
+
 .header {
   position: absolute;
   left: 0;
