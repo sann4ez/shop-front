@@ -14,6 +14,11 @@ defineProps({
     required: true,
   },
 });
+
+const uuid = Math.random().toString(36).substring(2, 9);
+
+const nextEl = ref(null);
+const prevEl = ref(null);
 </script>
 
 <template>
@@ -24,8 +29,8 @@ defineProps({
 
         <!-- Кнопки навігації -->
         <div class="product-section__nav">
-          <button class="swiper-button-prev custom-prev"></button>
-          <button class="swiper-button-next custom-next"></button>
+          <button ref="prevEl" class="swiper-button-prev custom-prev"></button>
+          <button ref="nextEl" class="swiper-button-next custom-next"></button>
         </div>
       </div>
 
@@ -35,7 +40,7 @@ defineProps({
           :slides-per-view="4"
           :space-between="20"
           :loop="true"
-          :navigation="{ nextEl: '.custom-next', prevEl: '.custom-prev' }"
+          :navigation="{ nextEl: nextEl, prevEl: prevEl }"
           :autoplay="{ delay: 5000 }"
           class="product-section__swiper"
         >
@@ -108,6 +113,10 @@ defineProps({
           color: #fff;
         }
       }
+    }
+
+    .swiper-button-prev {
+      rotate: 180deg;
     }
   }
 

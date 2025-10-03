@@ -37,3 +37,31 @@ a {
   text-align: center;
   color: $text-color-black;
 }
+
+.section__title {
+  position: relative;
+  display: inline-block;
+  font-weight: 500;
+  font-size: 36px;
+  line-height: 1.16;
+  letter-spacing: 0.03em;
+  text-align: center;
+  color: $text-color-black;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background-color: $bg-color-brown;
+    transition: width 0.3s ease;
+  }
+}
+
+section:hover {
+  .section__title::after {
+    width: 130px;
+  }
+}

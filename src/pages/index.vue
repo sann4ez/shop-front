@@ -54,6 +54,39 @@ const products = [
     image: "https://picsum.photos/300/300?5",
   },
 ];
+
+const our_services = [
+  {
+    name: "Доставка по Україні",
+    img: "https://picsum.photos/300/300?1",
+    link: "#",
+  },
+  {
+    name: "Монтаж та встановлення",
+    img: "https://picsum.photos/300/300?2",
+    link: "#",
+  },
+  {
+    name: "Гарантія та сервіс",
+    img: "https://picsum.photos/300/300?3",
+    link: "#",
+  },
+  {
+    name: "Безкоштовна консультація",
+    img: "https://picsum.photos/300/300?4",
+    link: "#",
+  },
+  {
+    name: "Індивідуальне замовлення",
+    img: "https://picsum.photos/300/300?5",
+    link: "#",
+  },
+  {
+    name: "Оплата онлайн",
+    img: "https://picsum.photos/300/300?6",
+    link: "#",
+  },
+];
 </script>
 
 <template>
@@ -98,6 +131,30 @@ const products = [
       :products="products"
       @add-to-cart="handleAddToCart"
     />
+
+    <section class="our-services">
+      <div class="container">
+        <div class="our-services__header">
+          <h2 class="our-services__title section__title">Наші послуги</h2>
+        </div>
+
+        <div class="our-services__content">
+          <ul class="our-services__list">
+            <li
+              v-for="(service, index) in our_services"
+              :key="index"
+              class="our-services__item"
+            >
+              <a class="our-services__link" :href="service.link">
+                <NuxtImg :src="service.img" :alt="service.name" />
+                <span class="our-services__name">{{ service.name }}</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
     <slot />
   </main>
 
@@ -139,5 +196,37 @@ const products = [
 
 .swiper-button-prev {
   rotate: 180deg;
+}
+
+// Наші послуги
+.our-services__header {
+  margin-bottom: 10px;
+  padding: 0 15px;
+}
+
+.our-services__list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.our-services__link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  text-decoration: none;
+  color: inherit;
+
+  &:hover {
+    transform: translateY(-5px);
+    transition: transform 0.3s ease;
+  }
+}
+
+.our-services__name {
+  margin-top: 10px;
+  font-size: 16px;
+  font-weight: 500;
 }
 </style>
