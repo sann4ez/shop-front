@@ -264,10 +264,54 @@ const our_services = [
 
         <div class="why-us__content">
           <ul class="why-us__list">
-            <li class="why-us__item"></li>
-            <li class="why-us__item"></li>
-            <li class="why-us__item"></li>
-            <li class="why-us__item"></li>
+            <li class="why-us__item">
+              <div class="why-us__icon">
+                <img src="../public/favicon.ico" alt="logo" />
+              </div>
+
+              <div class="why-us__info">
+                <span class="why-us__title-item">Висока якість</span>
+                <p class="why-us__desc">
+                  Ми гарантуємо якість наших послуг завдяки досвідченій команді.
+                </p>
+              </div>
+            </li>
+            <li class="why-us__item">
+              <div class="why-us__icon">
+                <img src="../public/favicon.ico" alt="logo" />
+              </div>
+
+              <div class="why-us__info">
+                <span class="why-us__title-item">Висока якість</span>
+                <p class="why-us__desc">
+                  Ми гарантуємо якість наших послуг завдяки досвідченій команді.
+                </p>
+              </div>
+            </li>
+            <li class="why-us__item">
+              <div class="why-us__icon">
+                <img src="../public/favicon.ico" alt="logo" />
+              </div>
+
+              <div class="why-us__info">
+                <span class="why-us__title-item">Висока якість</span>
+                <p class="why-us__desc">
+                  Ми гарантуємо якість наших послуг завдяки досвідченій команді.
+                </p>
+              </div>
+            </li>
+            <li class="why-us__item">
+              <div class="why-us__icon">
+                <img src="../public/favicon.ico" alt="logo" />
+              </div>
+
+              <div class="why-us__info">
+                <span class="why-us__title-item">Висока якість</span>
+                <p class="why-us__desc">
+                  Ми гарантуємо якість наших послуг завдяки досвідченій команді.
+                </p>
+              </div>
+            </li>
           </ul>
         </div>
       </div>
@@ -404,5 +448,36 @@ const our_services = [
 .why-us {
   padding: 50px 0 50px 0;
   background-color: $bg-color-light-grey;
+
+  &__content {
+    padding: 15px;
+  }
+
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 40px;
+    background-color: $bg-color-white;
+    border-radius: 5px;
+  }
+
+  &__title-item {
+    display: block;
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+
+  &__desc {
+    max-height: 40px;
+    overflow: hidden;
+  }
 }
 </style>
