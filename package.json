@@ -18,6 +18,7 @@
     "@vueuse/nuxt": "^12.5.0",
     "dayjs-nuxt": "^2.1.11",
     "nuxt": "^3.15.4",
+    "nuxt-easy-lightbox": "^1.1.0",
     "nuxt-typed-router": "^3.7.3",
     "pinia": "^2.3.1",
     "react": "^15.7.0",

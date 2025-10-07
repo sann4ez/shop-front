@@ -9,6 +9,7 @@ export default defineNuxtConfig({
     "@nuxt/fonts",
     "dayjs-nuxt",
     "nuxt-typed-router",
+    "nuxt-easy-lightbox",
   ],
   fonts: {
     families: [{ name: "montserrat", provider: "google" }],

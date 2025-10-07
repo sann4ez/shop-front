@@ -3,11 +3,51 @@ import Header from "~/components/Header.vue";
 
 // Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from "swiper/vue";
-import { Pagination, Navigation, EffectFade, Autoplay } from "swiper/modules";
+import { Pagination, EffectFade, Autoplay, Navigation } from "swiper/modules";
+import VueEasyLightbox from "vue-easy-lightbox";
 
 import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/pagination";
+
+// Lightbox
+const visible = ref<boolean>(false);
+const images = ref<string[]>([]);
+const index = ref<number>(0);
+
+const openLightbox = (img: string, i = 0): void => {
+  images.value = [img];
+  index.value = i;
+  visible.value = true;
+  document.body.classList.add("no-scroll");
+};
+
+const closeLightbox = (): void => {
+  visible.value = false;
+  document.body.classList.remove("no-scroll");
+};
+
+onMounted(() => {
+  const scrollBarWidth =
+    window.innerWidth - document.documentElement.clientWidth;
+  document.documentElement.style.setProperty(
+    "--scrollbar-width",
+    `${scrollBarWidth}px`,
+  );
+});
+
+// Swiper
+const nextEl = ref(null);
+const prevEl = ref(null);
+
+interface Product {
+  name: string;
+  price: number;
+}
+
+const handleAddToCart = (product: Product) => {
+  console.log("Додано до кошика:", product);
+};
 
 // Дані з API
 const slides = [
@@ -58,12 +98,12 @@ const products = [
 const our_services = [
   {
     name: "Доставка по Україні",
-    img: "https://picsum.photos/300/300?1",
+    img: "https://picsum.photos/1920/1080?1",
     link: "#",
   },
   {
     name: "Монтаж та встановлення",
-    img: "https://picsum.photos/300/300?2",
+    img: "https://picsum.photos/1600/800?2",
     link: "#",
   },
   {
@@ -146,10 +186,88 @@ const our_services = [
               class="our-services__item"
             >
               <a class="our-services__link" :href="service.link">
-                <NuxtImg :src="service.img" :alt="service.name" />
+                <NuxtImg
+                  class="our-services__img"
+                  :src="service.img"
+                  :alt="service.name"
+                />
                 <span class="our-services__name">{{ service.name }}</span>
               </a>
             </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="projects">
+      <div class="container">
+        <div class="projects__header section__header">
+          <span class="projects__title section__title">
+            Приклади реалізованих проєктів
+          </span>
+
+          <div class="projects-section__nav section-controls">
+            <button
+              ref="prevEl"
+              class="swiper-button-prev custom-prev"
+            ></button>
+            <button
+              ref="nextEl"
+              class="swiper-button-next custom-next"
+            ></button>
+          </div>
+        </div>
+
+        <div class="projects__content">
+          <Swiper
+            :modules="[Navigation, Autoplay]"
+            :slides-per-view="3"
+            :space-between="20"
+            :loop="true"
+            :navigation="{ nextEl: nextEl, prevEl: prevEl }"
+            :autoplay="{ delay: 50000 }"
+            class="projects-section__swiper"
+          >
+            <SwiperSlide
+              v-for="(product, index) in products"
+              :key="index"
+              class="projects-section__slide"
+            >
+              <div class="projects-card">
+                <img
+                  :src="product.image"
+                  :alt="product.name"
+                  class="projects-card__img"
+                  @click="openLightbox(product.image, index)"
+                />
+                <span class="projects-card__name">{{ product.name }}</span>
+              </div>
+            </SwiperSlide>
+          </Swiper>
+        </div>
+      </div>
+
+      <vue-easy-lightbox
+        :visible="visible"
+        :imgs="images"
+        :index="index"
+        @hide="closeLightbox"
+        @on-open="openLightbox"
+      />
+    </section>
+
+    <section class="why-us">
+      <div class="container">
+        <div class="why-us__header section__header">
+          <h2 class="why-us__title section__title">Чому ми</h2>
+        </div>
+
+        <div class="why-us__content">
+          <ul class="why-us__list">
+            <li class="why-us__item"></li>
+            <li class="why-us__item"></li>
+            <li class="why-us__item"></li>
+            <li class="why-us__item"></li>
           </ul>
         </div>
       </div>
@@ -199,34 +317,92 @@ const our_services = [
 }
 
 // Наші послуги
-.our-services__header {
-  margin-bottom: 10px;
-  padding: 0 15px;
-}
+.our-services {
+  padding: 50px 0 50px 0;
+  background-color: $bg-color-light-grey;
 
-.our-services__list {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-}
+  &__header {
+    margin-bottom: 20px;
+    padding: 0 15px;
+  }
 
-.our-services__link {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  text-decoration: none;
-  color: inherit;
+  &__content {
+    padding: 15px;
+  }
 
-  &:hover {
-    transform: translateY(-5px);
-    transition: transform 0.3s ease;
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  &__link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+    overflow: hidden;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+
+    &:hover {
+      box-shadow: 0 0 20px 0 #000000;
+    }
+  }
+
+  &__name {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: $text-color-white;
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  &__img {
+    width: 100%;
+    height: 350px;
   }
 }
 
-.our-services__name {
-  margin-top: 10px;
-  font-size: 16px;
+// Проєкти
+.projects {
+  padding: 50px 0 50px 0;
+}
+
+.projects-section__swiper {
+  padding: 15px;
+}
+
+.projects-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.projects-card__img {
+  border-radius: 5px;
+  cursor: zoom-in;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.02);
+  }
+}
+
+.projects-card__name {
+  font-size: 18px;
   font-weight: 500;
+  padding: 10px;
+}
+
+// Чому ми
+.why-us {
+  padding: 50px 0 50px 0;
+  background-color: $bg-color-light-grey;
 }
 </style>
