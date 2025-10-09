@@ -317,14 +317,97 @@ const our_services = [
       </div>
     </section>
 
+    <section class="about-company">
+      <div class="container">
+        <div class="about-company__header section__header">
+          <h2 class="about-company__title section__title">Про компанію</h2>
+        </div>
+
+        <div class="about-company__content">
+          <div class="about-company__text">
+            <h2>Про нашу компанію</h2>
+
+            <p>
+              <strong>“ВорітБуд”</strong> — це українська компанія з понад
+              <em>10-річним досвідом</em> у сфері виробництва, монтажу та
+              обслуговування автоматичних воріт, ролет і парканних систем. Ми
+              поєднуємо <span>якість, надійність</span> та сучасний дизайн, щоб
+              забезпечити комфорт і безпеку кожного клієнта.
+            </p>
+
+            <h3>Наші переваги</h3>
+            <ul>
+              <li>Власне виробництво з європейським обладнанням.</li>
+              <li>Гарантія від 3 до 10 років на всі вироби.</li>
+              <li>Безкоштовна консультація та виїзд замірника.</li>
+              <li>Монтаж «під ключ» за 1 день.</li>
+            </ul>
+
+            <h3>Наші досягнення</h3>
+            <ol>
+              <li>Понад 5000 задоволених клієнтів по всій Україні.</li>
+              <li>Більше 200 корпоративних партнерів.</li>
+              <li>Переможець конкурсу «Надійний виробник року 2024».</li>
+            </ol>
+
+            <blockquote>
+              “Ми не просто встановлюємо ворота — ми створюємо безпечний простір
+              для вашого дому та бізнесу.”
+            </blockquote>
+
+            <p>
+              Якщо ви шукаєте компанію, яка дотримується принципів
+              <strong>чесності, якості та відповідальності</strong>, — ви
+              потрапили за адресою. Ми з гордістю реалізовуємо проекти будь-якої
+              складності — від гаражних воріт до великих промислових систем.
+            </p>
+
+            <h4>Приклади робіт</h4>
+            <img
+              src="https://picsum.photos/300/300?20"
+              alt="Наші встановлені ворота"
+            />
+
+            <p>
+              Детальніше про наші послуги ви можете дізнатися у розділі
+              <a href="/services">«Послуги»</a> або звернутися до нас за
+              телефоном.
+            </p>
+
+            <hr />
+
+            <h5>Контактна інформація</h5>
+            <table>
+              <thead>
+                <tr>
+                  <th>Філія</th>
+                  <th>Адреса</th>
+                  <th>Телефон</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Київ</td>
+                  <td>вул. Сагайдачного, 24</td>
+                  <td>+38 (044) 123-45-67</td>
+                </tr>
+                <tr>
+                  <td>Львів</td>
+                  <td>вул. Зеленська, 10</td>
+                  <td>+38 (032) 987-65-43</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h6>Дякуємо, що обираєте нас 💛</h6>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <Footer />
     <slot />
   </main>
-
-  <footer class="footer">
-    <div class="container">
-      <p>© 2024 Всі права захищені</p>
-    </div>
-  </footer>
 </template>
 
 <style scoped lang="scss">
@@ -478,6 +561,175 @@ const our_services = [
   &__desc {
     max-height: 40px;
     overflow: hidden;
+  }
+}
+
+// Про компанію
+.about-company {
+  padding: 50px 0 50px 0;
+
+  &__content {
+    padding: 15px;
+  }
+
+  &__title {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  &__text {
+    font-family: "Montserrat", sans-serif;
+    font-size: 16px;
+    line-height: 1.8;
+    color: #333;
+    text-align: justify;
+
+    /* Абзаци */
+    p {
+      margin-bottom: 20px;
+    }
+
+    /* Заголовки */
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-weight: 600;
+      line-height: 1.4;
+      margin: 30px 0 15px;
+      color: #222;
+    }
+
+    h1 {
+      font-size: 30px;
+    }
+    h2 {
+      font-size: 26px;
+    }
+    h3 {
+      font-size: 22px;
+    }
+    h4 {
+      font-size: 18px;
+    }
+    h5 {
+      font-size: 16px;
+    }
+    h6 {
+      font-size: 14px;
+    }
+
+    /* Виділення */
+    strong {
+      font-weight: 600;
+      color: #7a4e2b;
+    }
+
+    em {
+      font-style: italic;
+      color: #555;
+    }
+
+    span {
+      color: inherit;
+    }
+
+    /* Списки */
+    ul,
+    ol {
+      margin: 20px 0 20px 25px;
+      padding: 0;
+      list-style-position: outside;
+    }
+
+    ul {
+      list-style-type: disc;
+    }
+
+    ol {
+      list-style-type: decimal;
+    }
+
+    li {
+      margin-bottom: 8px;
+      line-height: 1.7;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    /* Цитати */
+    blockquote {
+      margin: 30px 0;
+      padding: 15px 25px;
+      border-left: 4px solid #7a4e2b;
+      font-style: italic;
+      color: #555;
+      background: #fff;
+      border-radius: 4px;
+    }
+
+    /* Зображення */
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      margin: 25px auto;
+    }
+
+    /* Посилання */
+    a {
+      color: #7a4e2b;
+      text-decoration: underline;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: #55321c;
+      }
+    }
+
+    /* Горизонтальна лінія */
+    hr {
+      border: none;
+      border-top: 1px solid #ddd;
+      margin: 30px 0;
+    }
+
+    /* Таблиці */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 25px 0;
+      font-size: 15px;
+
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 10px 15px;
+        text-align: left;
+      }
+
+      th {
+        background: #f3f3f3;
+        font-weight: 600;
+      }
+
+      tr:nth-child(even) {
+        background: #fafafa;
+      }
+    }
+  }
+
+  &__quote {
+    margin-top: 30px;
+    padding-left: 20px;
+    border-left: 4px solid #7a4e2b;
+    font-style: italic;
+    color: #555;
   }
 }
 </style>
