@@ -100,7 +100,10 @@ function toggleDropdown(id: string) {
             </ul>
           </li>
 
-          <li><a href="#">про нас</a></li>
+          <li>
+            <NuxtLink to="/about">про нас</NuxtLink>
+          </li>
+
           <li class="dropdown" :class="{ active: openDropdowns['1'] }">
             <a href="#">послуги</a>
             <svg class="icon" @click.stop="toggleDropdown('1')">

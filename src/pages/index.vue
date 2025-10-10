@@ -130,291 +130,274 @@ const our_services = [
 </script>
 
 <template>
-  <Header />
+  <section class="hero">
+    <div class="hero__slider">
+      <Swiper
+        :modules="[Pagination, EffectFade, Autoplay]"
+        :effect="'fade'"
+        :slides-per-view="1"
+        :loop="true"
+        :autoplay="{ delay: 3000 }"
+        :pagination="{ clickable: true }"
+      >
+        <SwiperSlide
+          v-for="(slide, index) in slides"
+          :key="index"
+          class="hero__slide"
+        >
+          <img :src="slide" alt="Slide image" class="hero__image" />
+        </SwiperSlide>
+      </Swiper>
+    </div>
+  </section>
 
-  <main class="main">
-    <section class="hero">
-      <div class="hero__slider">
+  <ProductSection
+    title="Новинки"
+    :products="products"
+    @add-to-cart="handleAddToCart"
+  />
+
+  <ProductSection
+    title="Розпродаж"
+    :products="products"
+    @add-to-cart="handleAddToCart"
+  />
+
+  <ProductSection
+    title="Популярні"
+    :products="products"
+    @add-to-cart="handleAddToCart"
+  />
+
+  <section class="our-services">
+    <div class="container">
+      <div class="our-services__header">
+        <h2 class="our-services__title section__title">Наші послуги</h2>
+      </div>
+
+      <div class="our-services__content">
+        <ul class="our-services__list">
+          <li
+            v-for="(service, index) in our_services"
+            :key="index"
+            class="our-services__item"
+          >
+            <a class="our-services__link" :href="service.link">
+              <NuxtImg
+                class="our-services__img"
+                :src="service.img"
+                :alt="service.name"
+              />
+              <span class="our-services__name">{{ service.name }}</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="projects">
+    <div class="container">
+      <div class="projects__header section__header">
+        <span class="projects__title section__title">
+          Приклади реалізованих проєктів
+        </span>
+
+        <div class="projects-section__nav section-controls">
+          <button ref="prevEl" class="swiper-button-prev custom-prev"></button>
+          <button ref="nextEl" class="swiper-button-next custom-next"></button>
+        </div>
+      </div>
+
+      <div class="projects__content">
         <Swiper
-          :modules="[Pagination, EffectFade, Autoplay]"
-          :effect="'fade'"
-          :slides-per-view="1"
+          :modules="[Navigation, Autoplay]"
+          :slides-per-view="3"
+          :space-between="20"
           :loop="true"
-          :autoplay="{ delay: 3000 }"
-          :pagination="{ clickable: true }"
+          :navigation="{ nextEl: nextEl, prevEl: prevEl }"
+          :autoplay="{ delay: 50000 }"
+          class="projects-section__swiper"
         >
           <SwiperSlide
-            v-for="(slide, index) in slides"
+            v-for="(product, index) in products"
             :key="index"
-            class="hero__slide"
+            class="projects-section__slide"
           >
-            <img :src="slide" alt="Slide image" class="hero__image" />
+            <div class="projects-card">
+              <img
+                :src="product.image"
+                :alt="product.name"
+                class="projects-card__img"
+                @click="openLightbox(product.image, index)"
+              />
+              <span class="projects-card__name">{{ product.name }}</span>
+            </div>
           </SwiperSlide>
         </Swiper>
       </div>
-    </section>
+    </div>
 
-    <ProductSection
-      title="Новинки"
-      :products="products"
-      @add-to-cart="handleAddToCart"
+    <vue-easy-lightbox
+      :visible="visible"
+      :imgs="images"
+      :index="index"
+      @hide="closeLightbox"
+      @on-open="openLightbox"
     />
+  </section>
 
-    <ProductSection
-      title="Розпродаж"
-      :products="products"
-      @add-to-cart="handleAddToCart"
-    />
+  <section class="why-us">
+    <div class="container">
+      <div class="why-us__header section__header">
+        <h2 class="why-us__title section__title">Чому ми</h2>
+      </div>
 
-    <ProductSection
-      title="Популярні"
-      :products="products"
-      @add-to-cart="handleAddToCart"
-    />
+      <div class="why-us__content">
+        <ul class="why-us__list">
+          <li class="why-us__item">
+            <div class="why-us__icon">
+              <img src="../public/favicon.ico" alt="logo" />
+            </div>
 
-    <section class="our-services">
-      <div class="container">
-        <div class="our-services__header">
-          <h2 class="our-services__title section__title">Наші послуги</h2>
-        </div>
+            <div class="why-us__info">
+              <span class="why-us__title-item">Висока якість</span>
+              <p class="why-us__desc">
+                Ми гарантуємо якість наших послуг завдяки досвідченій команді.
+              </p>
+            </div>
+          </li>
+          <li class="why-us__item">
+            <div class="why-us__icon">
+              <img src="../public/favicon.ico" alt="logo" />
+            </div>
 
-        <div class="our-services__content">
-          <ul class="our-services__list">
-            <li
-              v-for="(service, index) in our_services"
-              :key="index"
-              class="our-services__item"
-            >
-              <a class="our-services__link" :href="service.link">
-                <NuxtImg
-                  class="our-services__img"
-                  :src="service.img"
-                  :alt="service.name"
-                />
-                <span class="our-services__name">{{ service.name }}</span>
-              </a>
-            </li>
+            <div class="why-us__info">
+              <span class="why-us__title-item">Висока якість</span>
+              <p class="why-us__desc">
+                Ми гарантуємо якість наших послуг завдяки досвідченій команді.
+              </p>
+            </div>
+          </li>
+          <li class="why-us__item">
+            <div class="why-us__icon">
+              <img src="../public/favicon.ico" alt="logo" />
+            </div>
+
+            <div class="why-us__info">
+              <span class="why-us__title-item">Висока якість</span>
+              <p class="why-us__desc">
+                Ми гарантуємо якість наших послуг завдяки досвідченій команді.
+              </p>
+            </div>
+          </li>
+          <li class="why-us__item">
+            <div class="why-us__icon">
+              <img src="../public/favicon.ico" alt="logo" />
+            </div>
+
+            <div class="why-us__info">
+              <span class="why-us__title-item">Висока якість</span>
+              <p class="why-us__desc">
+                Ми гарантуємо якість наших послуг завдяки досвідченій команді.
+              </p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="about-company">
+    <div class="container">
+      <div class="about-company__header section__header">
+        <h2 class="about-company__title section__title">Про компанію</h2>
+      </div>
+
+      <div class="about-company__content">
+        <div class="about-company__text">
+          <h2>Про нашу компанію</h2>
+
+          <p>
+            <strong>“ВорітБуд”</strong> — це українська компанія з понад
+            <em>10-річним досвідом</em> у сфері виробництва, монтажу та
+            обслуговування автоматичних воріт, ролет і парканних систем. Ми
+            поєднуємо <span>якість, надійність</span> та сучасний дизайн, щоб
+            забезпечити комфорт і безпеку кожного клієнта.
+          </p>
+
+          <h3>Наші переваги</h3>
+          <ul>
+            <li>Власне виробництво з європейським обладнанням.</li>
+            <li>Гарантія від 3 до 10 років на всі вироби.</li>
+            <li>Безкоштовна консультація та виїзд замірника.</li>
+            <li>Монтаж «під ключ» за 1 день.</li>
           </ul>
+
+          <h3>Наші досягнення</h3>
+          <ol>
+            <li>Понад 5000 задоволених клієнтів по всій Україні.</li>
+            <li>Більше 200 корпоративних партнерів.</li>
+            <li>Переможець конкурсу «Надійний виробник року 2024».</li>
+          </ol>
+
+          <blockquote>
+            “Ми не просто встановлюємо ворота — ми створюємо безпечний простір
+            для вашого дому та бізнесу.”
+          </blockquote>
+
+          <p>
+            Якщо ви шукаєте компанію, яка дотримується принципів
+            <strong>чесності, якості та відповідальності</strong>, — ви
+            потрапили за адресою. Ми з гордістю реалізовуємо проекти будь-якої
+            складності — від гаражних воріт до великих промислових систем.
+          </p>
+
+          <h4>Приклади робіт</h4>
+          <img
+            src="https://picsum.photos/300/300?20"
+            alt="Наші встановлені ворота"
+          />
+
+          <p>
+            Детальніше про наші послуги ви можете дізнатися у розділі
+            <a href="/services">«Послуги»</a> або звернутися до нас за
+            телефоном.
+          </p>
+
+          <hr />
+
+          <h5>Контактна інформація</h5>
+          <table>
+            <thead>
+              <tr>
+                <th>Філія</th>
+                <th>Адреса</th>
+                <th>Телефон</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Київ</td>
+                <td>вул. Сагайдачного, 24</td>
+                <td>+38 (044) 123-45-67</td>
+              </tr>
+              <tr>
+                <td>Львів</td>
+                <td>вул. Зеленська, 10</td>
+                <td>+38 (032) 987-65-43</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h6>Дякуємо, що обираєте нас 💛</h6>
         </div>
       </div>
-    </section>
-
-    <section class="projects">
-      <div class="container">
-        <div class="projects__header section__header">
-          <span class="projects__title section__title">
-            Приклади реалізованих проєктів
-          </span>
-
-          <div class="projects-section__nav section-controls">
-            <button
-              ref="prevEl"
-              class="swiper-button-prev custom-prev"
-            ></button>
-            <button
-              ref="nextEl"
-              class="swiper-button-next custom-next"
-            ></button>
-          </div>
-        </div>
-
-        <div class="projects__content">
-          <Swiper
-            :modules="[Navigation, Autoplay]"
-            :slides-per-view="3"
-            :space-between="20"
-            :loop="true"
-            :navigation="{ nextEl: nextEl, prevEl: prevEl }"
-            :autoplay="{ delay: 50000 }"
-            class="projects-section__swiper"
-          >
-            <SwiperSlide
-              v-for="(product, index) in products"
-              :key="index"
-              class="projects-section__slide"
-            >
-              <div class="projects-card">
-                <img
-                  :src="product.image"
-                  :alt="product.name"
-                  class="projects-card__img"
-                  @click="openLightbox(product.image, index)"
-                />
-                <span class="projects-card__name">{{ product.name }}</span>
-              </div>
-            </SwiperSlide>
-          </Swiper>
-        </div>
-      </div>
-
-      <vue-easy-lightbox
-        :visible="visible"
-        :imgs="images"
-        :index="index"
-        @hide="closeLightbox"
-        @on-open="openLightbox"
-      />
-    </section>
-
-    <section class="why-us">
-      <div class="container">
-        <div class="why-us__header section__header">
-          <h2 class="why-us__title section__title">Чому ми</h2>
-        </div>
-
-        <div class="why-us__content">
-          <ul class="why-us__list">
-            <li class="why-us__item">
-              <div class="why-us__icon">
-                <img src="../public/favicon.ico" alt="logo" />
-              </div>
-
-              <div class="why-us__info">
-                <span class="why-us__title-item">Висока якість</span>
-                <p class="why-us__desc">
-                  Ми гарантуємо якість наших послуг завдяки досвідченій команді.
-                </p>
-              </div>
-            </li>
-            <li class="why-us__item">
-              <div class="why-us__icon">
-                <img src="../public/favicon.ico" alt="logo" />
-              </div>
-
-              <div class="why-us__info">
-                <span class="why-us__title-item">Висока якість</span>
-                <p class="why-us__desc">
-                  Ми гарантуємо якість наших послуг завдяки досвідченій команді.
-                </p>
-              </div>
-            </li>
-            <li class="why-us__item">
-              <div class="why-us__icon">
-                <img src="../public/favicon.ico" alt="logo" />
-              </div>
-
-              <div class="why-us__info">
-                <span class="why-us__title-item">Висока якість</span>
-                <p class="why-us__desc">
-                  Ми гарантуємо якість наших послуг завдяки досвідченій команді.
-                </p>
-              </div>
-            </li>
-            <li class="why-us__item">
-              <div class="why-us__icon">
-                <img src="../public/favicon.ico" alt="logo" />
-              </div>
-
-              <div class="why-us__info">
-                <span class="why-us__title-item">Висока якість</span>
-                <p class="why-us__desc">
-                  Ми гарантуємо якість наших послуг завдяки досвідченій команді.
-                </p>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <section class="about-company">
-      <div class="container">
-        <div class="about-company__header section__header">
-          <h2 class="about-company__title section__title">Про компанію</h2>
-        </div>
-
-        <div class="about-company__content">
-          <div class="about-company__text">
-            <h2>Про нашу компанію</h2>
-
-            <p>
-              <strong>“ВорітБуд”</strong> — це українська компанія з понад
-              <em>10-річним досвідом</em> у сфері виробництва, монтажу та
-              обслуговування автоматичних воріт, ролет і парканних систем. Ми
-              поєднуємо <span>якість, надійність</span> та сучасний дизайн, щоб
-              забезпечити комфорт і безпеку кожного клієнта.
-            </p>
-
-            <h3>Наші переваги</h3>
-            <ul>
-              <li>Власне виробництво з європейським обладнанням.</li>
-              <li>Гарантія від 3 до 10 років на всі вироби.</li>
-              <li>Безкоштовна консультація та виїзд замірника.</li>
-              <li>Монтаж «під ключ» за 1 день.</li>
-            </ul>
-
-            <h3>Наші досягнення</h3>
-            <ol>
-              <li>Понад 5000 задоволених клієнтів по всій Україні.</li>
-              <li>Більше 200 корпоративних партнерів.</li>
-              <li>Переможець конкурсу «Надійний виробник року 2024».</li>
-            </ol>
-
-            <blockquote>
-              “Ми не просто встановлюємо ворота — ми створюємо безпечний простір
-              для вашого дому та бізнесу.”
-            </blockquote>
-
-            <p>
-              Якщо ви шукаєте компанію, яка дотримується принципів
-              <strong>чесності, якості та відповідальності</strong>, — ви
-              потрапили за адресою. Ми з гордістю реалізовуємо проекти будь-якої
-              складності — від гаражних воріт до великих промислових систем.
-            </p>
-
-            <h4>Приклади робіт</h4>
-            <img
-              src="https://picsum.photos/300/300?20"
-              alt="Наші встановлені ворота"
-            />
-
-            <p>
-              Детальніше про наші послуги ви можете дізнатися у розділі
-              <a href="/services">«Послуги»</a> або звернутися до нас за
-              телефоном.
-            </p>
-
-            <hr />
-
-            <h5>Контактна інформація</h5>
-            <table>
-              <thead>
-                <tr>
-                  <th>Філія</th>
-                  <th>Адреса</th>
-                  <th>Телефон</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Київ</td>
-                  <td>вул. Сагайдачного, 24</td>
-                  <td>+38 (044) 123-45-67</td>
-                </tr>
-                <tr>
-                  <td>Львів</td>
-                  <td>вул. Зеленська, 10</td>
-                  <td>+38 (032) 987-65-43</td>
-                </tr>
-              </tbody>
-            </table>
-
-            <h6>Дякуємо, що обираєте нас 💛</h6>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <Footer />
-    <slot />
-  </main>
+    </div>
+  </section>
 </template>
 
 <style scoped lang="scss">
-.main {
-  padding-top: 72px;
-}
-
 .swiper-slide .hero__image {
   height: 100%;
   width: 100%;
