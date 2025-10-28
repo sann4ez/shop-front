@@ -1,0 +1,121 @@
+@use "vars" as *;
+
+/* Глобальні стилі */
+body {
+  font-family: $font-montserrat;
+  font-size: 16px;
+  background-color: $bg-color-white;
+  color: $text-color-low-black;
+  //overflow: hidden;
+}
+
+body.no-scroll {
+  overflow: hidden;
+  padding-right: var(--scrollbar-width, 0px);
+}
+
+.main {
+  padding-top: 72px;
+}
+
+a {
+  color: $text-color-low_black;
+}
+
+.text {
+  color: $text-color-low_black;
+}
+
+.text-white {
+  color: $text-color-white;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  transition: fill 0.3s ease;
+}
+
+.icon-white {
+  color: $bg-color-white;
+  fill: $bg-color-white;
+}
+
+.container {
+  max-width: 1920px;
+  margin: 0 auto;
+  padding: 0 80px;
+}
+
+.card__title {
+  font-weight: 500;
+  font-size: 36px;
+  line-height: 1.16;
+  letter-spacing: 0.03em;
+  text-align: center;
+  color: $text-color-black;
+}
+
+.section__title {
+  position: relative;
+  display: inline-block;
+  font-weight: 500;
+  font-size: 36px;
+  line-height: 1.16;
+  letter-spacing: 0.03em;
+  text-align: center;
+  color: $text-color-black;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background-color: $bg-color-brown;
+    transition: width 0.3s ease;
+  }
+}
+
+section:hover {
+  .section__title::after {
+    width: 130px;
+  }
+}
+
+.section__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding: 0 15px;
+}
+
+.section-controls {
+  display: flex;
+  gap: 10px;
+
+  .swiper-button-prev,
+  .swiper-button-next {
+    position: static;
+    width: 50px;
+    height: 50px;
+    border: 1px solid $bg-color-brown;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: $bg-color-brown;
+
+      :deep(.swiper-navigation-icon) {
+        color: #fff;
+      }
+    }
+  }
+}

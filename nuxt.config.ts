@@ -1,5 +1,34 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  compatibilityDate: '2024-11-01',
-  devtools: { enabled: true }
-})
+  compatibilityDate: "2024-11-01",
+  devtools: { enabled: true },
+  modules: [
+    "@vueuse/nuxt",
+    "@nuxt/image",
+    "@pinia/nuxt",
+    "@nuxt/fonts",
+    "dayjs-nuxt",
+    "nuxt-typed-router",
+    "nuxt-easy-lightbox",
+  ],
+  fonts: {
+    families: [{ name: "montserrat", provider: "google" }],
+  },
+  css: ["~/assets/scss/global.scss"],
+  srcDir: "src/",
+  vite: {
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: `
+            @use "~/assets/scss/_reset.scss" as *;
+            @use "~/assets/scss/_vars.scss" as *;
+            @use "~/assets/scss/_mixins.scss" as *;
+            @use "~/assets/scss/_base.scss" as *;
+            @use "~/assets/scss/_header.scss" as *;
+          `,
+        },
+      },
+    },
+  },
+});

@@ -1,0 +1,10 @@
+@mixin Title {
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 32px;
+  letter-spacing: -0.03em;
+}
+
+@mixin fluid-text($max: 48, $min: 16) {
+  font-size: clamp(#{$min}px, #{$max / 1600 * 100}vw, #{$max}px);
+}
