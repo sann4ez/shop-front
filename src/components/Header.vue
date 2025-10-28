@@ -27,7 +27,7 @@ function toggleDropdown(id: string) {
 
         <ul>
           <li class="dropdown" :class="{ active: openDropdowns['0'] }">
-            <a href="#">каталог</a>
+            <NuxtLink to="/catalog"> каталог </NuxtLink>
             <svg class="icon" @click.stop="toggleDropdown('0')">
               <use xlink:href="/images/sprite.svg#arrow-down" />
             </svg>
