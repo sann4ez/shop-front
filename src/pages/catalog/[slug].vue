@@ -1,10 +1,7 @@
-<script setup lang="ts">
-import { useRoute } from "#app";
-import { ref, computed } from "vue";
-
+<script setup>
 // Отримуємо slug категорії з маршруту
 const route = useRoute();
-const slug = route.params.slug as string;
+const slug = route.params.slug;
 
 // Тимчасові тестові категорії
 const categories = [
@@ -16,7 +13,7 @@ const categories = [
 // Знаходимо поточну категорію
 const category = computed(
   () =>
-    categories.find((c) => c.slug === slug) ?? { name: "Невідома категорія" },
+    categories.find((c) => c.slug === slug) ?? { name: "Невідома категорія" }
 );
 
 // Сортування
@@ -35,225 +32,371 @@ const isOpen = ref(false);
 
 function openMenu() {
   isOpen.value = true;
+  scrollBody(true);
 }
 
 function closeMenu() {
   isOpen.value = false;
+  scrollBody(false);
 }
+
+const products = [
+  {
+    name: "Сучасний металевий стілець",
+    price: 1200,
+    priceOld: 1400,
+    article: "ART-0001",
+    image: "https://picsum.photos/300/300?1",
+  },
+  {
+    name: "Великий обідній стіл з натурального дуба на 6 персон із захисним лакованим покриттям та масивними ніжками",
+    price: 1500,
+    priceOld: 1600,
+    article: "ART-0002",
+    image: "https://picsum.photos/300/300?2",
+  },
+  {
+    name: "Настільна керамічна лампа з декоративною основою та текстильним абажуром кольору молочного льону для спальні та вітальні",
+    price: 1000,
+    priceOld: 1300,
+    article: "ART-0003",
+    image: "https://picsum.photos/300/300?3",
+  },
+  {
+    name: "Комплект кухонних ножів",
+    price: 1800,
+    priceOld: 1950,
+    article: "ART-0004",
+    image: "https://picsum.photos/300/300?4",
+  },
+  {
+    name: "Великий двосторонній плед із мікрофібри з утепленим шаром для спальні та вітальні, розмір 220x240 см, колір світло-бежевий",
+    price: 2000,
+    priceOld: 0,
+    article: "ART-0005",
+    image: "https://picsum.photos/300/300?5",
+  },
+];
 </script>
 
 <template>
-  <section class="category-top">
-    <div class="container">
-      <div class="category-top__header">
-        <h1 class="category__title section__title">{{ category.name }}</h1>
+  <main class="main">
+    <section class="category-top">
+      <div class="container">
+        <div class="category-top__header">
+          <h1 class="category__title section__title">{{ category.name }}</h1>
 
-        <div class="category__controls">
-          <div class="category__filter">
-            <button class="category__filter-btn" @click="openMenu">
-              <span class="category__filter-span">Фільтри</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- Оверлей -->
-        <transition name="fade">
-          <div
-            v-if="isOpen"
-            class="menu__filter-overlay"
-            @click="closeMenu"
-          ></div>
-        </transition>
-
-        <transition name="slide-left">
-          <div
-            class="menu__filter-menu"
-            :class="{ 'menu__filter-menu--open': isOpen }"
-          >
-            <div class="menu__filter-header">
-              <span class="menu__filter-title">Фільтр</span>
-              <button
-                class="menu__filter-close"
-                aria-label="Закрити фільтр"
-                @click="closeMenu"
-              >
-                <svg class="icon menu__filter-close-icon">
-                  <use xlink:href="/images/sprite.svg#close" />
-                </svg>
+          <div class="category__controls">
+            <div class="category__filter">
+              <button class="category__filter-btn" @click="openMenu">
+                <span class="category__filter-span">Фільтри</span>
               </button>
             </div>
-            <div class="menu__filter-body">
-              <div class="menu__filter-wrapper">
-                <ul class="menu__filter-list">
-                  <li class="menu__filter-item">
-                    <button class="menu__filter-btn">
-                      <span class="menu__filter-dropdown-title">Колір</span>
+          </div>
 
-                      <svg class="icon menu__filter-dropdown-icon">
-                        <use xlink:href="/images/sprite.svg#chevron-up" />
-                      </svg>
-                    </button>
+          <transition name="slide-left">
+            <div
+              class="menu__filter-menu"
+              :class="{ 'menu__filter-menu--open': isOpen }"
+            >
+              <div class="menu__filter-header">
+                <span class="menu__filter-title">Фільтр</span>
+                <button
+                  class="menu__filter-close"
+                  aria-label="Закрити фільтр"
+                  @click="closeMenu"
+                >
+                  <svg class="icon menu__filter-close-icon">
+                    <use xlink:href="/images/sprite.svg#close" />
+                  </svg>
+                </button>
+              </div>
+              <div class="menu__filter-body">
+                <div class="menu__filter-wrapper">
+                  <ul class="menu__filter-list">
+                    <li class="menu__filter-item">
+                      <button class="menu__filter-btn">
+                        <span class="menu__filter-dropdown-title">Колір</span>
 
-                    <div class="menu__filter-dropdown">
-                      <ul class="menu__filter-dropdown-list">
-                        <li class="menu__filter-dropdown-item">
-                          <label>
-                            <input
-                              type="checkbox"
-                              name="filter[]"
-                              value="option1"
-                            />
-                            Варіант 1
-                          </label>
-                        </li>
-                        <li class="menu__filter-dropdown-item">
-                          <label>
-                            <input
-                              type="checkbox"
-                              name="filter[]"
-                              value="option2"
-                            />
-                            Варіант 2
-                          </label>
-                        </li>
-                        <li class="menu__filter-dropdown-item">
-                          <label>
-                            <input
-                              type="checkbox"
-                              name="filter[]"
-                              value="option3"
-                            />
-                            Варіант 3
-                          </label>
-                        </li>
-                      </ul>
-                    </div>
+                        <svg class="icon menu__filter-dropdown-icon">
+                          <use xlink:href="/images/sprite.svg#chevron-up" />
+                        </svg>
+                      </button>
 
-                    <hr class="menu__filter-line" />
-                  </li>
+                      <div class="menu__filter-dropdown">
+                        <ul class="menu__filter-dropdown-list">
+                          <li class="menu__filter-dropdown-item">
+                            <label>
+                              <input
+                                type="checkbox"
+                                name="filter[]"
+                                value="option1"
+                              />
+                              Варіант 1
+                            </label>
+                          </li>
+                          <li class="menu__filter-dropdown-item">
+                            <label>
+                              <input
+                                type="checkbox"
+                                name="filter[]"
+                                value="option2"
+                              />
+                              Варіант 2
+                            </label>
+                          </li>
+                          <li class="menu__filter-dropdown-item">
+                            <label>
+                              <input
+                                type="checkbox"
+                                name="filter[]"
+                                value="option3"
+                              />
+                              Варіант 3
+                            </label>
+                          </li>
+                        </ul>
+                      </div>
 
-                  <li class="menu__filter-item">
-                    <button class="menu__filter-btn">
-                      <span class="menu__filter-dropdown-title">Ромір</span>
+                      <hr class="menu__filter-line" />
+                    </li>
+                    <li class="menu__filter-item">
+                      <button class="menu__filter-btn">
+                        <span class="menu__filter-dropdown-title">Колір</span>
 
-                      <svg class="icon menu__filter-dropdown-icon">
-                        <use xlink:href="/images/sprite.svg#chevron-up" />
-                      </svg>
-                    </button>
+                        <svg class="icon menu__filter-dropdown-icon">
+                          <use xlink:href="/images/sprite.svg#chevron-up" />
+                        </svg>
+                      </button>
 
-                    <div class="menu__filter-dropdown">
-                      <ul class="menu__filter-dropdown-list">
-                        <li class="menu__filter-dropdown-item">
-                          <label>
-                            <input
-                              type="checkbox"
-                              name="filter[]"
-                              value="option1"
-                            />
-                            Варіант 1
-                          </label>
-                        </li>
-                        <li class="menu__filter-dropdown-item">
-                          <label>
-                            <input
-                              type="checkbox"
-                              name="filter[]"
-                              value="option2"
-                            />
-                            Варіант 2
-                          </label>
-                        </li>
-                        <li class="menu__filter-dropdown-item">
-                          <label>
-                            <input
-                              type="checkbox"
-                              name="filter[]"
-                              value="option3"
-                            />
-                            Варіант 3
-                          </label>
-                        </li>
-                      </ul>
-                    </div>
+                      <div class="menu__filter-dropdown">
+                        <ul class="menu__filter-dropdown-list">
+                          <li class="menu__filter-dropdown-item">
+                            <label>
+                              <input
+                                type="checkbox"
+                                name="filter[]"
+                                value="option1"
+                              />
+                              Варіант 1
+                            </label>
+                          </li>
+                          <li class="menu__filter-dropdown-item">
+                            <label>
+                              <input
+                                type="checkbox"
+                                name="filter[]"
+                                value="option2"
+                              />
+                              Варіант 2
+                            </label>
+                          </li>
+                          <li class="menu__filter-dropdown-item">
+                            <label>
+                              <input
+                                type="checkbox"
+                                name="filter[]"
+                                value="option3"
+                              />
+                              Варіант 3
+                            </label>
+                          </li>
+                        </ul>
+                      </div>
 
-                    <hr class="menu__filter-line" />
-                  </li>
-                </ul>
+                      <hr class="menu__filter-line" />
+                    </li>
+                    <li class="menu__filter-item">
+                      <button class="menu__filter-btn">
+                        <span class="menu__filter-dropdown-title">Колір</span>
 
-                <ul class="menu__filter-list">
-                  <li class="menu__filter-item">
-                    <button class="menu__filter-btn">
-                      <span class="menu__filter-dropdown-title">Ціна</span>
+                        <svg class="icon menu__filter-dropdown-icon">
+                          <use xlink:href="/images/sprite.svg#chevron-up" />
+                        </svg>
+                      </button>
 
-                      <svg class="icon menu__filter-dropdown-icon">
-                        <use xlink:href="/images/sprite.svg#chevron-up" />
-                      </svg>
-                    </button>
+                      <div class="menu__filter-dropdown">
+                        <ul class="menu__filter-dropdown-list">
+                          <li class="menu__filter-dropdown-item">
+                            <label>
+                              <input
+                                type="checkbox"
+                                name="filter[]"
+                                value="option1"
+                              />
+                              Варіант 1
+                            </label>
+                          </li>
+                          <li class="menu__filter-dropdown-item">
+                            <label>
+                              <input
+                                type="checkbox"
+                                name="filter[]"
+                                value="option2"
+                              />
+                              Варіант 2
+                            </label>
+                          </li>
+                          <li class="menu__filter-dropdown-item">
+                            <label>
+                              <input
+                                type="checkbox"
+                                name="filter[]"
+                                value="option3"
+                              />
+                              Варіант 3
+                            </label>
+                          </li>
+                        </ul>
+                      </div>
 
-                    <div class="menu__filter-dropdown">
-                      <ul class="menu__filter-dropdown-list">
-                        <li
-                          class="menu__filter-dropdown-item menu__filter-price"
-                        >
-                          <div class="menu__filter-price-inputs">
-                            <input
-                              type="number"
-                              v-model="priceFrom"
-                              placeholder="від"
-                              class="menu__filter-input"
-                            />
-                            <span class="menu__filter-price-separator">–</span>
-                            <input
-                              type="number"
-                              v-model="priceTo"
-                              placeholder="до"
-                              class="menu__filter-input"
-                            />
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
-                  </li>
-                </ul>
+                      <hr class="menu__filter-line" />
+                    </li>
+
+                    <li class="menu__filter-item">
+                      <button class="menu__filter-btn">
+                        <span class="menu__filter-dropdown-title">Ромір</span>
+
+                        <svg class="icon menu__filter-dropdown-icon">
+                          <use xlink:href="/images/sprite.svg#chevron-up" />
+                        </svg>
+                      </button>
+
+                      <div class="menu__filter-dropdown">
+                        <ul class="menu__filter-dropdown-list">
+                          <li class="menu__filter-dropdown-item">
+                            <label>
+                              <input
+                                type="checkbox"
+                                name="filter[]"
+                                value="option1"
+                              />
+                              Варіант 1
+                            </label>
+                          </li>
+                          <li class="menu__filter-dropdown-item">
+                            <label>
+                              <input
+                                type="checkbox"
+                                name="filter[]"
+                                value="option2"
+                              />
+                              Варіант 2
+                            </label>
+                          </li>
+                          <li class="menu__filter-dropdown-item">
+                            <label>
+                              <input
+                                type="checkbox"
+                                name="filter[]"
+                                value="option3"
+                              />
+                              Варіант 3
+                            </label>
+                          </li>
+                        </ul>
+                      </div>
+
+                      <hr class="menu__filter-line" />
+                    </li>
+                  </ul>
+
+                  <ul class="menu__filter-list">
+                    <li class="menu__filter-item">
+                      <button class="menu__filter-btn">
+                        <span class="menu__filter-dropdown-title">Ціна</span>
+
+                        <svg class="icon menu__filter-dropdown-icon">
+                          <use xlink:href="/images/sprite.svg#chevron-up" />
+                        </svg>
+                      </button>
+
+                      <div class="menu__filter-dropdown">
+                        <ul class="menu__filter-dropdown-list">
+                          <li
+                            class="menu__filter-dropdown-item menu__filter-price"
+                          >
+                            <div class="menu__filter-price-inputs">
+                              <input
+                                type="number"
+                                v-model="priceFrom"
+                                placeholder="від"
+                                class="menu__filter-input"
+                              />
+                              <span class="menu__filter-price-separator"
+                                >–</span
+                              >
+                              <input
+                                type="number"
+                                v-model="priceTo"
+                                placeholder="до"
+                                class="menu__filter-input"
+                              />
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="menu__filter-footer">
+                <button type="button" class="filter-btn filter-btn--apply">
+                  Застосувати
+                </button>
+
+                <hr class="menu__filter-line" />
+
+                <button type="button" class="filter-btn filter-btn--reset">
+                  Скинути
+                </button>
               </div>
             </div>
-
-            <div class="menu__filter-footer">
-              <button type="button" class="filter-btn filter-btn--apply">
-                Застосувати
-              </button>
-
-              <hr class="menu__filter-line" />
-
-              <button type="button" class="filter-btn filter-btn--reset">
-                Скинути
-              </button>
-            </div>
-          </div>
-        </transition>
+          </transition>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="category__catalog">
-    <div class="container">
-      <p>Тут буде вивід товарів категорії "{{ category.name }}"</p>
-    </div>
-  </section>
+    <section class="category__catalog">
+      <div class="container">
+        <div class="category__wrapper">
+          <CardProductCard
+            v-for="(item, index) in products"
+            :key="`item-${index}`"
+            :product="item"
+          />
+        </div>
+      </div>
+    </section>
+    <div
+      class="menu__filter-overlay"
+      :class="{ active: isOpen }"
+      @click="closeMenu"
+    ></div>
+  </main>
 </template>
 
 <style scoped lang="scss">
 .icon {
   fill: #fff;
 }
+.category__wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30rem;
+  .product-card {
+    width: calc((100% - 60rem) / 3);
+  }
+}
 
 .category-top {
-  padding: 30px 0;
+  padding: 30rem 0;
 
   .category-top__header {
     display: flex;
     flex-direction: column;
-    row-gap: 50px;
+    row-gap: 50rem;
   }
 
   .category__title {
@@ -267,27 +410,27 @@ function closeMenu() {
   }
 
   .category__select {
-    padding: 6px 12px;
+    padding: 6rem 12rem;
     border: 1px solid #ccc;
-    border-radius: 6px;
+    border-radius: 6rem;
     font-size: 0.95rem;
     background-color: #fff;
   }
 
   label {
-    margin-right: 6px;
+    margin-right: 6rem;
     color: #555;
     font-weight: 500;
   }
 }
 
 .category__catalog {
-  padding: 40px 0;
+  padding: 40rem 0;
 }
 
 .category__filter-btn {
-  width: 150px;
-  height: 30px;
+  width: 150rem;
+  height: 30rem;
   border: 2px solid #be9960;
 }
 
@@ -297,44 +440,54 @@ function closeMenu() {
 
 .menu__filter-menu {
   background: #fff;
-  width: 0;
+  width: 250rem;
   height: 100vh;
   position: fixed;
   top: 0;
-  left: -250px;
-  overflow-y: auto;
+  left: -250rem;
   z-index: 10;
-  transition: left 0.4s ease;
-  padding: 0;
-}
-
-.menu__filter-menu--open {
-  left: 0;
-  width: 250px;
-  padding: 2rem;
+  transition: all 0.4s ease;
+  padding: 20rem;
+  &--open {
+    left: 0;
+  }
 }
 
 /* Оверлей */
 .menu__filter-overlay {
   position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.4);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: $text-color-black;
   opacity: 0;
-  visibility: hidden;
-  transition: 0.3s;
-  z-index: 10;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  &.active {
+    opacity: 0.5;
+    pointer-events: all;
+  }
 }
 
-.menu__filter-overlay.active {
-  opacity: 1;
-  visibility: visible;
-}
-
-.menu__filter-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 2rem;
+.menu__filter {
+  &-body {
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    max-height: calc(100dvh - 40rem);
+    height: 100%;
+  }
+  &-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20rem;
+  }
+  &-menu {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .menu__filter-title {
@@ -351,8 +504,8 @@ function closeMenu() {
 }
 
 .menu__filter-dropdown-icon {
-  width: 16px;
-  height: 16px;
+  width: 16rem;
+  height: 16rem;
 }
 
 .menu__filter-btn {
@@ -360,11 +513,11 @@ function closeMenu() {
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  margin-bottom: 10px;
+  margin-bottom: 10rem;
 }
 
 .menu__filter-dropdown-item {
-  margin-bottom: 5px;
+  margin-bottom: 5rem;
 }
 
 .menu__filter-dropdown-title {
@@ -374,13 +527,13 @@ function closeMenu() {
 .menu__filter-line {
   background-color: rgba(66, 37, 11, 0.3);
   height: 2px;
-  margin-block: 4px 15px;
+  margin-block: 4rem 15rem;
 }
 
 .menu__filter-price {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 8rem;
 }
 
 .menu__filter-price-label {
@@ -391,21 +544,21 @@ function closeMenu() {
 .menu__filter-price-inputs {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 8rem;
 }
 
 .menu__filter-input {
   width: 100%;
-  max-width: 100px;
-  padding: 6px 8px;
+  max-width: 100rem;
+  padding: 6rem 8rem;
   border: 1px solid rgba(0, 0, 0, 0.2);
-  border-radius: 4px;
-  font-size: 14px;
+  border-radius: 4rem;
+  font-size: 14rem;
 }
 
 .menu__filter-price-separator {
   color: rgba(0, 0, 0, 0.5);
-  font-size: 14px;
+  font-size: 14rem;
 }
 
 /* Для Chrome, Safari, Edge, Opera */
@@ -424,16 +577,16 @@ input[type="number"] {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 10px;
-  margin-top: 15px;
+  gap: 10rem;
+  padding-top: 15rem;
 }
 
 .filter-btn {
   flex: 1;
-  padding: 10px 15px;
-  font-size: 14px;
+  padding: 10rem 15rem;
+  font-size: 14rem;
   border: none;
-  border-radius: 8px;
+  border-radius: 8rem;
   cursor: pointer;
   transition: all 0.2s ease;
 }

@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { Navigation, Autoplay } from "swiper/modules";
 
@@ -37,11 +37,15 @@ const prevEl = ref(null);
       <div class="product-section__slider">
         <Swiper
           :modules="[Navigation, Autoplay]"
-          :slides-per-view="4"
+          :slides-per-view="2"
           :space-between="20"
           :loop="true"
           :navigation="{ nextEl: nextEl, prevEl: prevEl }"
           :autoplay="{ delay: 5000 }"
+          :breakpoints="{
+            640: { slidesPerView: 3 },
+            1280: { slidesPerView: 4 },
+          }"
           class="product-section__swiper"
         >
           <SwiperSlide
@@ -51,7 +55,6 @@ const prevEl = ref(null);
           >
             <ProductCard
               :product="product"
-              @add-to-cart="$emit('add-to-cart', product)"
             />
           </SwiperSlide>
         </Swiper>
@@ -70,18 +73,18 @@ const prevEl = ref(null);
 }
 
 .product-section {
-  padding: 50px 0 50px 0;
+  padding: 50rem 0 50rem 0;
 
   &__header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 10px;
-    padding: 0 15px;
+    margin-bottom: 10rem;
+    padding: 0 15rem;
   }
 
   &__swiper {
-    padding: 15px;
+    padding: 15rem;
   }
 
   &__slide {
@@ -90,20 +93,20 @@ const prevEl = ref(null);
 
   &__nav {
     display: flex;
-    gap: 10px;
+    gap: 10rem;
 
     .swiper-button-prev,
     .swiper-button-next {
       position: static;
-      width: 50px;
-      height: 50px;
+      width: 50rem;
+      height: 50rem;
       border: 1px solid $bg-color-brown;
-      border-radius: 5px;
+      border-radius: 5rem;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 18px;
+      font-size: 18rem;
       transition: all 0.3s ease;
 
       &:hover {
@@ -127,7 +130,7 @@ const prevEl = ref(null);
     &::after {
       content: "";
       position: absolute;
-      bottom: -10px;
+      bottom: -10rem;
       left: 0;
       width: 0;
       height: 3px;
@@ -138,8 +141,14 @@ const prevEl = ref(null);
 
   &:hover {
     .product-section__title::after {
-      width: 130px;
+      width: 130rem;
     }
   }
 }
+
+  @media (max-width: 991rem) {
+    .product-section{
+      padding-block: 25rem;
+    }
+  }
 </style>

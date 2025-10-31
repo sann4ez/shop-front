@@ -1,31 +1,76 @@
-<script setup lang="ts">
-interface Category {
-  id: number;
-  name: string;
-  slug: string;
-  image: string;
-  children?: Category[];
-}
-
-const categories: Category[] = [
+<script setup>
+const categories = [
   {
-    id: 1,
     name: "Ворота",
     slug: "vorota",
     image: "https://picsum.photos/seed/gates/300/200",
-    children: [
-      { id: 11, name: "Секційні ворота", slug: "sektsiyni-vorota" },
-      { id: 12, name: "Розпашні ворота", slug: "rozpashni-vorota" },
-    ],
   },
   {
-    id: 2,
     name: "Ролети",
     slug: "rolety",
     image: "https://picsum.photos/seed/roller/300/200",
   },
   {
-    id: 3,
+    name: "Парканні системи",
+    slug: "parkanni-systemy",
+    image: "https://picsum.photos/seed/fence/300/200",
+  },
+  {
+    name: "Ворота",
+    slug: "vorota",
+    image: "https://picsum.photos/seed/gates/300/200",
+  },
+  {
+    name: "Ролети",
+    slug: "rolety",
+    image: "https://picsum.photos/seed/roller/300/200",
+  },
+  {
+    name: "Парканні системи",
+    slug: "parkanni-systemy",
+    image: "https://picsum.photos/seed/fence/300/200",
+  },
+  {
+    name: "Ворота",
+    slug: "vorota",
+    image: "https://picsum.photos/seed/gates/300/200",
+  },
+  {
+    name: "Ролети",
+    slug: "rolety",
+    image: "https://picsum.photos/seed/roller/300/200",
+  },
+  {
+    name: "Парканні системи",
+    slug: "parkanni-systemy",
+    image: "https://picsum.photos/seed/fence/300/200",
+  },
+  {
+    name: "Ворота",
+    slug: "vorota",
+    image: "https://picsum.photos/seed/gates/300/200",
+  },
+  {
+    name: "Ролети",
+    slug: "rolety",
+    image: "https://picsum.photos/seed/roller/300/200",
+  },
+  {
+    name: "Парканні системи",
+    slug: "parkanni-systemy",
+    image: "https://picsum.photos/seed/fence/300/200",
+  },
+  {
+    name: "Ворота",
+    slug: "vorota",
+    image: "https://picsum.photos/seed/gates/300/200",
+  },
+  {
+    name: "Ролети",
+    slug: "rolety",
+    image: "https://picsum.photos/seed/roller/300/200",
+  },
+  {
     name: "Парканні системи",
     slug: "parkanni-systemy",
     image: "https://picsum.photos/seed/fence/300/200",
@@ -34,45 +79,47 @@ const categories: Category[] = [
 </script>
 
 <template>
-  <section class="catalog">
-    <div class="container">
-      <div class="catalog__header section__header">
-        <h1 class="catalog__title section__title">Каталог</h1>
-      </div>
+  <main class="main">
+    <section class="catalog">
+      <div class="container">
+        <div class="catalog__header section__header">
+          <h1 class="catalog__title section__title">Каталог</h1>
+        </div>
 
-      <div class="catalog__content">
-        <ul class="catalog__list">
-          <li
-            v-for="category in categories"
-            :key="category.id"
-            class="catalog__item"
-          >
-            <NuxtLink :to="`/catalog/${category.slug}`" class="catalog__link">
-              <img
-                :src="category.image"
-                :alt="category.name"
-                class="catalog__image"
-              />
-              <span class="catalog__name">{{ category.name }}</span>
-            </NuxtLink>
-          </li>
-        </ul>
+        <div class="catalog__content">
+          <ul class="catalog__list">
+            <li
+              v-for="category in categories"
+              :key="category.id"
+              class="catalog__item"
+            >
+              <NuxtLink :to="`/catalog/${category.slug}`" class="catalog__link">
+                <img
+                  :src="category.image"
+                  :alt="category.name"
+                  class="catalog__image"
+                />
+                <span class="catalog__name">{{ category.name }}</span>
+              </NuxtLink>
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </main>
 </template>
 
 <style scoped lang="scss">
 .catalog {
-  padding: 60px 0;
+  padding: 60rem 0;
 
   &__header {
-    margin-bottom: 40px;
+    margin-bottom: 40rem;
     text-align: center;
   }
 
   &__title {
-    font-size: 2rem;
+    font-size: 40rem;
     font-weight: 600;
   }
 
@@ -81,28 +128,32 @@ const categories: Category[] = [
   }
 
   &__list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 24px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24rem;
     width: 100%;
-    max-width: 900px;
     list-style: none;
     padding: 0;
     margin: 0;
+    @media (max-width: 991rem) {
+      gap: 15rem;
+    }
   }
 
   &__item {
     background-color: #fff;
-    border-radius: 10px;
+    border-radius: 10rem;
     overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    transition:
-      transform 0.3s ease,
-      box-shadow 0.3s ease;
+    width: calc((100% - 48rem) / 3);
+    box-shadow: 0 2rem 8rem rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 
     &:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      transform: translateY(-4rem);
+      box-shadow: 0 4rem 16rem rgba(0, 0, 0, 0.1);
+    }
+    @media (max-width: 991rem) {
+      width: calc((100% - 15rem) / 2);
     }
   }
 
@@ -116,15 +167,15 @@ const categories: Category[] = [
 
   &__image {
     width: 100%;
-    height: 160px;
+    height: 160rem;
     object-fit: cover;
   }
 
   &__name {
     display: block;
-    padding: 16px;
+    padding: 16rem;
     font-weight: 500;
-    font-size: 1.1rem;
+    font-size: 20rem;
     text-align: center;
   }
 }

@@ -123,16 +123,16 @@
   &__inner {
     display: flex;
     justify-content: space-between;
-    padding: 50px 0;
+    padding: 50rem 0;
   }
 
   &__title {
-    font-size: 20px;
+    font-size: 20rem;
     font-weight: 600;
   }
 
   &__description {
-    max-width: 300px;
+    max-width: 300rem;
   }
 
   &__column {
@@ -141,20 +141,24 @@
 
   &__socials {
     display: flex;
-    gap: 20px;
+    gap: 20rem;
   }
 
   &__logo {
     display: inline-block;
-    margin-bottom: 20px;
+    margin-bottom: 20rem;
+    img{
+      width: 50rem;
+      height: 50rem;
+    }
   }
 
   &__contacts {
-    margin-bottom: 20px;
+    margin-bottom: 20rem;
   }
 
   &__bottom {
-    padding-bottom: 30px;
+    padding-bottom: 30rem;
   }
 }
 </style>

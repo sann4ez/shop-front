@@ -1,13 +1,14 @@
 <script setup lang="ts"></script>
 
 <template>
-  <Header />
+  <div class="wrapper">
+    <Header />
+    <NuxtPage/>
+    <Footer />
+  </div>
 
-  <main class="main">
+  <!-- <main class="main">
     <slot />
-  </main>
+  </main> -->
 
-  <Footer />
 </template>
-
-<style scoped lang="scss"></style>
