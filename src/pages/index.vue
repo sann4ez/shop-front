@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Header from "~/components/Header.vue";
+// import Header from "~/components/Header.vue";
 
 // Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from "swiper/vue";
@@ -44,10 +44,6 @@ interface Product {
   name: string;
   price: number;
 }
-
-const handleAddToCart = (product: Product) => {
-  console.log("Додано до кошика:", product);
-};
 
 // Дані з API
 const slides = [
@@ -130,271 +126,270 @@ const our_services = [
 </script>
 
 <template>
-  <section class="hero">
-    <div class="hero__slider">
-      <Swiper
-        :modules="[Pagination, EffectFade, Autoplay]"
-        :effect="'fade'"
-        :slides-per-view="1"
-        :loop="true"
-        :autoplay="{ delay: 3000 }"
-        :pagination="{ clickable: true }"
-      >
-        <SwiperSlide
-          v-for="(slide, index) in slides"
-          :key="index"
-          class="hero__slide"
-        >
-          <img :src="slide" alt="Slide image" class="hero__image" />
-        </SwiperSlide>
-      </Swiper>
-    </div>
-  </section>
-
-  <ProductSection
-    title="Новинки"
-    :products="products"
-    @add-to-cart="handleAddToCart"
-  />
-
-  <ProductSection
-    title="Розпродаж"
-    :products="products"
-    @add-to-cart="handleAddToCart"
-  />
-
-  <ProductSection
-    title="Популярні"
-    :products="products"
-    @add-to-cart="handleAddToCart"
-  />
-
-  <section class="our-services">
-    <div class="container">
-      <div class="our-services__header">
-        <h2 class="our-services__title section__title">Наші послуги</h2>
-      </div>
-
-      <div class="our-services__content">
-        <ul class="our-services__list">
-          <li
-            v-for="(service, index) in our_services"
-            :key="index"
-            class="our-services__item"
-          >
-            <a class="our-services__link" :href="service.link">
-              <NuxtImg
-                class="our-services__img"
-                :src="service.img"
-                :alt="service.name"
-              />
-              <span class="our-services__name">{{ service.name }}</span>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <section class="projects">
-    <div class="container">
-      <div class="projects__header section__header">
-        <span class="projects__title section__title">
-          Приклади реалізованих проєктів
-        </span>
-
-        <div class="projects-section__nav section-controls">
-          <button ref="prevEl" class="swiper-button-prev custom-prev"></button>
-          <button ref="nextEl" class="swiper-button-next custom-next"></button>
-        </div>
-      </div>
-
-      <div class="projects__content">
+  <main class="main">
+    <section class="hero">
+      <div class="hero__slider">
         <Swiper
-          :modules="[Navigation, Autoplay]"
-          :slides-per-view="3"
-          :space-between="20"
+          :modules="[Pagination, EffectFade, Autoplay]"
+          :effect="'fade'"
+          :slides-per-view="1"
           :loop="true"
-          :navigation="{ nextEl: nextEl, prevEl: prevEl }"
-          :autoplay="{ delay: 50000 }"
-          class="projects-section__swiper"
+          :autoplay="{ delay: 3000 }"
+          :pagination="{ clickable: true }"
         >
           <SwiperSlide
-            v-for="(product, index) in products"
+            v-for="(slide, index) in slides"
             :key="index"
-            class="projects-section__slide"
+            class="hero__slide"
           >
-            <div class="projects-card">
-              <img
-                :src="product.image"
-                :alt="product.name"
-                class="projects-card__img"
-                @click="openLightbox(product.image, index)"
-              />
-              <span class="projects-card__name">{{ product.name }}</span>
-            </div>
+            <img :src="slide" alt="Slide image" class="hero__image" />
           </SwiperSlide>
         </Swiper>
       </div>
-    </div>
-
-    <vue-easy-lightbox
-      :visible="visible"
-      :imgs="images"
-      :index="index"
-      @hide="closeLightbox"
-      @on-open="openLightbox"
+    </section>
+  
+    <ProductSection
+      title="Новинки"
+      :products="products"
     />
-  </section>
-
-  <section class="why-us">
-    <div class="container">
-      <div class="why-us__header section__header">
-        <h2 class="why-us__title section__title">Чому ми</h2>
-      </div>
-
-      <div class="why-us__content">
-        <ul class="why-us__list">
-          <li class="why-us__item">
-            <div class="why-us__icon">
-              <img src="../public/favicon.ico" alt="logo" />
-            </div>
-
-            <div class="why-us__info">
-              <span class="why-us__title-item">Висока якість</span>
-              <p class="why-us__desc">
-                Ми гарантуємо якість наших послуг завдяки досвідченій команді.
-              </p>
-            </div>
-          </li>
-          <li class="why-us__item">
-            <div class="why-us__icon">
-              <img src="../public/favicon.ico" alt="logo" />
-            </div>
-
-            <div class="why-us__info">
-              <span class="why-us__title-item">Висока якість</span>
-              <p class="why-us__desc">
-                Ми гарантуємо якість наших послуг завдяки досвідченій команді.
-              </p>
-            </div>
-          </li>
-          <li class="why-us__item">
-            <div class="why-us__icon">
-              <img src="../public/favicon.ico" alt="logo" />
-            </div>
-
-            <div class="why-us__info">
-              <span class="why-us__title-item">Висока якість</span>
-              <p class="why-us__desc">
-                Ми гарантуємо якість наших послуг завдяки досвідченій команді.
-              </p>
-            </div>
-          </li>
-          <li class="why-us__item">
-            <div class="why-us__icon">
-              <img src="../public/favicon.ico" alt="logo" />
-            </div>
-
-            <div class="why-us__info">
-              <span class="why-us__title-item">Висока якість</span>
-              <p class="why-us__desc">
-                Ми гарантуємо якість наших послуг завдяки досвідченій команді.
-              </p>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <section class="about-company">
-    <div class="container">
-      <div class="about-company__header section__header">
-        <h2 class="about-company__title section__title">Про компанію</h2>
-      </div>
-
-      <div class="about-company__content">
-        <div class="about-company__text">
-          <h2>Про нашу компанію</h2>
-
-          <p>
-            <strong>“ВорітБуд”</strong> — це українська компанія з понад
-            <em>10-річним досвідом</em> у сфері виробництва, монтажу та
-            обслуговування автоматичних воріт, ролет і парканних систем. Ми
-            поєднуємо <span>якість, надійність</span> та сучасний дизайн, щоб
-            забезпечити комфорт і безпеку кожного клієнта.
-          </p>
-
-          <h3>Наші переваги</h3>
-          <ul>
-            <li>Власне виробництво з європейським обладнанням.</li>
-            <li>Гарантія від 3 до 10 років на всі вироби.</li>
-            <li>Безкоштовна консультація та виїзд замірника.</li>
-            <li>Монтаж «під ключ» за 1 день.</li>
+  
+    <ProductSection
+      title="Розпродаж"
+      :products="products"
+    />
+  
+    <ProductSection
+      title="Популярні"
+      :products="products"
+    />
+  
+    <section class="our-services">
+      <div class="container">
+        <div class="our-services__header">
+          <h2 class="our-services__title section__title">Наші послуги</h2>
+        </div>
+  
+        <div class="our-services__content">
+          <ul class="our-services__list">
+            <li
+              v-for="(service, index) in our_services"
+              :key="index"
+              class="our-services__item"
+            >
+              <a class="our-services__link" :href="service.link">
+                <NuxtImg
+                  class="our-services__img"
+                  :src="service.img"
+                  :alt="service.name"
+                />
+                <span class="our-services__name">{{ service.name }}</span>
+              </a>
+            </li>
           </ul>
-
-          <h3>Наші досягнення</h3>
-          <ol>
-            <li>Понад 5000 задоволених клієнтів по всій Україні.</li>
-            <li>Більше 200 корпоративних партнерів.</li>
-            <li>Переможець конкурсу «Надійний виробник року 2024».</li>
-          </ol>
-
-          <blockquote>
-            “Ми не просто встановлюємо ворота — ми створюємо безпечний простір
-            для вашого дому та бізнесу.”
-          </blockquote>
-
-          <p>
-            Якщо ви шукаєте компанію, яка дотримується принципів
-            <strong>чесності, якості та відповідальності</strong>, — ви
-            потрапили за адресою. Ми з гордістю реалізовуємо проекти будь-якої
-            складності — від гаражних воріт до великих промислових систем.
-          </p>
-
-          <h4>Приклади робіт</h4>
-          <img
-            src="https://picsum.photos/300/300?20"
-            alt="Наші встановлені ворота"
-          />
-
-          <p>
-            Детальніше про наші послуги ви можете дізнатися у розділі
-            <a href="/services">«Послуги»</a> або звернутися до нас за
-            телефоном.
-          </p>
-
-          <hr />
-
-          <h5>Контактна інформація</h5>
-          <table>
-            <thead>
-              <tr>
-                <th>Філія</th>
-                <th>Адреса</th>
-                <th>Телефон</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Київ</td>
-                <td>вул. Сагайдачного, 24</td>
-                <td>+38 (044) 123-45-67</td>
-              </tr>
-              <tr>
-                <td>Львів</td>
-                <td>вул. Зеленська, 10</td>
-                <td>+38 (032) 987-65-43</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <h6>Дякуємо, що обираєте нас 💛</h6>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  
+    <section class="projects">
+      <div class="container">
+        <div class="projects__header section__header">
+          <span class="projects__title section__title">
+            Приклади реалізованих проєктів
+          </span>
+  
+          <div class="projects-section__nav section-controls">
+            <button ref="prevEl" class="swiper-button-prev custom-prev"></button>
+            <button ref="nextEl" class="swiper-button-next custom-next"></button>
+          </div>
+        </div>
+  
+        <div class="projects__content">
+          <Swiper
+            :modules="[Navigation, Autoplay]"
+            :slides-per-view="3"
+            :space-between="20"
+            :loop="true"
+            :navigation="{ nextEl: nextEl, prevEl: prevEl }"
+            :autoplay="{ delay: 50000 }"
+            class="projects-section__swiper"
+          >
+            <SwiperSlide
+              v-for="(product, index) in products"
+              :key="index"
+              class="projects-section__slide"
+            >
+              <div class="projects-card">
+                <img
+                  :src="product.image"
+                  :alt="product.name"
+                  class="projects-card__img"
+                  @click="openLightbox(product.image, index)"
+                />
+                <span class="projects-card__name">{{ product.name }}</span>
+              </div>
+            </SwiperSlide>
+          </Swiper>
+        </div>
+      </div>
+  
+      <vue-easy-lightbox
+        :visible="visible"
+        :imgs="images"
+        :index="index"
+        @hide="closeLightbox"
+        @on-open="openLightbox"
+      />
+    </section>
+  
+    <section class="why-us">
+      <div class="container">
+        <div class="why-us__header section__header">
+          <h2 class="why-us__title section__title">Чому ми</h2>
+        </div>
+  
+        <div class="why-us__content">
+          <ul class="why-us__list">
+            <li class="why-us__item">
+              <div class="why-us__icon">
+                <img src="../public/favicon.ico" alt="logo" />
+              </div>
+  
+              <div class="why-us__info">
+                <span class="why-us__title-item">Висока якість</span>
+                <p class="why-us__desc">
+                  Ми гарантуємо якість наших послуг завдяки досвідченій команді.
+                </p>
+              </div>
+            </li>
+            <li class="why-us__item">
+              <div class="why-us__icon">
+                <img src="../public/favicon.ico" alt="logo" />
+              </div>
+  
+              <div class="why-us__info">
+                <span class="why-us__title-item">Висока якість</span>
+                <p class="why-us__desc">
+                  Ми гарантуємо якість наших послуг завдяки досвідченій команді.
+                </p>
+              </div>
+            </li>
+            <li class="why-us__item">
+              <div class="why-us__icon">
+                <img src="../public/favicon.ico" alt="logo" />
+              </div>
+  
+              <div class="why-us__info">
+                <span class="why-us__title-item">Висока якість</span>
+                <p class="why-us__desc">
+                  Ми гарантуємо якість наших послуг завдяки досвідченій команді.
+                </p>
+              </div>
+            </li>
+            <li class="why-us__item">
+              <div class="why-us__icon">
+                <img src="../public/favicon.ico" alt="logo" />
+              </div>
+  
+              <div class="why-us__info">
+                <span class="why-us__title-item">Висока якість</span>
+                <p class="why-us__desc">
+                  Ми гарантуємо якість наших послуг завдяки досвідченій команді.
+                </p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  
+    <section class="about-company">
+      <div class="container">
+        <div class="about-company__header section__header">
+          <h2 class="about-company__title section__title">Про компанію</h2>
+        </div>
+  
+        <div class="about-company__content">
+          <div class="about-company__text">
+            <h2>Про нашу компанію</h2>
+  
+            <p>
+              <strong>“ВорітБуд”</strong> — це українська компанія з понад
+              <em>10-річним досвідом</em> у сфері виробництва, монтажу та
+              обслуговування автоматичних воріт, ролет і парканних систем. Ми
+              поєднуємо <span>якість, надійність</span> та сучасний дизайн, щоб
+              забезпечити комфорт і безпеку кожного клієнта.
+            </p>
+  
+            <h3>Наші переваги</h3>
+            <ul>
+              <li>Власне виробництво з європейським обладнанням.</li>
+              <li>Гарантія від 3 до 10 років на всі вироби.</li>
+              <li>Безкоштовна консультація та виїзд замірника.</li>
+              <li>Монтаж «під ключ» за 1 день.</li>
+            </ul>
+  
+            <h3>Наші досягнення</h3>
+            <ol>
+              <li>Понад 5000 задоволених клієнтів по всій Україні.</li>
+              <li>Більше 200 корпоративних партнерів.</li>
+              <li>Переможець конкурсу «Надійний виробник року 2024».</li>
+            </ol>
+  
+            <blockquote>
+              “Ми не просто встановлюємо ворота — ми створюємо безпечний простір
+              для вашого дому та бізнесу.”
+            </blockquote>
+  
+            <p>
+              Якщо ви шукаєте компанію, яка дотримується принципів
+              <strong>чесності, якості та відповідальності</strong>, — ви
+              потрапили за адресою. Ми з гордістю реалізовуємо проекти будь-якої
+              складності — від гаражних воріт до великих промислових систем.
+            </p>
+  
+            <h4>Приклади робіт</h4>
+            <img
+              src="https://picsum.photos/300/300?20"
+              alt="Наші встановлені ворота"
+            />
+  
+            <p>
+              Детальніше про наші послуги ви можете дізнатися у розділі
+              <a href="/services">«Послуги»</a> або звернутися до нас за
+              телефоном.
+            </p>
+  
+            <hr />
+  
+            <h5>Контактна інформація</h5>
+            <table>
+              <thead>
+                <tr>
+                  <th>Філія</th>
+                  <th>Адреса</th>
+                  <th>Телефон</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Київ</td>
+                  <td>вул. Сагайдачного, 24</td>
+                  <td>+38 (044) 123-45-67</td>
+                </tr>
+                <tr>
+                  <td>Львів</td>
+                  <td>вул. Зеленська, 10</td>
+                  <td>+38 (032) 987-65-43</td>
+                </tr>
+              </tbody>
+            </table>
+  
+            <h6>Дякуємо, що обираєте нас 💛</h6>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
 </template>
 
 <style scoped lang="scss">
@@ -415,11 +410,14 @@ const our_services = [
 }
 
 :deep(.hero__slider .swiper) {
-  height: 500px;
+  height: 500rem;
 }
 
 :deep(.swiper-navigation-icon) {
   color: $bg-color-brown;
+  width: 20rem;
+  height: 20rem;
+  flex-shrink: 0;
 }
 
 .swiper-button-prev {
@@ -428,22 +426,22 @@ const our_services = [
 
 // Наші послуги
 .our-services {
-  padding: 50px 0 50px 0;
+  padding: 50rem 0 50rem 0;
   background-color: $bg-color-light-grey;
 
   &__header {
-    margin-bottom: 20px;
-    padding: 0 15px;
+    margin-bottom: 20rem;
+    padding: 0 15rem;
   }
 
   &__content {
-    padding: 15px;
+    padding: 15rem;
   }
 
   &__list {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    gap: 20rem;
   }
 
   &__link {
@@ -455,11 +453,11 @@ const our_services = [
     color: inherit;
     position: relative;
     overflow: hidden;
-    border-radius: 5px;
+    border-radius: 5rem;
     transition: all 0.3s ease;
 
     &:hover {
-      box-shadow: 0 0 20px 0 #000000;
+      box-shadow: 0 0 20rem 0 #000000;
     }
   }
 
@@ -469,24 +467,24 @@ const our_services = [
     left: 50%;
     transform: translate(-50%, -50%);
     color: $text-color-white;
-    font-size: 24px;
+    font-size: 24rem;
     font-weight: 600;
     text-align: center;
   }
 
   &__img {
     width: 100%;
-    height: 350px;
+    height: 350rem;
   }
 }
 
 // Проєкти
 .projects {
-  padding: 50px 0 50px 0;
+  padding: 50rem 0 50rem 0;
 }
 
 .projects-section__swiper {
-  padding: 15px;
+  padding: 15rem;
 }
 
 .projects-card {
@@ -495,7 +493,7 @@ const our_services = [
 }
 
 .projects-card__img {
-  border-radius: 5px;
+  border-radius: 5rem;
   cursor: zoom-in;
   transition: transform 0.3s ease;
 
@@ -505,71 +503,79 @@ const our_services = [
 }
 
 .projects-card__name {
-  font-size: 18px;
+  font-size: 18rem;
   font-weight: 500;
-  padding: 10px;
+  padding: 10rem;
 }
 
 // Чому ми
 .why-us {
-  padding: 50px 0 50px 0;
+  padding: 50rem 0 50rem 0;
   background-color: $bg-color-light-grey;
 
   &__content {
-    padding: 15px;
+    padding: 15rem;
   }
 
   &__list {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
+    gap: 15rem;
   }
 
   &__item {
     display: flex;
     align-items: center;
-    gap: 20px;
-    padding: 40px;
+    gap: 20rem;
+    padding: 40rem;
     background-color: $bg-color-white;
-    border-radius: 5px;
+    border-radius: 5rem;
   }
 
   &__title-item {
     display: block;
-    font-size: 20px;
+    font-size: 20rem;
     font-weight: 500;
-    margin-bottom: 20px;
+    margin-bottom: 20rem;
   }
 
   &__desc {
-    max-height: 40px;
+    max-height: 40rem;
     overflow: hidden;
+  }
+  &__icon{
+    display: flex;
+    img{
+      width: 30rem;
+      height: 30rem;
+      flex-shrink: 0;
+    }
   }
 }
 
 // Про компанію
 .about-company {
-  padding: 50px 0 50px 0;
+  padding: 50rem 0 50rem 0;
 
   &__content {
-    padding: 15px;
+    padding: 15rem;
   }
 
   &__title {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 40rem;
   }
 
   &__text {
     font-family: "Montserrat", sans-serif;
-    font-size: 16px;
+    font-size: 16rem;
     line-height: 1.8;
     color: #333;
     text-align: justify;
 
     /* Абзаци */
     p {
-      margin-bottom: 20px;
+      margin-bottom: 20remm;
     }
 
     /* Заголовки */
@@ -581,27 +587,27 @@ const our_services = [
     h6 {
       font-weight: 600;
       line-height: 1.4;
-      margin: 30px 0 15px;
+      margin: 30rem 0 15rem;
       color: #222;
     }
 
     h1 {
-      font-size: 30px;
+      font-size: 30rem;
     }
     h2 {
-      font-size: 26px;
+      font-size: 26rem;
     }
     h3 {
-      font-size: 22px;
+      font-size: 22rem;
     }
     h4 {
-      font-size: 18px;
+      font-size: 18rem;
     }
     h5 {
-      font-size: 16px;
+      font-size: 16rem;
     }
     h6 {
-      font-size: 14px;
+      font-size: 14rem;
     }
 
     /* Виділення */
@@ -622,7 +628,7 @@ const our_services = [
     /* Списки */
     ul,
     ol {
-      margin: 20px 0 20px 25px;
+      margin: 20rem 0 20rem 25rem;
       padding: 0;
       list-style-position: outside;
     }
@@ -636,7 +642,7 @@ const our_services = [
     }
 
     li {
-      margin-bottom: 8px;
+      margin-bottom: 8rem;
       line-height: 1.7;
 
       &:last-child {
@@ -646,13 +652,13 @@ const our_services = [
 
     /* Цитати */
     blockquote {
-      margin: 30px 0;
-      padding: 15px 25px;
-      border-left: 4px solid #7a4e2b;
+      margin: 30rem 0;
+      padding: 15rem 25rem;
+      border-left: 4rem solid #7a4e2b;
       font-style: italic;
       color: #555;
       background: #fff;
-      border-radius: 4px;
+      border-radius: 4rem;
     }
 
     /* Зображення */
@@ -660,8 +666,8 @@ const our_services = [
       display: block;
       max-width: 100%;
       height: auto;
-      border-radius: 8px;
-      margin: 25px auto;
+      border-radius: 8rem;
+      margin: 25rem auto;
     }
 
     /* Посилання */
@@ -679,20 +685,20 @@ const our_services = [
     hr {
       border: none;
       border-top: 1px solid #ddd;
-      margin: 30px 0;
+      margin: 30rem 0;
     }
 
     /* Таблиці */
     table {
       width: 100%;
       border-collapse: collapse;
-      margin: 25px 0;
-      font-size: 15px;
+      margin: 25rem 0;
+      font-size: 15rem;
 
       th,
       td {
         border: 1px solid #ddd;
-        padding: 10px 15px;
+        padding: 10rem 15rem;
         text-align: left;
       }
 
@@ -708,9 +714,9 @@ const our_services = [
   }
 
   &__quote {
-    margin-top: 30px;
-    padding-left: 20px;
-    border-left: 4px solid #7a4e2b;
+    margin-top: 30rem;
+    padding-left: 20rem;
+    border-left: 4rem solid #7a4e2b;
     font-style: italic;
     color: #555;
   }

@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { ref } from "vue";
 
 const isMenuOpen = ref(false);
 const openDropdowns = ref<Record<string, boolean>>({});
 
-function toggleMenu() {
-  isMenuOpen.value = !isMenuOpen.value;
+function toggleMenu(val : boolean) {
+  isMenuOpen.value = val;
+  scrollBody(val)
 }
 
 function toggleDropdown(id: string) {
@@ -16,13 +16,13 @@ function toggleDropdown(id: string) {
 <template>
   <header class="header">
     <div class="container">
-      <div class="logo">
+      <NuxtLink to="/" class="logo">
         <img src="../public/favicon.ico" alt="logo" />
-      </div>
+      </NuxtLink>
 
       <nav class="menu" :class="{ open: isMenuOpen }">
         <div class="head">
-          <button class="close-menu-btn" @click="toggleMenu"></button>
+          <button class="close-menu-btn" @click="toggleMenu(false)"></button>
         </div>
 
         <ul>
@@ -155,16 +155,17 @@ function toggleDropdown(id: string) {
         </ul>
       </nav>
 
+      <div @click="toggleMenu(false)" :class="{ 'active': isMenuOpen }" class="mebu__bg"></div>
+
       <div class="header-right">
-        <button type="button" class="search-btn icon-btn">S</button>
 
         <button type="button" class="cart-btn icon-btn">
-          <svg class="icon">
+          <svg class="icon icon__cart">
             <use xlink:href="/images/sprite.svg#cart" />
           </svg>
         </button>
 
-        <button type="button" class="open-menu-btn" @click="toggleMenu">
+        <button type="button" class="open-menu-btn" @click="toggleMenu(true)">
           <span class="line line-1"></span>
           <span class="line line-2"></span>
           <span class="line line-3"></span>
@@ -190,9 +191,30 @@ a {
   width: 100%;
   border-bottom: 1px solid hsla(0, 0%, 100%, 0.2);
   z-index: 10;
+  .icon__cart{
+    width: 30rem;
+    height: 30rem;
+  }
+  .mebu{
+    &__bg{
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: $text-color-black;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      &.active{
+        opacity: 0.5;
+        pointer-events: all;
+      }
+    }
+  }
 
-  @media (max-width: 991px) {
-    padding: 12px 0;
+  @media (max-width: 991rem) {
+    padding: 12rem 0;
   }
 }
 
@@ -204,31 +226,33 @@ a {
 
 .header .logo img {
   vertical-align: middle;
+  width: 50rem;
+  height: 50rem;
 }
 
 .header .menu .head {
   display: none;
 
-  @media (max-width: 991px) {
+  @media (max-width: 991rem) {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    margin-bottom: 25px;
+    margin-bottom: 25rem;
   }
 }
 
 .header .menu > ul > li {
   display: inline-block;
 
-  @media (max-width: 991px) {
+  @media (max-width: 991rem) {
     display: block;
   }
 }
 
 .header .menu > ul > li:not(:last-child) {
-  margin-right: 40px;
+  margin-right: 40rem;
 
-  @media (max-width: 991px) {
+  @media (max-width: 991rem) {
     margin-right: 0;
   }
 }
@@ -244,22 +268,22 @@ a {
 }
 
 .header .menu > ul > li > a {
-  padding: 24px 0;
+  padding: 24rem 0;
 }
 
 .header .menu > ul > .dropdown > a {
-  padding-right: 15px;
+  padding-right: 15rem;
 }
 
 .header .menu svg {
   position: absolute;
-  top: calc(50% - 10px);
+  top: calc(50% - 10rem);
 }
 
 .header .menu > ul > li > svg {
-  right: -5px;
+  right: -5rem;
 
-  @media (max-width: 991px) {
+  @media (max-width: 991rem) {
     right: 0;
   }
 }
@@ -268,18 +292,18 @@ a {
   position: absolute;
   top: 100%;
   left: 0;
-  width: 300px;
-  padding: 15px 0;
+  width: 300rem;
+  padding: 15rem 0;
   background-color: $bg-color-light-grey;
-  border-radius: 3px;
-  box-shadow: 0 0 5px hsla(0, 0%, 0%, 0.5);
+  border-radius: 3rem;
+  box-shadow: 0 0 5rem hsla(0, 0%, 0%, 0.5);
   z-index: 1;
   transform-origin: top;
   transform: scaleY(0);
   visibility: hidden;
   opacity: 0;
 
-  @media (max-width: 991px) {
+  @media (max-width: 991rem) {
     position: static;
     opacity: 1;
     transform: none;
@@ -315,16 +339,16 @@ a {
 }
 
 .header .menu .sub-menu a {
-  padding: 6px 24px;
-  font-size: 14px;
+  padding: 6rem 24rem;
+  font-size: 14rem;
 
-  @media (max-width: 991px) {
-    padding: 12px 0 12px 15px;
+  @media (max-width: 991rem) {
+    padding: 12rem 0 12rem 15rem;
   }
 }
 
 .header .menu .sub-menu .dropdown > a {
-  padding-right: 34px;
+  padding-right: 34rem;
 }
 
 .header .menu .sub-menu span {
@@ -334,7 +358,7 @@ a {
   background-position: 0 100%;
   transition: background-size 0.5s ease;
 
-  @media (max-width: 991px) {
+  @media (max-width: 991rem) {
     background-image: none;
   }
 }
@@ -345,9 +369,9 @@ a {
 
 .header .menu .sub-menu svg {
   transform: rotate(-90deg);
-  right: 24px;
+  right: 24rem;
 
-  @media (max-width: 991px) {
+  @media (max-width: 991rem) {
     transform: none;
     right: 0;
   }
@@ -358,7 +382,7 @@ a {
 }
 
 .header-right > * {
-  margin-left: 25px;
+  margin-left: 25rem;
 }
 
 .header-right .icon-btn {
@@ -366,18 +390,18 @@ a {
   border: none;
   cursor: pointer;
   color: hsl(0, 0%, 100%);
-  font-size: 16px;
+  font-size: 16rem;
 }
 
 .header-right .open-menu-btn {
   display: none;
 
-  @media (max-width: 991px) {
+  @media (max-width: 991rem) {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 40px;
-    width: 44px;
+    height: 40rem;
+    width: 44rem;
     cursor: pointer;
     position: relative;
     background-color: transparent;
@@ -385,19 +409,19 @@ a {
   }
 }
 
-@media (max-width: 991px) {
+@media (max-width: 991rem) {
   .container {
-    padding: 0 25px;
+    padding: 0 25rem;
   }
 
   .header .menu {
     position: fixed;
     right: 0;
     top: 0;
-    width: 320px;
+    width: 320rem;
     height: 100%;
     background-color: $bg-color-light-grey;
-    padding: 15px 30px 30px;
+    padding: 15rem 30rem 30rem;
     overflow-y: auto;
     z-index: 1;
 
@@ -426,8 +450,8 @@ a {
   }
 
   .header .menu .close-menu-btn {
-    height: 35px;
-    width: 35px;
+    height: 35rem;
+    width: 35rem;
     position: relative;
     display: inline-flex;
     align-items: center;
@@ -463,23 +487,23 @@ a {
   }
 
   .header .menu > ul > li > a {
-    padding: 12px 0;
+    padding: 12rem 0;
   }
 
   .header .menu > ul > .dropdown > a {
-    padding-right: 34px;
+    padding-right: 34rem;
   }
 
   .header .menu svg {
-    height: 34px;
-    width: 34px;
+    height: 34rem;
+    width: 34rem;
     border: 1px solid hsla(0, 0%, 100%, 0.25);
     display: inline-flex;
     align-items: center;
     justify-content: center;
     pointer-events: auto;
     cursor: pointer;
-    top: 7px;
+    top: 7rem;
   }
 
   .header .menu .dropdown.active > svg {
@@ -496,30 +520,30 @@ a {
   }
 
   .header .menu .sub-menu a {
-    padding-left: 10px;
+    padding-left: 10rem;
   }
 
   .header .menu .sub-menu .sub-menu a {
-    padding-left: 20px;
+    padding-left: 20rem;
   }
 
   .header .menu .sub-menu .sub-menu .sub-menu a {
-    padding-left: 30px;
+    padding-left: 30rem;
   }
 
   .header-right .open-menu-btn .line {
     height: 2px;
-    width: 30px;
+    width: 30rem;
     background-color: $bg-color-brown;
     position: absolute;
   }
 
   .header-right .open-menu-btn .line-1 {
-    transform: translateY(-8px);
+    transform: translateY(-8rem);
   }
 
   .header-right .open-menu-btn .line-3 {
-    transform: translateY(8px);
+    transform: translateY(8rem);
   }
 }
 </style>

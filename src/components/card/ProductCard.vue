@@ -1,15 +1,16 @@
-<script setup lang="ts">
-defineProps({
+<script setup>
+const props = defineProps({
   product: {
     type: Object,
     required: true,
   },
 });
-defineEmits(["add-to-cart"]);
+
+console.log(props.product)
 </script>
 
 <template>
-  <a :href="'/product/' + product.article" class="product-card">
+  <NuxtLink :to="`/product/${product.article}`" class="product-card">
     <img :src="product.image" :alt="product.name" class="product-card__img" />
     <div class="product-content">
       <p class="product-card__article">{{ product.article }}</p>
@@ -34,20 +35,18 @@ defineEmits(["add-to-cart"]);
         </button>
       </div>
     </div>
-  </a>
+  </NuxtLink>
 </template>
 
 <style scoped lang="scss">
 .product-card {
   display: block;
-  padding: 20px;
+  padding: 20rem;
   background: #fff;
-  border-radius: 8px;
+  border-radius: 8rem;
   overflow: hidden;
   border: 1px solid $bg-color-grey;
-  transition:
-    box-shadow 0.3s ease,
-    transform 0.3s ease;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
 
   &__img {
     display: block;
@@ -57,19 +56,23 @@ defineEmits(["add-to-cart"]);
 
   &__article,
   &__name {
-    margin-bottom: 10px;
+    margin-bottom: 10rem;
   }
 
   &__article {
-    font-size: 14px;
+    font-size: 14rem;
     font-weight: 500;
     color: $text-color-grey;
   }
 
   &__name {
     font-weight: 700;
-    height: 60px;
+    height: 60rem;
     overflow: hidden;
+    display: -webkit-box;
+    line-clamp: 3;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
   }
 
   &__bottom {
@@ -88,15 +91,15 @@ defineEmits(["add-to-cart"]);
   }
 
   &__add-to-cart {
-    width: 40px;
-    height: 40px;
-    border-radius: 5px;
+    width: 40rem;
+    height: 40rem;
+    border-radius: 5rem;
     background-color: $bg-color-light-grey;
   }
 
   &:hover {
     border: 1px solid $bg-color-brown;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4rem 20rem rgba(0, 0, 0, 0.15);
     transform: translateY(-3px);
 
     .product-card__add-to-cart {
@@ -104,7 +107,7 @@ defineEmits(["add-to-cart"]);
       transition: all 0.3s ease;
 
       &:hover {
-        box-shadow: 0 0 10px 0 #bebebe;
+        box-shadow: 0 0 10rem 0 #bebebe;
       }
     }
 
@@ -114,12 +117,12 @@ defineEmits(["add-to-cart"]);
   }
 
   &__price-old {
-    font-size: 14px;
+    font-size: 14rem;
   }
 
   &__price {
     font-weight: 600;
-    font-size: 16px;
+    font-size: 16rem;
     color: $text-color-brown;
   }
 
@@ -129,6 +132,6 @@ defineEmits(["add-to-cart"]);
 }
 
 .product-content {
-  margin-top: 20px;
+  margin-top: 20rem;
 }
 </style>

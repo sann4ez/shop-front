@@ -1,9 +1,11 @@
 @use "vars" as *;
-
+html {
+  font-size: calc(1vw / 19.2);
+}
 /* Глобальні стилі */
 body {
   font-family: $font-montserrat;
-  font-size: 16px;
+  font-size: 16rem;
   background-color: $bg-color-white;
   color: $text-color-low-black;
   //overflow: hidden;
@@ -15,7 +17,8 @@ body.no-scroll {
 }
 
 .main {
-  padding-top: 72px;
+  padding-top: 72rem;
+  flex-grow: 1;
 }
 
 a {
@@ -31,8 +34,8 @@ a {
 }
 
 .icon {
-  width: 20px;
-  height: 20px;
+  width: 20rem;
+  height: 20rem;
   transition: fill 0.3s ease;
 }
 
@@ -42,14 +45,14 @@ a {
 }
 
 .container {
-  max-width: 1920px;
+  max-width: 1920rem;
   margin: 0 auto;
-  padding: 0 80px;
+  padding: 0 80rem;
 }
 
 .card__title {
   font-weight: 500;
-  font-size: 36px;
+  font-size: 36rem;
   line-height: 1.16;
   letter-spacing: 0.03em;
   text-align: center;
@@ -60,7 +63,7 @@ a {
   position: relative;
   display: inline-block;
   font-weight: 500;
-  font-size: 36px;
+  font-size: 36rem;
   line-height: 1.16;
   letter-spacing: 0.03em;
   text-align: center;
@@ -69,7 +72,7 @@ a {
   &::after {
     content: "";
     position: absolute;
-    bottom: -10px;
+    bottom: -10rem;
     left: 0;
     width: 0;
     height: 3px;
@@ -80,7 +83,7 @@ a {
 
 section:hover {
   .section__title::after {
-    width: 130px;
+    width: 130rem;
   }
 }
 
@@ -88,27 +91,28 @@ section:hover {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 20px;
-  padding: 0 15px;
+  margin-bottom: 20rem;
+  padding: 0 15rem;
 }
 
 .section-controls {
   display: flex;
-  gap: 10px;
+  gap: 10rem;
 
   .swiper-button-prev,
   .swiper-button-next {
     position: static;
-    width: 50px;
-    height: 50px;
+    width: 50rem;
+    height: 50rem;
     border: 1px solid $bg-color-brown;
-    border-radius: 5px;
+    border-radius: 5rem;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 18px;
+    font-size: 18rem;
     transition: all 0.3s ease;
+
 
     &:hover {
       background: $bg-color-brown;
@@ -117,5 +121,19 @@ section:hover {
         color: #fff;
       }
     }
+  }
+}
+.wrapper{
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+@media (max-width: 991rem) {
+  html {
+    font-size: calc(1vw / 9.91);
+  }
+  .container{
+    padding-inline: 40rem;
   }
 }
