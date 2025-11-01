@@ -16,17 +16,6 @@ const category = computed(
     categories.find((c) => c.slug === slug) ?? { name: "Невідома категорія" }
 );
 
-// Сортування
-const sortOptions = [
-  "За замовчуванням",
-  "Спочатку дешевші",
-  "Спочатку дорожчі",
-];
-const selectedSort = ref(sortOptions[0]);
-
-const filters = ["Усі товари", "Новинки", "Розпродаж"];
-const selectedFilter = ref(filters[0]);
-
 // Анімація на Фільтр
 const isOpen = ref(false);
 
@@ -77,6 +66,65 @@ const products = [
     image: "https://picsum.photos/300/300?5",
   },
 ];
+
+const filters = ref([
+  {
+    name: "Колір",
+    properties: [
+      { name: "Червоний" },
+      { name: "Синій" },
+      { name: "Зелений" },
+      { name: "Жовтий" },
+    ],
+  },
+  {
+    name: "Колір",
+    properties: [
+      { name: "Червоний" },
+      { name: "Синій" },
+      { name: "Зелений" },
+      { name: "Жовтий" },
+    ],
+  },
+  {
+    name: "Колір",
+    properties: [
+      { name: "Червоний" },
+      { name: "Синій" },
+      { name: "Зелений" },
+      { name: "Жовтий" },
+    ],
+  },
+  {
+    name: "Колір",
+    properties: [
+      { name: "Червоний" },
+      { name: "Синій" },
+      { name: "Зелений" },
+      { name: "Жовтий" },
+    ],
+  },
+  {
+    name: "Колір",
+    properties: [
+      { name: "Червоний" },
+      { name: "Синій" },
+      { name: "Зелений" },
+      { name: "Жовтий" },
+    ],
+  },
+  {
+    name: "Колір",
+    properties: [
+      { name: "Червоний" },
+      { name: "Синій" },
+      { name: "Зелений" },
+      { name: "Жовтий" },
+    ],
+  },
+]);
+
+console.log(filters.value, "filter");
 </script>
 
 <template>
@@ -114,204 +162,33 @@ const products = [
               <div class="menu__filter-body">
                 <div class="menu__filter-wrapper">
                   <ul class="menu__filter-list">
-                    <li class="menu__filter-item">
-                      <button class="menu__filter-btn">
-                        <span class="menu__filter-dropdown-title">Колір</span>
-
-                        <svg class="icon menu__filter-dropdown-icon">
-                          <use xlink:href="/images/sprite.svg#chevron-up" />
-                        </svg>
-                      </button>
-
-                      <div class="menu__filter-dropdown">
-                        <ul class="menu__filter-dropdown-list">
-                          <li class="menu__filter-dropdown-item">
-                            <label>
-                              <input
-                                type="checkbox"
-                                name="filter[]"
-                                value="option1"
-                              />
-                              Варіант 1
-                            </label>
-                          </li>
-                          <li class="menu__filter-dropdown-item">
-                            <label>
-                              <input
-                                type="checkbox"
-                                name="filter[]"
-                                value="option2"
-                              />
-                              Варіант 2
-                            </label>
-                          </li>
-                          <li class="menu__filter-dropdown-item">
-                            <label>
-                              <input
-                                type="checkbox"
-                                name="filter[]"
-                                value="option3"
-                              />
-                              Варіант 3
-                            </label>
-                          </li>
-                        </ul>
-                      </div>
-
-                      <hr class="menu__filter-line" />
-                    </li>
-                    <li class="menu__filter-item">
-                      <button class="menu__filter-btn">
-                        <span class="menu__filter-dropdown-title">Колір</span>
-
-                        <svg class="icon menu__filter-dropdown-icon">
-                          <use xlink:href="/images/sprite.svg#chevron-up" />
-                        </svg>
-                      </button>
-
-                      <div class="menu__filter-dropdown">
-                        <ul class="menu__filter-dropdown-list">
-                          <li class="menu__filter-dropdown-item">
-                            <label>
-                              <input
-                                type="checkbox"
-                                name="filter[]"
-                                value="option1"
-                              />
-                              Варіант 1
-                            </label>
-                          </li>
-                          <li class="menu__filter-dropdown-item">
-                            <label>
-                              <input
-                                type="checkbox"
-                                name="filter[]"
-                                value="option2"
-                              />
-                              Варіант 2
-                            </label>
-                          </li>
-                          <li class="menu__filter-dropdown-item">
-                            <label>
-                              <input
-                                type="checkbox"
-                                name="filter[]"
-                                value="option3"
-                              />
-                              Варіант 3
-                            </label>
-                          </li>
-                        </ul>
-                      </div>
-
-                      <hr class="menu__filter-line" />
-                    </li>
-                    <li class="menu__filter-item">
-                      <button class="menu__filter-btn">
-                        <span class="menu__filter-dropdown-title">Колір</span>
-
-                        <svg class="icon menu__filter-dropdown-icon">
-                          <use xlink:href="/images/sprite.svg#chevron-up" />
-                        </svg>
-                      </button>
-
-                      <div class="menu__filter-dropdown">
-                        <ul class="menu__filter-dropdown-list">
-                          <li class="menu__filter-dropdown-item">
-                            <label>
-                              <input
-                                type="checkbox"
-                                name="filter[]"
-                                value="option1"
-                              />
-                              Варіант 1
-                            </label>
-                          </li>
-                          <li class="menu__filter-dropdown-item">
-                            <label>
-                              <input
-                                type="checkbox"
-                                name="filter[]"
-                                value="option2"
-                              />
-                              Варіант 2
-                            </label>
-                          </li>
-                          <li class="menu__filter-dropdown-item">
-                            <label>
-                              <input
-                                type="checkbox"
-                                name="filter[]"
-                                value="option3"
-                              />
-                              Варіант 3
-                            </label>
-                          </li>
-                        </ul>
-                      </div>
-
-                      <hr class="menu__filter-line" />
-                    </li>
-
-                    <li class="menu__filter-item">
-                      <button class="menu__filter-btn">
-                        <span class="menu__filter-dropdown-title">Ромір</span>
-
-                        <svg class="icon menu__filter-dropdown-icon">
-                          <use xlink:href="/images/sprite.svg#chevron-up" />
-                        </svg>
-                      </button>
-
-                      <div class="menu__filter-dropdown">
-                        <ul class="menu__filter-dropdown-list">
-                          <li class="menu__filter-dropdown-item">
-                            <label>
-                              <input
-                                type="checkbox"
-                                name="filter[]"
-                                value="option1"
-                              />
-                              Варіант 1
-                            </label>
-                          </li>
-                          <li class="menu__filter-dropdown-item">
-                            <label>
-                              <input
-                                type="checkbox"
-                                name="filter[]"
-                                value="option2"
-                              />
-                              Варіант 2
-                            </label>
-                          </li>
-                          <li class="menu__filter-dropdown-item">
-                            <label>
-                              <input
-                                type="checkbox"
-                                name="filter[]"
-                                value="option3"
-                              />
-                              Варіант 3
-                            </label>
-                          </li>
-                        </ul>
-                      </div>
-
+                    <li
+                      v-for="(item, index) in filters"
+                      :key="`filter-collaps-${index}`"
+                      class="menu__filter-item"
+                    >
+                      <Collaps :pre-open="true">
+                        <template #label> {{ item.name }} </template>
+                        <template #body>
+                          <ul class="menu__filter-dropdown-list">
+                            <li
+                              v-for="(item, index) in item.properties"
+                              :key="index"
+                              class="menu__filter-dropdown-item"
+                            >
+                              <FieldsCheckbox :label="item.name" />
+                            </li>
+                          </ul>
+                        </template>
+                      </Collaps>
                       <hr class="menu__filter-line" />
                     </li>
                   </ul>
 
-                  <ul class="menu__filter-list">
-                    <li class="menu__filter-item">
-                      <button class="menu__filter-btn">
-                        <span class="menu__filter-dropdown-title">Ціна</span>
-
-                        <svg class="icon menu__filter-dropdown-icon">
-                          <use xlink:href="/images/sprite.svg#chevron-up" />
-                        </svg>
-                      </button>
-
-                      <div class="menu__filter-dropdown">
+                  <Collaps :pre-open="true">
+                    <template #label>Ціна </template>
+                    <template #body>
+                       <div class="menu__filter-dropdown">
                         <ul class="menu__filter-dropdown-list">
                           <li
                             class="menu__filter-dropdown-item menu__filter-price"
@@ -336,8 +213,8 @@ const products = [
                           </li>
                         </ul>
                       </div>
-                    </li>
-                  </ul>
+                    </template>
+                  </Collaps>
                 </div>
               </div>
 
@@ -477,6 +354,26 @@ const products = [
     overflow: auto;
     max-height: calc(100dvh - 40rem);
     height: 100%;
+    padding-right: 10rem;
+    &::-webkit-scrollbar {
+      width: 3px;
+    }
+
+    &::-webkit-scrollbar-corner {
+      background-color: transparent;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: $bg-color-light-grey;
+      border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: $bg-color-brown;
+      border-radius: 10px;
+    }
+
+    scrollbar-color: $bg-color-brown $bg-color-light-grey;
   }
   &-header {
     display: flex;
@@ -608,4 +505,28 @@ input[type="number"] {
 .filter-btn--apply:hover {
   background-color: #1d4ed8;
 }
+
+  @media (max-width: 991px) {
+    .menu__filter-menu{
+      width: 100%;
+      left: -100%;
+      &--open {
+        left: 0;
+      }
+    }
+    .menu__filter-input{
+      max-width: 50%;
+    }
+    .category__filter-btn{
+      padding: 10rem 20rem;
+      height: 50rem;
+      font-size: 18rem;
+    }
+    .category__wrapper{
+      gap: 15rem;
+      .product-card{
+            width: calc((100% - 15rem) / 2);
+      }
+    }
+  }
 </style>

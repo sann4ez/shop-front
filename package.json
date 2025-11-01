@@ -24,7 +24,9 @@
     "react": "^15.7.0",
     "swiper": "^12.0.2",
     "vue": "latest",
-    "vue-router": "latest"
+    "vue-router": "latest",
+    "vee-validate": "^4.11.8",
+    "maska": "^2.1.10"
   },
   "devDependencies": {
     "prettier": "^3.4.2",
