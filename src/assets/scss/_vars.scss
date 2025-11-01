@@ -1,7 +1,14 @@
 // Fonts
 $font-montserrat: 'Montserrat', sans-serif;
 
-// Background Colors
+
+
+@function wsm($value) {
+  @return ($value * 100vw)/768;
+}
+@function wxs($value) {
+  @return ($value * 100vw)/360;
+}// Background Colors
 $bg-color-white: #ffffff;
 $bg-color-brown: #be9960; // #9d855f
 $bg-color-light-grey: #f6f6f6;
@@ -14,10 +21,3 @@ $text-color-black: #000000;
 $text-color-low_black: #2e2e2e;
 $text-color-brown: #be9960; // #9d855f
 $text-color-grey: #a6a6a6;
-
-@function wsm($value) {
-  @return ($value * 100vw)/768;
-}
-@function wxs($value) {
-  @return ($value * 100vw)/360;
-}
