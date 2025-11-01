@@ -309,7 +309,7 @@ const our_services = [
         </div>
   
         <div class="about-company__content">
-          <div class="about-company__text">
+          <div class="typography">
             <h2>Про нашу компанію</h2>
   
             <p>
