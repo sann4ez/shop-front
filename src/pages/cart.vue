@@ -65,7 +65,7 @@ const products = [
             <button class="cart__item-btn"></button>
           </div>
         </div>
-        <div class="cart__btn">Оформити замовлення</div>
+        <NuxtLink to="/checkout" class="cart__btn">Оформити замовлення</NuxtLink>
       </div>
     </div>
   </main>

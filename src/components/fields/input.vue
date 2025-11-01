@@ -114,14 +114,13 @@ const {
   }
   &__wrapper {
     position: relative;
-    margin-top: 10rem;
   }
   input {
     font-size: 20rem;
     transition: 0.3s;
     color:$text-color-black;
     width: 100%;
-    padding: 20rem;
+    padding: 10rem;
     background-color: transparent;
     border: 2px solid $bg-color-brown;
   }
