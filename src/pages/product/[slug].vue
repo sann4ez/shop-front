@@ -1,4 +1,7 @@
 <script setup>
+import { Swiper, SwiperSlide } from "swiper/vue";
+import { Navigation, Thumbs } from "swiper/modules";
+
 const productInfo = [
   { name: "Тип товару", value: "Настільна лампа" },
   { name: "Матеріал основи", value: "Кераміка" },
@@ -16,7 +19,19 @@ const productInfo = [
   { name: "Країна виробник", value: "Україна" },
 ];
 
+const slides = [
+  "https://picsum.photos/id/1015/1920/800",
+  "https://picsum.photos/id/1016/1920/800",
+  "https://picsum.photos/id/1018/1920/800",
+  "https://picsum.photos/id/1020/1920/800",
+  "https://picsum.photos/id/1015/1920/800",
+  "https://picsum.photos/id/1016/1920/800",
+  "https://picsum.photos/id/1018/1920/800",
+  "https://picsum.photos/id/1020/1920/800",
+];
+
 const activeTab = ref("description");
+const thumbsSwiper = ref(null);
 </script>
 
 <template>
@@ -29,9 +44,41 @@ const activeTab = ref("description");
         </div>
         <div class="product__wrapper">
           <div class="product__wrapper-right">
-
-            
-
+            <Swiper
+              :modules="[Navigation, Thumbs]"
+              :slides-per-view="1"
+              :space-between="20"
+              :loop="true"
+              :thumbs="{ swiper: thumbsSwiper }"
+              class="product__swiper"
+            >
+              <SwiperSlide
+                v-for="(slide, index) in slides"
+                :key="index"
+                class="product__swiper__slide"
+              >
+                <img
+                  :src="slide"
+                  alt="Slide image"
+                  class="product__swiper-image"
+                />
+              </SwiperSlide>
+            </Swiper>
+            <Swiper
+              @swiper="thumbsSwiper = $event"
+              :space-between="10"
+              slides-per-view="auto"
+              watchSlidesProgress
+              class="product__thumbs-swiper"
+            >
+              <SwiperSlide v-for="(slide, index) in slides" :key="index" class="product__thumbs-swiper-slide">
+                <img
+                  :src="slide"
+                  alt="Slide image"
+                  class="product__thumbs-swiper-image"
+                />
+              </SwiperSlide>
+            </Swiper>
           </div>
           <div class="product__wrapper-left">
             <div class="product__sku">
@@ -44,7 +91,10 @@ const activeTab = ref("description");
             </div>
             <div class="product__line"></div>
             <div class="product__manager">
-              Є питання? задайте їх нашому менеджеру <NuxtLink to="tel:+380501234567" class="product__manager-link">+380 50 123 45 67</NuxtLink>
+              Є питання? задайте їх нашому менеджеру
+              <NuxtLink to="tel:+380501234567" class="product__manager-link"
+                >+380 50 123 45 67</NuxtLink
+              >
             </div>
           </div>
         </div>
@@ -106,6 +156,42 @@ const activeTab = ref("description");
   gap: 30rem;
   margin-top: 30rem;
   margin-bottom: 50rem;
+
+  &__thumbs{
+    &-swiper{
+      &-slide{
+        width: 100rem!important;
+        height: 100rem!important;
+      }
+      &-image{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+&__swiper{
+  margin-bottom: 20rem;
+  &__slide{
+    width:calc(50% - 5rem) ;
+    height: auto;
+    min-height: 350rem;
+  }
+  &-image{
+    width: 100%;
+    height: auto;
+    min-height: 350rem;
+    object-fit: cover;
+  }
+}
+
+
+  &__manager{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
   &__name {
     font-size: 20rem;
     font-weight: 500;
@@ -176,33 +262,45 @@ const activeTab = ref("description");
       font-weight: 500;
     }
   }
-  &__wrapper{
-    &-left{
+  &__wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 10rem;
+    &-right{
+      max-width:calc(60% - 5rem);
+    }
+    &-left {
       display: flex;
       flex-direction: column;
       gap: 15rem;
     }
   }
-  &__action{
+  &__action {
     display: flex;
     flex-direction: row;
     gap: 50rem;
   }
-  &__buy{
-    padding:10rem 20rem;
+  &__buy {
+    padding: 10rem 20rem;
     color: $bg-color-brown;
     border: 1px solid $bg-color-brown;
     font-size: 20rem;
     font-weight: 500;
   }
-  &__line{
+  &__line {
     width: 100%;
     height: 1px;
     background-color: $bg-color-low-black;
   }
 }
-@media (max-width: 991rem) {
+@media (max-width: 991px) {
   .product {
+    &__wrapper{
+      flex-direction: column;
+      &-right{
+        max-width: 100%;
+      }
+    }
   }
 }
 </style>

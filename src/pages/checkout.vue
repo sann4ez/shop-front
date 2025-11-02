@@ -154,13 +154,13 @@ const form = ref({
   }
 }
 
-@media (max-width: 991rem) {
-  .checkout{
-    &__form{
-      &-top{
+@media (max-width: 991px) {
+  .checkout {
+    &__form {
+      &-top {
         flex-direction: column;
       }
-      &-block{
+      &-block {
         width: 100%;
       }
     }
