@@ -117,26 +117,15 @@ const {
   }
   input {
     font-size: 20rem;
-    transition: 0.3s;
     color:$text-color-black;
     width: 100%;
     padding: 10rem;
     background-color: transparent;
     border: 2px solid $bg-color-brown;
   }
-  input:-webkit-autofill,
-  input:-webkit-autofill:hover,
-  input:-webkit-autofill:focus,
-  input:-webkit-autofill:active {
-    transition: background-color 5000s ease-in-out 0s,
-      color 5000s ease-in-out 0s;
-  }
+
 }
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
+
 
 /* Firefox */
 input[type="number"] {

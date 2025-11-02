@@ -159,11 +159,11 @@ function toggleDropdown(id: string) {
 
       <div class="header-right">
 
-        <button type="button" class="cart-btn icon-btn">
+        <NuxtLink to="/cart" class="cart-btn icon-btn">
           <svg class="icon icon__cart">
             <use xlink:href="/images/sprite.svg#cart" />
           </svg>
-        </button>
+        </NuxtLink>
 
         <button type="button" class="open-menu-btn" @click="toggleMenu(true)">
           <span class="line line-1"></span>

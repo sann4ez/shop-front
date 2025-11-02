@@ -43,7 +43,7 @@ const products = [
     <div class="container">
       <div class="cart">
         <h1 class="cart__title">Кошик</h1>
-        <div class="cart__wrapper">
+        <div v-if="products.length" class="cart__wrapper">
           <div
             v-for="(item, index) in products"
             :key="`cart-product-${index}`"
@@ -65,7 +65,13 @@ const products = [
             <button class="cart__item-btn"></button>
           </div>
         </div>
-        <NuxtLink to="/checkout" class="cart__btn">Оформити замовлення</NuxtLink>
+        <div v-else class="cart__wrapper cart__wrapper-emp">
+          <span>Ваш кошик порожній.</span>
+          <span>Зробити покупку</span>
+          
+          <NuxtLink to="/catalog" class="cart__btn">Каталог</NuxtLink>
+        </div>
+        <NuxtLink v-if="products.length" to="/checkout" class="cart__btn">Оформити замовлення</NuxtLink>
       </div>
     </div>
   </main>
@@ -94,6 +100,13 @@ const products = [
     display: flex;
     flex-direction: column;
     gap: 15rem;
+    &-emp{
+      align-items: center;
+      span{
+        font-size: 26rem;
+        font-weight:600;
+      }
+    }
   }
   &__item {
     display: flex;
