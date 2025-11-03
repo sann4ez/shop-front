@@ -188,7 +188,7 @@ console.log(filters.value, "filter");
                   <Collaps :pre-open="true">
                     <template #label>Ціна </template>
                     <template #body>
-                       <div class="menu__filter-dropdown">
+                      <div class="menu__filter-dropdown">
                         <ul class="menu__filter-dropdown-list">
                           <li
                             class="menu__filter-dropdown-item menu__filter-price"
@@ -322,7 +322,7 @@ console.log(filters.value, "filter");
   position: fixed;
   top: 0;
   left: -250rem;
-  z-index: 10;
+  z-index: 11;
   transition: all 0.4s ease;
   padding: 20rem;
   &--open {
@@ -341,6 +341,7 @@ console.log(filters.value, "filter");
   opacity: 0;
   transition: opacity 0.3s ease;
   pointer-events: none;
+  z-index: 10;
   &.active {
     opacity: 0.5;
     pointer-events: all;
@@ -355,25 +356,26 @@ console.log(filters.value, "filter");
     max-height: calc(100dvh - 40rem);
     height: 100%;
     padding-right: 10rem;
+
     &::-webkit-scrollbar {
-      width: 3px;
-    }
+      width: 4rem;
 
-    &::-webkit-scrollbar-corner {
-      background-color: transparent;
-    }
+      &-track {
+        background: $bg-color-grey;
+        border-radius: 4rem;
+      }
 
-    &::-webkit-scrollbar-track {
-      background: $bg-color-light-grey;
-      border-radius: 10px;
+      &-thumb {
+        background: $bg-color-brown;
+        border-radius: 4rem;
+      }
+      &-corner {
+        background-color: transparent;
+      }
     }
-
-    &::-webkit-scrollbar-thumb {
-      background: $bg-color-brown;
-      border-radius: 10px;
+    &::-webkit-scrollbar-button {
+      display: none;
     }
-
-    scrollbar-color: $bg-color-brown $bg-color-light-grey;
   }
   &-header {
     display: flex;
@@ -506,27 +508,27 @@ input[type="number"] {
   background-color: #1d4ed8;
 }
 
-  @media (max-width: 991px) {
-    .menu__filter-menu{
-      width: 100%;
-      left: -100%;
-      &--open {
-        left: 0;
-      }
-    }
-    .menu__filter-input{
-      max-width: 50%;
-    }
-    .category__filter-btn{
-      padding: 10rem 20rem;
-      height: 50rem;
-      font-size: 18rem;
-    }
-    .category__wrapper{
-      gap: 15rem;
-      .product-card{
-            width: calc((100% - 15rem) / 2);
-      }
+@media (max-width: 991px) {
+  .menu__filter-menu {
+    width: 100%;
+    left: -100%;
+    &--open {
+      left: 0;
     }
   }
+  .menu__filter-input {
+    max-width: 50%;
+  }
+  .category__filter-btn {
+    padding: 10rem 20rem;
+    height: 50rem;
+    font-size: 18rem;
+  }
+  .category__wrapper {
+    gap: 15rem;
+    .product-card {
+      width: calc((100% - 15rem) / 2);
+    }
+  }
+}
 </style>
