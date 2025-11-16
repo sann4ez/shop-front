@@ -124,7 +124,22 @@ const filters = ref([
   },
 ]);
 
-console.log(filters.value, "filter");
+
+//API
+const { data: variations } = await useAsyncData(
+  `variations`,
+  () =>
+    $fetch(`/shop/variations`, {
+      ...fetchOptions(),
+      query: {
+        category:slug,
+      },
+    }),
+);
+
+console.log(variations.value)
+
+// console.log(filters.value, "filter");
 </script>
 
 <template>

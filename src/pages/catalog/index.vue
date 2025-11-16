@@ -76,6 +76,18 @@ const categories = [
     image: "https://picsum.photos/seed/fence/300/200",
   },
 ];
+
+//API
+const { data: catalog } = await useAsyncData(
+  `catalog`,
+  () =>
+    $fetch(`/shop/categories`, {
+      ...fetchOptions(),
+    }),
+);
+
+console.log(catalog.value)
+
 </script>
 
 <template>

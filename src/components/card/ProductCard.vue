@@ -10,24 +10,23 @@ console.log(props.product)
 </script>
 
 <template>
-  <NuxtLink :to="`/product/${product.article}`" class="product-card">
-    <img :src="product.image" :alt="product.name" class="product-card__img" />
+  <NuxtLink :to="`/product/${product.slug}`" class="product-card">
+    <img v-if="product.images" :src="product.images[0].url" :alt="product.name" class="product-card__img" />
     <div class="product-content">
       <p class="product-card__article">{{ product.article }}</p>
       <h3 class="product-card__name">{{ product.name }}</h3>
 
       <div class="product-card__bottom">
         <div class="product-card__prices">
-          <span v-if="product.priceOld" class="product-card__price-old">
-            {{ product.priceOld }} ₴
+          <span v-if="product?.prices?.old" class="product-card__price-old">
+            {{ product.prices.old }} ₴
           </span>
-          <span class="product-card__price">{{ product.price }} ₴</span>
+          <span class="product-card__price">{{ product.prices.now }} ₴</span>
         </div>
 
         <button
           type="button"
           class="product-card__add-to-cart"
-          @click.prevent="$emit('add-to-cart', product)"
         >
           <svg class="icon product-card__icon" width="20" height="20">
             <use xlink:href="/images/sprite.svg#shopping-basket"></use>
