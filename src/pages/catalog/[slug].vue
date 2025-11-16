@@ -250,11 +250,11 @@ console.log(variations.value)
       </div>
     </section>
 
-    <section class="category__catalog">
+    <section v-if="variations?.data?.length > 0" class="category__catalog">
       <div class="container">
         <div class="category__wrapper">
           <CardProductCard
-            v-for="(item, index) in products"
+            v-for="(item, index) in variations?.data"
             :key="`item-${index}`"
             :product="item"
           />

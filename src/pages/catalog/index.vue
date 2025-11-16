@@ -101,13 +101,13 @@ console.log(catalog.value)
         <div class="catalog__content">
           <ul class="catalog__list">
             <li
-              v-for="category in categories"
+              v-for="category in catalog.data"
               :key="category.id"
               class="catalog__item"
             >
               <NuxtLink :to="`/catalog/${category.slug}`" class="catalog__link">
                 <img
-                  :src="category.image"
+                  :src="category.image.url"
                   :alt="category.name"
                   class="catalog__image"
                 />
