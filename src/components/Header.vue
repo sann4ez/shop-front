@@ -1,11 +1,10 @@
 <script setup lang="ts">
-
 const isMenuOpen = ref(false);
 const openDropdowns = ref<Record<string, boolean>>({});
 
-function toggleMenu(val : boolean) {
+function toggleMenu(val: boolean) {
   isMenuOpen.value = val;
-  scrollBody(val)
+  scrollBody(val);
 }
 
 function toggleDropdown(id: string) {
@@ -24,21 +23,20 @@ function toggleDropdown(id: string) {
         <div class="head">
           <button class="close-menu-btn" @click="toggleMenu(false)"></button>
         </div>
-
         <ul>
           <li class="dropdown" :class="{ active: openDropdowns['0'] }">
-            <NuxtLink to="/catalog"> каталог </NuxtLink>
+            <NuxtLink to="/catalog" @click="toggleMenu(false)"> каталог </NuxtLink>
             <svg class="icon" @click.stop="toggleDropdown('0')">
               <use xlink:href="/images/sprite.svg#arrow-down" />
             </svg>
 
             <ul class="sub-menu" :class="{ 'is-open': openDropdowns['0'] }">
               <li>
-                <a href="#"><span>Ворота</span></a>
+                <NuxtLink to="/" @click="toggleMenu(false)"><span>Ворота</span></NuxtLink>
               </li>
 
               <li class="dropdown" :class="{ active: openDropdowns['01'] }">
-                <a href="#"><span>Комплектуючі для воріт</span></a>
+                <NuxtLink @click="toggleMenu(false)" to="/"><span>Комплектуючі для воріт</span></NuxtLink>
                 <svg class="icon" @click.stop="toggleDropdown('01')">
                   <use xlink:href="/images/sprite.svg#arrow-down" />
                 </svg>
@@ -48,16 +46,16 @@ function toggleDropdown(id: string) {
                   :class="{ 'is-open': openDropdowns['01'] }"
                 >
                   <li>
-                    <a href="#"><span>Комплектуючі 1</span></a>
+                    <NuxtLink to="/"><span>Комплектуючі 1</span></NuxtLink>
                   </li>
                   <li>
-                    <a href="#"><span>Комплектуючі 2</span></a>
+                    <NuxtLink to="/"><span>Комплектуючі 2</span></NuxtLink>
                   </li>
                   <li
                     class="dropdown"
                     :class="{ active: openDropdowns['001'] }"
                   >
-                    <a href="#"><span>Комплектуючі 3</span></a>
+                    <NuxtLink to="/"><span>Комплектуючі 3</span></NuxtLink>
                     <svg class="icon" @click.stop="toggleDropdown('001')">
                       <use xlink:href="/images/sprite.svg#arrow-down" />
                     </svg>
@@ -66,36 +64,36 @@ function toggleDropdown(id: string) {
                       :class="{ 'is-open': openDropdowns['001'] }"
                     >
                       <li>
-                        <a href="#"><span>Комплектуючі 11</span></a>
+                        <NuxtLink to="/"><span>Комплектуючі 11</span></NuxtLink>
                       </li>
                       <li>
-                        <a href="#"><span>Комплектуючі 12</span></a>
+                        <NuxtLink to="/"><span>Комплектуючі 12</span></NuxtLink>
                       </li>
                       <li>
-                        <a href="#"><span>Комплектуючі 13</span></a>
+                        <NuxtLink to="/"><span>Комплектуючі 13</span></NuxtLink>
                       </li>
                       <li>
-                        <a href="#"><span>Комплектуючі 14</span></a>
+                        <NuxtLink to="/"><span>Комплектуючі 14</span></NuxtLink>
                       </li>
                       <li>
-                        <a href="#"><span>Комплектуючі 15</span></a>
+                        <NuxtLink to="/"><span>Комплектуючі 15</span></NuxtLink>
                       </li>
                     </ul>
                   </li>
                   <li>
-                    <a href="#"><span>Комплектуючі 4</span></a>
+                    <NuxtLink to="/"><span>Комплектуючі 4</span></NuxtLink>
                   </li>
                   <li>
-                    <a href="#"><span>Комплектуючі 5</span></a>
+                    <NuxtLink to="/"><span>Комплектуючі 5</span></NuxtLink>
                   </li>
                 </ul>
               </li>
 
               <li>
-                <a href="#"><span>Аксесуари</span></a>
+                <NuxtLink to="/"><span>Аксесуари</span></NuxtLink>
               </li>
               <li>
-                <a href="#"><span>Турнікети</span></a>
+                <NuxtLink to="/"><span>Турнікети</span></NuxtLink>
               </li>
             </ul>
           </li>
@@ -105,22 +103,22 @@ function toggleDropdown(id: string) {
           </li>
 
           <li class="dropdown" :class="{ active: openDropdowns['1'] }">
-            <a href="#">послуги</a>
+            <NuxtLink to="/">послуги</NuxtLink>
             <svg class="icon" @click.stop="toggleDropdown('1')">
               <use xlink:href="/images/sprite.svg#arrow-down" />
             </svg>
             <ul class="sub-menu" :class="{ 'is-open': openDropdowns['1'] }">
               <li>
-                <a href="#"><span>portfolio 1</span></a>
+                <NuxtLink to="/"><span>portfolio 1</span></NuxtLink>
               </li>
               <li>
-                <a href="#"><span>portfolio 2</span></a>
+                <NuxtLink to="/"><span>portfolio 2</span></NuxtLink>
               </li>
               <li>
-                <a href="#"><span>portfolio 3</span></a>
+                <NuxtLink to="/"><span>portfolio 3</span></NuxtLink>
               </li>
               <li class="dropdown" :class="{ active: openDropdowns['11'] }">
-                <a href="#"><span>portfolio 4</span></a>
+                <NuxtLink to="/"><span>portfolio 4</span></NuxtLink>
                 <svg class="icon" @click.stop="toggleDropdown('11')">
                   <use xlink:href="/images/sprite.svg#arrow-down" />
                 </svg>
@@ -129,36 +127,39 @@ function toggleDropdown(id: string) {
                   :class="{ 'is-open': openDropdowns['11'] }"
                 >
                   <li>
-                    <a href="#"><span>portfolio 11</span></a>
+                    <NuxtLink to="/"><span>portfolio 11</span></NuxtLink>
                   </li>
                   <li>
-                    <a href="#"><span>portfolio 12</span></a>
+                    <NuxtLink to="/"><span>portfolio 12</span></NuxtLink>
                   </li>
                   <li>
-                    <a href="#"><span>portfolio 13</span></a>
+                    <NuxtLink to="/"><span>portfolio 13</span></NuxtLink>
                   </li>
                   <li>
-                    <a href="#"><span>portfolio 14</span></a>
+                    <NuxtLink to="/"><span>portfolio 14</span></NuxtLink>
                   </li>
                   <li>
-                    <a href="#"><span>portfolio 15</span></a>
+                    <NuxtLink to="/"><span>portfolio 15</span></NuxtLink>
                   </li>
                 </ul>
               </li>
               <li>
-                <a href="#"><span>portfolio 5</span></a>
+                <NuxtLink to="/"><span>portfolio 5</span></NuxtLink>
               </li>
             </ul>
           </li>
-          <li><a href="#">новини</a></li>
-          <li><a href="#">контакти</a></li>
+          <li><NuxtLink to="/">новини</NuxtLink></li>
+          <li><NuxtLink to="/">контакти</NuxtLink></li>
         </ul>
       </nav>
 
-      <div @click="toggleMenu(false)" :class="{ 'active': isMenuOpen }" class="mebu__bg"></div>
+      <div
+        @click="toggleMenu(false)"
+        :class="{ active: isMenuOpen }"
+        class="mebu__bg"
+      ></div>
 
       <div class="header-right">
-
         <NuxtLink to="/cart" class="cart-btn icon-btn">
           <svg class="icon icon__cart">
             <use xlink:href="/images/sprite.svg#cart" />
@@ -191,12 +192,12 @@ a {
   width: 100%;
   border-bottom: 1px solid hsla(0, 0%, 100%, 0.2);
   z-index: 10;
-  .icon__cart{
+  .icon__cart {
     width: 30rem;
     height: 30rem;
   }
-  .mebu{
-    &__bg{
+  .mebu {
+    &__bg {
       position: fixed;
       top: 0;
       left: 0;
@@ -206,7 +207,7 @@ a {
       opacity: 0;
       transition: opacity 0.3s ease;
       pointer-events: none;
-      &.active{
+      &.active {
         opacity: 0.5;
         pointer-events: all;
       }

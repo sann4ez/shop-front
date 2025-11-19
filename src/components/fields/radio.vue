@@ -70,7 +70,7 @@ function changeValue(e) {
   font-weight: 500;
   font-style: normal;
   line-height: 100%;
-  color: $bg-color-brown;
+  color: $bg-color-low-black;
   input {
     display: none;
   }

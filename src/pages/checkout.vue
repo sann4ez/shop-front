@@ -6,7 +6,7 @@ const form = ref({
   city: "",
   street: "",
   comment: "",
-  delivery: "Нова пошта",
+  delivery: "Самовиніс",
   payment: "Монобанк",
 });
 </script>
@@ -38,24 +38,9 @@ const form = ref({
               <FieldsRadio
                 v-model="form.delivery"
                 name="delivery"
-                value="Нова пошта"
-                label="Нова пошта"
-              />
-              <FieldsRadio
-                v-model="form.delivery"
-                name="delivery"
                 value="Самовиніс"
                 label="Самовиніс"
               />
-              <FieldsRadio
-                v-model="form.delivery"
-                name="delivery"
-                value="УКР пошта"
-                label="УКР пошта"
-              />
-              <div class="checkout__form-block-info">
-                Вартість залежить від способу доставки та може змінюватись
-              </div>
               <div class="checkout__form-block__title">Спосіб оплати</div>
               <FieldsRadio
                 v-model="form.payment"

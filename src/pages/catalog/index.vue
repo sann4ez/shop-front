@@ -76,6 +76,18 @@ const categories = [
     image: "https://picsum.photos/seed/fence/300/200",
   },
 ];
+
+//API
+const { data: catalog } = await useAsyncData(
+  `catalog`,
+  () =>
+    $fetch(`/shop/categories`, {
+      ...fetchOptions(),
+    }),
+);
+
+console.log(catalog.value)
+
 </script>
 
 <template>
@@ -89,13 +101,13 @@ const categories = [
         <div class="catalog__content">
           <ul class="catalog__list">
             <li
-              v-for="category in categories"
+              v-for="category in catalog.data"
               :key="category.id"
               class="catalog__item"
             >
               <NuxtLink :to="`/catalog/${category.slug}`" class="catalog__link">
                 <img
-                  :src="category.image"
+                  :src="category.image.url"
                   :alt="category.name"
                   class="catalog__image"
                 />

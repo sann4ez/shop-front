@@ -38,10 +38,6 @@ const thumbsSwiper = ref(null);
   <main class="main">
     <div class="container">
       <div class="product">
-        <div class="product__name">
-          Настільна керамічна лампа з декоративною основою та текстильним
-          абажуром кольору молочного льону для спальні та вітальні
-        </div>
         <div class="product__wrapper">
           <div class="product__wrapper-right">
             <Swiper
@@ -71,7 +67,11 @@ const thumbsSwiper = ref(null);
               watchSlidesProgress
               class="product__thumbs-swiper"
             >
-              <SwiperSlide v-for="(slide, index) in slides" :key="index" class="product__thumbs-swiper-slide">
+              <SwiperSlide
+                v-for="(slide, index) in slides"
+                :key="index"
+                class="product__thumbs-swiper-slide"
+              >
                 <img
                   :src="slide"
                   alt="Slide image"
@@ -81,6 +81,10 @@ const thumbsSwiper = ref(null);
             </Swiper>
           </div>
           <div class="product__wrapper-left">
+            <div class="product__name">
+              Настільна керамічна лампа з декоративною основою та текстильним
+              абажуром кольору молочного льону для спальні та вітальні
+            </div>
             <div class="product__sku">
               <div class="product__sku-name">Артикул :</div>
               <div class="product__sku-value">2312311</div>
@@ -157,36 +161,35 @@ const thumbsSwiper = ref(null);
   margin-top: 30rem;
   margin-bottom: 50rem;
 
-  &__thumbs{
-    &-swiper{
-      &-slide{
-        width: 100rem!important;
-        height: 100rem!important;
+  &__thumbs {
+    &-swiper {
+      &-slide {
+        width: 100rem !important;
+        height: 100rem !important;
       }
-      &-image{
+      &-image {
         width: 100%;
         height: 100%;
         object-fit: cover;
       }
     }
   }
-&__swiper{
-  margin-bottom: 20rem;
-  &__slide{
-    width:calc(50% - 5rem) ;
-    height: auto;
-    min-height: 350rem;
+  &__swiper {
+    margin-bottom: 20rem;
+    &__slide {
+      width: calc(50% - 5rem);
+      height: auto;
+      min-height: 350rem;
+    }
+    &-image {
+      width: 100%;
+      height: auto;
+      min-height: 350rem;
+      object-fit: cover;
+    }
   }
-  &-image{
-    width: 100%;
-    height: auto;
-    min-height: 350rem;
-    object-fit: cover;
-  }
-}
 
-
-  &__manager{
+  &__manager {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -266,8 +269,8 @@ const thumbsSwiper = ref(null);
     display: flex;
     flex-direction: row;
     gap: 10rem;
-    &-right{
-      max-width:calc(60% - 5rem);
+    &-right {
+      max-width: calc(60% - 5rem);
     }
     &-left {
       display: flex;
@@ -295,9 +298,9 @@ const thumbsSwiper = ref(null);
 }
 @media (max-width: 991px) {
   .product {
-    &__wrapper{
+    &__wrapper {
       flex-direction: column;
-      &-right{
+      &-right {
         max-width: 100%;
       }
     }
