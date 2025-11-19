@@ -1,41 +1,25 @@
 <script setup>
-const products = [
-  {
-    name: "Сучасний металевий стілець",
-    price: 1200,
-    priceOld: 1400,
-    article: "ART-0001",
-    image: "https://picsum.photos/300/300?1",
-  },
-  {
-    name: "Великий обідній стіл з натурального дуба на 6 персон із захисним лакованим покриттям та масивними ніжками",
-    price: 1500,
-    priceOld: 1600,
-    article: "ART-0002",
-    image: "https://picsum.photos/300/300?2",
-  },
-  {
-    name: "Настільна керамічна лампа з декоративною основою та текстильним абажуром кольору молочного льону для спальні та вітальні",
-    price: 1000,
-    priceOld: 1300,
-    article: "ART-0003",
-    image: "https://picsum.photos/300/300?3",
-  },
-  {
-    name: "Комплект кухонних ножів",
-    price: 1800,
-    priceOld: 1950,
-    article: "ART-0004",
-    image: "https://picsum.photos/300/300?4",
-  },
-  {
-    name: "Великий двосторонній плед із мікрофібри з утепленим шаром для спальні та вітальні, розмір 220x240 см, колір світло-бежевий",
-    price: 2000,
-    priceOld: 0,
-    article: "ART-0005",
-    image: "https://picsum.photos/300/300?5",
-  },
-];
+import { useBasketStore } from "@/store/basket";
+
+const basket = useBasketStore();
+
+const quantity = ref(1);
+
+await basket.fetchCart();
+
+
+const changeQuantity = (item, newValue) => {
+  const oldValue = item.quantity;
+
+  if (newValue > oldValue) {
+    // Кількість збільшили
+    basket.addToCart(item.variation.id, newValue - oldValue);
+  } else if (newValue < oldValue) {
+    // Кількість зменшили
+    basket.removeToCart(item.id, oldValue - newValue);
+  }
+};
+
 </script>
 
 <template>
@@ -43,35 +27,48 @@ const products = [
     <div class="container">
       <div class="cart">
         <h1 class="cart__title">Кошик</h1>
-        <div v-if="products.length" class="cart__wrapper">
+        <div
+          v-if="basket.cart?.data?.purchases?.length > 0"
+          class="cart__wrapper"
+        >
           <div
-            v-for="(item, index) in products"
-            :key="`cart-product-${index}`"
+            v-for="item in basket.cart.data.purchases"
+            :key="`cart-product-${item.id}`"
             class="cart__item"
           >
             <div class="cart__item-wrapper">
-              <img :src="item.image" :alt="item.name" class="cart__item-img" />
+              <img
+                :src="item.variation.images[0].url"
+                :alt="item.variation.name"
+                class="cart__item-img"
+              />
 
-              <div class="cart__item-name">{{ item.name }}</div>
+              <div class="cart__item-name">{{ item.variation.name }}</div>
 
               <div class="product-card__prices cart__item-prices">
-                <span v-if="item.priceOld" class="product-card__price-old">
-                  {{ item.priceOld }} ₴
-                </span>
-                <span class="product-card__price">{{ item.price }} ₴</span>
+                <span class="product-card__price">{{ item.total }} ₴</span>
               </div>
-              <InputCount :value="1" :max="10" />
+              <InputCount
+                :value="item.quantity"
+                :max="item.variation.stock_qty"
+                @update:modelValue="changeQuantity(item, $event)"
+              />
             </div>
-            <button class="cart__item-btn"></button>
+            <button @click="basket.removeToCart(item.id, 0);" class="cart__item-btn"></button>
           </div>
         </div>
         <div v-else class="cart__wrapper cart__wrapper-emp">
           <span>Ваш кошик порожній.</span>
           <span>Зробити покупку</span>
-          
+
           <NuxtLink to="/catalog" class="cart__btn">Каталог</NuxtLink>
         </div>
-        <NuxtLink v-if="products.length" to="/checkout" class="cart__btn">Оформити замовлення</NuxtLink>
+        <NuxtLink
+          v-if="cart?.data?.purchases?.length > 0"
+          to="/checkout"
+          class="cart__btn"
+          >Оформити замовлення</NuxtLink
+        >
       </div>
     </div>
   </main>
@@ -100,11 +97,11 @@ const products = [
     display: flex;
     flex-direction: column;
     gap: 15rem;
-    &-emp{
+    &-emp {
       align-items: center;
-      span{
+      span {
         font-size: 26rem;
-        font-weight:600;
+        font-weight: 600;
       }
     }
   }

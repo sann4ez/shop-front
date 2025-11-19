@@ -13,6 +13,7 @@ type T = {};
 export function fetchOptions() {
   const config = useRuntimeConfig();
   const access_token = useCookie("access_token", { maxAge: 60 * 60 * 24 * 30 });
+  const cartId = useCookie("cartId" , { maxAge: 60 * 60 * 24 * 30 })
   const rawHeaders = useRequestHeaders();
 
   const defaults: UseFetchOptions<T> = {
@@ -24,6 +25,7 @@ export function fetchOptions() {
       "X-Forwarded-For": rawHeaders["x-forwarded-for"],
       "X-Real-Ip": rawHeaders["x-real-ip"],
       sHost: "Ferromi",
+      sCart: cartId.value,
     },
 
     onResponseError({ request, response, options }) {

@@ -1,4 +1,10 @@
 <script setup>
+
+
+import { useBasketStore } from "@/store/basket";
+
+const basket = useBasketStore();
+
 const props = defineProps({
   product: {
     type: Object,
@@ -10,11 +16,14 @@ console.log(props.product)
 </script>
 
 <template>
-  <NuxtLink :to="`/product/${product.slug}`" class="product-card">
-    <img v-if="product.images" :src="product.images[0].url" :alt="product.name" class="product-card__img" />
+  <div class="product-card">
+    <NuxtLink v-if="product.images" :to="`/product/${product.slug}`">
+
+      <img :src="product.images[0].url" :alt="product.name" class="product-card__img" />
+    </NuxtLink>
     <div class="product-content">
       <p class="product-card__article">{{ product.article }}</p>
-      <h3 class="product-card__name">{{ product.name }}</h3>
+      <NuxtLink :to="`/product/${product.slug}`" class="product-card__name">{{ product.name }}</NuxtLink>
 
       <div class="product-card__bottom">
         <div class="product-card__prices">
@@ -27,6 +36,7 @@ console.log(props.product)
         <button
           type="button"
           class="product-card__add-to-cart"
+          @click="basket.addToCart(product.id, 1)"
         >
           <svg class="icon product-card__icon" width="20" height="20">
             <use xlink:href="/images/sprite.svg#shopping-basket"></use>
@@ -34,7 +44,7 @@ console.log(props.product)
         </button>
       </div>
     </div>
-  </NuxtLink>
+  </div>
 </template>
 
 <style scoped lang="scss">

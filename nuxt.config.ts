@@ -16,6 +16,7 @@ export default defineNuxtConfig({
     "@nuxt/fonts",
     "dayjs-nuxt",
     "nuxt-typed-router",
+     "@pinia/nuxt",
     "nuxt-easy-lightbox",
   ],
   fonts: {

@@ -104,6 +104,7 @@ function emitNumber() {
     margin-top: 0;
   }
   .input input {
+    pointer-events: none;
     padding: 0;
     border: none;
   }

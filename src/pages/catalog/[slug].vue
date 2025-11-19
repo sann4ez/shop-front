@@ -1,145 +1,90 @@
 <script setup>
-// Отримуємо slug категорії з маршруту
+import { ref, reactive, computed } from "vue";
+import { useRoute } from "vue-router";
+
+// Поточний маршрут
 const route = useRoute();
 const slug = route.params.slug;
 
-// Тимчасові тестові категорії
-const categories = [
-  { slug: "vorota", name: "Ворота" },
-  { slug: "rolety", name: "Ролети" },
-  { slug: "parkanni-systemy", name: "Парканні системи" },
-];
+const isOpen = ref(false);
 
-// Знаходимо поточну категорію
-const category = computed(
-  () =>
-    categories.find((c) => c.slug === slug) ?? { name: "Невідома категорія" }
+const priceFrom = ref(null);
+const priceTo = ref(null);
+
+const selectedFacets = reactive({});
+
+const variations = ref([]);
+const { data: facet } = await useAsyncData("facet", () =>
+  $fetch("/shop/variations/facet", { ...fetchOptions() })
 );
 
-// Анімація на Фільтр
-const isOpen = ref(false);
+const { data: entity } = await useAsyncData("entity", () =>
+  $fetch(`/app/slug/${slug}`, { ...fetchOptions() })
+);
 
 function openMenu() {
   isOpen.value = true;
   scrollBody(true);
 }
-
 function closeMenu() {
   isOpen.value = false;
   scrollBody(false);
 }
 
-const products = [
-  {
-    name: "Сучасний металевий стілець",
-    price: 1200,
-    priceOld: 1400,
-    article: "ART-0001",
-    image: "https://picsum.photos/300/300?1",
-  },
-  {
-    name: "Великий обідній стіл з натурального дуба на 6 персон із захисним лакованим покриттям та масивними ніжками",
-    price: 1500,
-    priceOld: 1600,
-    article: "ART-0002",
-    image: "https://picsum.photos/300/300?2",
-  },
-  {
-    name: "Настільна керамічна лампа з декоративною основою та текстильним абажуром кольору молочного льону для спальні та вітальні",
-    price: 1000,
-    priceOld: 1300,
-    article: "ART-0003",
-    image: "https://picsum.photos/300/300?3",
-  },
-  {
-    name: "Комплект кухонних ножів",
-    price: 1800,
-    priceOld: 1950,
-    article: "ART-0004",
-    image: "https://picsum.photos/300/300?4",
-  },
-  {
-    name: "Великий двосторонній плед із мікрофібри з утепленим шаром для спальні та вітальні, розмір 220x240 см, колір світло-бежевий",
-    price: 2000,
-    priceOld: 0,
-    article: "ART-0005",
-    image: "https://picsum.photos/300/300?5",
-  },
-];
+function toggleFacet(categorySlug, value, isChecked) {
+  if (!selectedFacets[categorySlug]) selectedFacets[categorySlug] = [];
 
-const filters = ref([
-  {
-    name: "Колір",
-    properties: [
-      { name: "Червоний" },
-      { name: "Синій" },
-      { name: "Зелений" },
-      { name: "Жовтий" },
-    ],
-  },
-  {
-    name: "Колір",
-    properties: [
-      { name: "Червоний" },
-      { name: "Синій" },
-      { name: "Зелений" },
-      { name: "Жовтий" },
-    ],
-  },
-  {
-    name: "Колір",
-    properties: [
-      { name: "Червоний" },
-      { name: "Синій" },
-      { name: "Зелений" },
-      { name: "Жовтий" },
-    ],
-  },
-  {
-    name: "Колір",
-    properties: [
-      { name: "Червоний" },
-      { name: "Синій" },
-      { name: "Зелений" },
-      { name: "Жовтий" },
-    ],
-  },
-  {
-    name: "Колір",
-    properties: [
-      { name: "Червоний" },
-      { name: "Синій" },
-      { name: "Зелений" },
-      { name: "Жовтий" },
-    ],
-  },
-  {
-    name: "Колір",
-    properties: [
-      { name: "Червоний" },
-      { name: "Синій" },
-      { name: "Зелений" },
-      { name: "Жовтий" },
-    ],
-  },
-]);
+  if (isChecked) {
+    if (!selectedFacets[categorySlug].includes(value))
+      selectedFacets[categorySlug].push(value);
+  } else {
+    selectedFacets[categorySlug] = selectedFacets[categorySlug].filter(
+      (v) => v !== value
+    );
+  }
+}
 
+function buildQueryParams() {
+  const queryParams = { category: slug };
 
-//API
-const { data: variations } = await useAsyncData(
-  `variations`,
-  () =>
-    $fetch(`/shop/variations`, {
-      ...fetchOptions(),
-      query: {
-        category:slug,
-      },
-    }),
-);
+  if (priceFrom.value) queryParams.price_from = priceFrom.value;
+  if (priceTo.value) queryParams.price_to = priceTo.value;
 
-console.log(variations.value)
+  Object.keys(selectedFacets).forEach((cat) => {
+    selectedFacets[cat].forEach((val, idx) => {
+      queryParams[`facet[${cat}][${idx}]`] = val;
+    });
+  });
 
-// console.log(filters.value, "filter");
+  return queryParams;
+}
+
+async function refreshVariations() {
+  const queryParams = buildQueryParams();
+
+  const data = await $fetch("/shop/variations", {
+    ...fetchOptions(),
+    query: queryParams,
+  });
+
+  variations.value = data;
+}
+
+async function applyFilters() {
+  await refreshVariations();
+  closeMenu();
+}
+
+async function resetFilters() {
+  Object.keys(selectedFacets).forEach((key) => (selectedFacets[key] = []));
+  priceFrom.value = null;
+  priceTo.value = null;
+
+  await refreshVariations();
+  closeMenu();
+}
+
+await refreshVariations();
 </script>
 
 <template>
@@ -147,7 +92,7 @@ console.log(variations.value)
     <section class="category-top">
       <div class="container">
         <div class="category-top__header">
-          <h1 class="category__title section__title">{{ category.name }}</h1>
+          <h1 class="category__title section__title">{{ entity?.data?.name || "Категорія" }}</h1>
 
           <div class="category__controls">
             <div class="category__filter">
@@ -156,7 +101,6 @@ console.log(variations.value)
               </button>
             </div>
           </div>
-
           <transition name="slide-left">
             <div
               class="menu__filter-menu"
@@ -178,20 +122,31 @@ console.log(variations.value)
                 <div class="menu__filter-wrapper">
                   <ul class="menu__filter-list">
                     <li
-                      v-for="(item, index) in filters"
+                      v-for="(group, index) in facet.attributes"
                       :key="`filter-collaps-${index}`"
                       class="menu__filter-item"
                     >
                       <Collaps :pre-open="true">
-                        <template #label> {{ item.name }} </template>
+                        <template #label>{{ group.name }}</template>
                         <template #body>
                           <ul class="menu__filter-dropdown-list">
                             <li
-                              v-for="(item, index) in item.properties"
-                              :key="index"
+                              v-for="(prop, idx) in group.properties"
+                              :key="idx"
                               class="menu__filter-dropdown-item"
                             >
-                              <FieldsCheckbox :label="item.name" />
+                              <FieldsCheckbox
+                                :label="prop.value"
+                                :modelValue="
+                                  selectedFacets[group.slug]?.includes(
+                                    prop.slug
+                                  )
+                                "
+                                @update:modelValue="
+                                  (val) =>
+                                    toggleFacet(group.slug, prop.slug, val)
+                                "
+                              />
                             </li>
                           </ul>
                         </template>
@@ -201,7 +156,7 @@ console.log(variations.value)
                   </ul>
 
                   <Collaps :pre-open="true">
-                    <template #label>Ціна </template>
+                    <template #label>Ціна</template>
                     <template #body>
                       <div class="menu__filter-dropdown">
                         <ul class="menu__filter-dropdown-list">
@@ -234,13 +189,19 @@ console.log(variations.value)
               </div>
 
               <div class="menu__filter-footer">
-                <button type="button" class="filter-btn filter-btn--apply">
+                <button
+                  @click="applyFilters"
+                  type="button"
+                  class="filter-btn filter-btn--apply"
+                >
                   Застосувати
                 </button>
-
                 <hr class="menu__filter-line" />
-
-                <button type="button" class="filter-btn filter-btn--reset">
+                <button
+                  @click="resetFilters"
+                  type="button"
+                  class="filter-btn filter-btn--reset"
+                >
                   Скинути
                 </button>
               </div>
@@ -261,6 +222,7 @@ console.log(variations.value)
         </div>
       </div>
     </section>
+
     <div
       class="menu__filter-overlay"
       :class="{ active: isOpen }"
@@ -268,7 +230,6 @@ console.log(variations.value)
     ></div>
   </main>
 </template>
-
 <style scoped lang="scss">
 .icon {
   fill: #fff;

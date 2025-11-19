@@ -1,7 +1,14 @@
 <script setup>
+//imports
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { Navigation, Thumbs } from "swiper/modules";
+import { useBasketStore } from "@/store/basket";
 
+const basket = useBasketStore();
+
+//variables
+const route = useRoute();
+const slug = route.params.slug;
 const productInfo = [
   { name: "Тип товару", value: "Настільна лампа" },
   { name: "Матеріал основи", value: "Кераміка" },
@@ -18,20 +25,19 @@ const productInfo = [
   { name: "Додаткові особливості", value: "Зручний вимикач на шнурі" },
   { name: "Країна виробник", value: "Україна" },
 ];
-
-const slides = [
-  "https://picsum.photos/id/1015/1920/800",
-  "https://picsum.photos/id/1016/1920/800",
-  "https://picsum.photos/id/1018/1920/800",
-  "https://picsum.photos/id/1020/1920/800",
-  "https://picsum.photos/id/1015/1920/800",
-  "https://picsum.photos/id/1016/1920/800",
-  "https://picsum.photos/id/1018/1920/800",
-  "https://picsum.photos/id/1020/1920/800",
-];
+const quantity = ref(1);
 
 const activeTab = ref("description");
 const thumbsSwiper = ref(null);
+//API
+
+const { data: product } = await useAsyncData(`product`, () =>
+  $fetch(`/shop/variations/${slug}`, {
+    ...fetchOptions(),
+  })
+);
+
+console.log(product.value);
 </script>
 
 <template>
@@ -39,7 +45,10 @@ const thumbsSwiper = ref(null);
     <div class="container">
       <div class="product">
         <div class="product__wrapper">
-          <div class="product__wrapper-right">
+          <div
+            v-if="product?.data?.product?.images.length > 0"
+            class="product__wrapper-right"
+          >
             <Swiper
               :modules="[Navigation, Thumbs]"
               :slides-per-view="1"
@@ -49,12 +58,12 @@ const thumbsSwiper = ref(null);
               class="product__swiper"
             >
               <SwiperSlide
-                v-for="(slide, index) in slides"
+                v-for="(slide, index) in product.data.product.images"
                 :key="index"
                 class="product__swiper__slide"
               >
                 <img
-                  :src="slide"
+                  :src="slide.url"
                   alt="Slide image"
                   class="product__swiper-image"
                 />
@@ -68,12 +77,12 @@ const thumbsSwiper = ref(null);
               class="product__thumbs-swiper"
             >
               <SwiperSlide
-                v-for="(slide, index) in slides"
+                v-for="(slide, index) in product.data.product.images"
                 :key="index"
                 class="product__thumbs-swiper-slide"
               >
                 <img
-                  :src="slide"
+                  :src="slide.url"
                   alt="Slide image"
                   class="product__thumbs-swiper-image"
                 />
@@ -82,16 +91,38 @@ const thumbsSwiper = ref(null);
           </div>
           <div class="product__wrapper-left">
             <div class="product__name">
-              Настільна керамічна лампа з декоративною основою та текстильним
-              абажуром кольору молочного льону для спальні та вітальні
+              {{ product.data.name }}
             </div>
             <div class="product__sku">
               <div class="product__sku-name">Артикул :</div>
-              <div class="product__sku-value">2312311</div>
+              <div class="product__sku-value">{{ product.data.sku }}</div>
+            </div>
+            <div class="product__price">
+              <div class="product__sku-name">Ціна :</div>
+              <div class="product__price-wrapper">
+                <span class="product-card__price"
+                  >{{ product?.data?.prices?.now }} ₴</span
+                >
+                <span
+                  v-if="product?.data?.prices?.old"
+                  class="product-card__price-old"
+                >
+                  {{ product?.data?.prices?.old }} ₴
+                </span>
+              </div>
             </div>
             <div class="product__action">
-              <InputCount :value="1" :max="10" />
-              <button class="product__buy">до кошика</button>
+              <InputCount
+                v-model="quantity"
+                :value="1"
+                :max="product.data.stock_qty"
+              />
+              <button
+                @click="basket.addToCart(product.data.id, quantity)"
+                class="product__buy"
+              >
+                до кошика
+              </button>
             </div>
             <div class="product__line"></div>
             <div class="product__manager">
@@ -119,20 +150,11 @@ const thumbsSwiper = ref(null);
               Характеристика
             </button>
           </div>
-          <div v-show="activeTab === 'description'" class="typography">
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet
-              vitae facilis sapiente necessitatibus quod ut alias adipisci,
-              totam cumque earum delectus odio magnam sit? Commodi excepturi
-              asperiores voluptatibus velit! Quibusdam!
-            </p>
-            <p>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quos
-              aspernatur, consequuntur architecto, quo necessitatibus numquam,
-              laborum labore nobis culpa animi repudiandae earum commodi tempora
-              quia illo incidunt doloribus unde fugit.
-            </p>
-          </div>
+          <div
+            v-show="activeTab === 'description'"
+            class="typography"
+            v-html="product.data.product.body"
+          ></div>
           <div
             v-show="activeTab === 'characteristics'"
             class="product__info-block"
@@ -160,6 +182,28 @@ const thumbsSwiper = ref(null);
   gap: 30rem;
   margin-top: 30rem;
   margin-bottom: 50rem;
+
+  &__price {
+    display: flex;
+    flex-direction: row;
+    .product__sku-name {
+      margin-right: 40rem;
+    }
+    &-wrapper {
+      display: flex;
+      gap: 10rem;
+      .product-card__price-old {
+        font-size: 14rem;
+        font-weight: 500;
+        text-decoration: line-through;
+      }
+      .product-card__price {
+        font-size: 18rem;
+        font-weight: 500;
+        color: $text-color-brown;
+      }
+    }
+  }
 
   &__thumbs {
     &-swiper {
@@ -255,6 +299,7 @@ const thumbsSwiper = ref(null);
     display: flex;
     flex-direction: row;
     gap: 5rem;
+    align-items: baseline;
     &-name {
       color: $bg-color-brown;
       font-size: 18rem;
