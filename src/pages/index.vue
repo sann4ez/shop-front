@@ -41,87 +41,6 @@ const nextEl = ref(null);
 const prevEl = ref(null);
 
 
-
-// Дані з API
-const slides = [
-  "https://picsum.photos/id/1015/1920/800",
-  "https://picsum.photos/id/1016/1920/800",
-  "https://picsum.photos/id/1018/1920/800",
-  "https://picsum.photos/id/1020/1920/800",
-];
-
-const products = [
-  {
-    name: "Сучасний металевий стілець",
-    price: 1200,
-    priceOld: 1400,
-    article: "ART-0001",
-    image: "https://picsum.photos/300/300?1",
-  },
-  {
-    name: "Великий обідній стіл з натурального дуба на 6 персон із захисним лакованим покриттям та масивними ніжками",
-    price: 1500,
-    priceOld: 1600,
-    article: "ART-0002",
-    image: "https://picsum.photos/300/300?2",
-  },
-  {
-    name: "Настільна керамічна лампа з декоративною основою та текстильним абажуром кольору молочного льону для спальні та вітальні",
-    price: 1000,
-    priceOld: 1300,
-    article: "ART-0003",
-    image: "https://picsum.photos/300/300?3",
-  },
-  {
-    name: "Комплект кухонних ножів",
-    price: 1800,
-    priceOld: 1950,
-    article: "ART-0004",
-    image: "https://picsum.photos/300/300?4",
-  },
-  {
-    name: "Великий двосторонній плед із мікрофібри з утепленим шаром для спальні та вітальні, розмір 220x240 см, колір світло-бежевий",
-    price: 2000,
-    priceOld: 0,
-    article: "ART-0005",
-    image: "https://picsum.photos/300/300?5",
-  },
-];
-
-const our_services = [
-  {
-    name: "Доставка по Україні",
-    img: "https://picsum.photos/1920/1080?1",
-    link: "#",
-  },
-  {
-    name: "Монтаж та встановлення",
-    img: "https://picsum.photos/1600/800?2",
-    link: "#",
-  },
-  {
-    name: "Гарантія та сервіс",
-    img: "https://picsum.photos/300/300?3",
-    link: "#",
-  },
-  {
-    name: "Безкоштовна консультація",
-    img: "https://picsum.photos/300/300?4",
-    link: "#",
-  },
-  {
-    name: "Індивідуальне замовлення",
-    img: "https://picsum.photos/300/300?5",
-    link: "#",
-  },
-  {
-    name: "Оплата онлайн",
-    img: "https://picsum.photos/300/300?6",
-    link: "#",
-  },
-];
-
-
 //API
 const { data: page } = await useAsyncData(
   `home`,
@@ -141,7 +60,6 @@ const { data: page } = await useAsyncData(
   }
 );
 
-console.log(page.value);
 
 </script>
 

@@ -21,7 +21,6 @@ const { data: product } = await useAsyncData(`product`, () =>
   })
 );
 
-console.log(product.value);
 </script>
 
 <template>

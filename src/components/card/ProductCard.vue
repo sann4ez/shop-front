@@ -12,7 +12,6 @@ const props = defineProps({
   },
 });
 
-console.log(props.product)
 </script>
 
 <template>

@@ -86,7 +86,6 @@ const { data: catalog } = await useAsyncData(
     }),
 );
 
-console.log(catalog.value)
 
 </script>
 
