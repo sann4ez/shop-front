@@ -211,7 +211,7 @@ await refreshVariations();
       </div>
     </section>
 
-    <section v-if="variations?.data?.length > 0" class="category__catalog">
+    <section v-show="variations?.data?.length > 0" class="category__catalog">
       <div class="container">
         <div class="category__wrapper">
           <CardProductCard
@@ -219,6 +219,13 @@ await refreshVariations();
             :key="`item-${index}`"
             :product="item"
           />
+        </div>
+      </div>
+    </section>
+    <section v-show="!variations?.data?.length > 0" class="category__catalog">
+      <div class="container">
+        <div class="category__catalog-emp">
+          Упс, нічого не знайдено
         </div>
       </div>
     </section>
@@ -279,6 +286,14 @@ await refreshVariations();
 
 .category__catalog {
   padding: 40rem 0;
+  &-emp{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20rem;
+    font-weight: 400;
+    
+  }
 }
 
 .category__filter-btn {

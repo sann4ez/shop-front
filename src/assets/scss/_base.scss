@@ -25,6 +25,13 @@ a {
   color: $text-color-low_black;
 }
 
+.errors{
+  margin-top: 10rem;
+  p{
+    color: $red;
+  }
+}
+
 .text {
   color: $text-color-low_black;
 }

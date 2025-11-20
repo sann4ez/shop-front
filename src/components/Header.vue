@@ -1,15 +1,23 @@
-<script setup lang="ts">
-const isMenuOpen = ref(false);
-const openDropdowns = ref<Record<string, boolean>>({});
+<script setup>
+import { useBasketStore } from "@/store/basket";
 
-function toggleMenu(val: boolean) {
+const basket = useBasketStore();
+const isMenuOpen = ref(false);
+const openDropdowns = ref({});
+
+function toggleMenu(val) {
   isMenuOpen.value = val;
   scrollBody(val);
 }
 
-function toggleDropdown(id: string) {
+function toggleDropdown(id) {
   openDropdowns.value[id] = !openDropdowns.value[id];
 }
+
+onMounted(() => {
+  basket.fetchCart()
+});
+
 </script>
 
 <template>
@@ -164,6 +172,7 @@ function toggleDropdown(id: string) {
           <svg class="icon icon__cart">
             <use xlink:href="/images/sprite.svg#cart" />
           </svg>
+          <div v-show="basket.cartCount > 0" class="cart-btn__count">{{ basket.cartCount }}</div>
         </NuxtLink>
 
         <button type="button" class="open-menu-btn" @click="toggleMenu(true)">
@@ -177,6 +186,24 @@ function toggleDropdown(id: string) {
 </template>
 
 <style scoped lang="scss">
+.cart-btn{
+  position: relative;
+  &__count{
+    position: absolute;
+    top: -5rem;
+    right: -10rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20rem;
+    min-height: 20rem;
+    aspect-ratio: 1/1;
+    background-color: $bg-color-grey;
+    color: $bg-color-white;
+    
+    border-radius:50% ;
+  }
+}
 a {
   transition: color 0.2s ease-in;
 

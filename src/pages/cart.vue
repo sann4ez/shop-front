@@ -3,8 +3,6 @@ import { useBasketStore } from "@/store/basket";
 
 const basket = useBasketStore();
 
-const quantity = ref(1);
-
 await basket.fetchCart();
 
 
@@ -12,13 +10,12 @@ const changeQuantity = (item, newValue) => {
   const oldValue = item.quantity;
 
   if (newValue > oldValue) {
-    // Кількість збільшили
     basket.addToCart(item.variation.id, newValue - oldValue);
   } else if (newValue < oldValue) {
-    // Кількість зменшили
     basket.removeToCart(item.id, oldValue - newValue);
   }
 };
+
 
 </script>
 
@@ -64,7 +61,7 @@ const changeQuantity = (item, newValue) => {
           <NuxtLink to="/catalog" class="cart__btn">Каталог</NuxtLink>
         </div>
         <NuxtLink
-          v-if="cart?.data?.purchases?.length > 0"
+          v-if="basket.cart?.data?.purchases?.length > 0"
           to="/checkout"
           class="cart__btn"
           >Оформити замовлення</NuxtLink

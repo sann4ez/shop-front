@@ -1,14 +1,15 @@
 export const useBasketStore = defineStore("basket", () => {
   const cartId = useCookie("cartId", { default: () => null });
-  const cart = ref(null); // тут буде весь кошик
+  const cart = ref(null);
+  const cartCount = ref(null);
 
   const fetchCart = async () => {
     try {
       const data = await $fetch(`/cart`, {
         ...fetchOptions(),
       });
-
       cart.value = data;
+      cartCount.value = data?.data?.purchases?.length
       return data;
     } catch (error) {
       console.error("fetchCart error:", error);
@@ -54,6 +55,7 @@ export const useBasketStore = defineStore("basket", () => {
     cart,
     fetchCart,
     addToCart,
-removeToCart,
+    removeToCart,
+    cartCount,
   };
 });

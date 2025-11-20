@@ -9,22 +9,6 @@ const basket = useBasketStore();
 //variables
 const route = useRoute();
 const slug = route.params.slug;
-const productInfo = [
-  { name: "Тип товару", value: "Настільна лампа" },
-  { name: "Матеріал основи", value: "Кераміка" },
-  { name: "Матеріал абажура", value: "Текстиль" },
-  { name: "Колір абажура", value: "Молочний льон" },
-  { name: "Стиль", value: "Класичний / Сучасний" },
-  { name: "Призначення", value: "Для спальні та вітальні" },
-  { name: "Тип цоколя", value: "E27" },
-  { name: "Кількість лампочок", value: "1" },
-  { name: "Максимальна потужність лампи", value: "60 Вт" },
-  { name: "Напруга", value: "220 В" },
-  { name: "Розміри", value: "Висота 40 см, діаметр абажура 25 см" },
-  { name: "Живлення", value: "Від електромережі" },
-  { name: "Додаткові особливості", value: "Зручний вимикач на шнурі" },
-  { name: "Країна виробник", value: "Україна" },
-];
 const quantity = ref(1);
 
 const activeTab = ref("description");
@@ -161,12 +145,12 @@ console.log(product.value);
           >
             <ul class="product__info-ul">
               <li
-                v-for="(item, index) in productInfo"
+                v-for="(item, index) in product.data.specification"
                 :key="`product-info-${index}`"
                 class="product__info-li"
               >
-                <div class="product__info-char">{{ item.name }}</div>
-                <div class="product__info-value">{{ item.value }}</div>
+                <div class="product__info-char">{{ item.attribute.name }}</div>
+                <div class="product__info-value">{{ item.property.value }}</div>
               </li>
             </ul>
           </div>
