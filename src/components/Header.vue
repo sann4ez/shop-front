@@ -10,10 +10,6 @@ function toggleMenu(val) {
   scrollBody(val);
 }
 
-function toggleDropdown(id) {
-  openDropdowns.value[id] = !openDropdowns.value[id];
-}
-
 onMounted(() => {
   basket.fetchCart()
 });
@@ -24,7 +20,7 @@ onMounted(() => {
   <header class="header">
     <div class="container">
       <NuxtLink to="/" class="logo">
-        <img src="../public/favicon.ico" alt="logo" />
+        <img src="../public/logo.png" alt="logo" />
       </NuxtLink>
 
       <nav class="menu" :class="{ open: isMenuOpen }">
@@ -34,129 +30,12 @@ onMounted(() => {
         <ul>
           <li class="dropdown" :class="{ active: openDropdowns['0'] }">
             <NuxtLink to="/catalog" @click="toggleMenu(false)"> каталог </NuxtLink>
-            <svg class="icon" @click.stop="toggleDropdown('0')">
-              <use xlink:href="/images/sprite.svg#arrow-down" />
-            </svg>
-
-            <ul class="sub-menu" :class="{ 'is-open': openDropdowns['0'] }">
-              <li>
-                <NuxtLink to="/" @click="toggleMenu(false)"><span>Ворота</span></NuxtLink>
-              </li>
-
-              <li class="dropdown" :class="{ active: openDropdowns['01'] }">
-                <NuxtLink @click="toggleMenu(false)" to="/"><span>Комплектуючі для воріт</span></NuxtLink>
-                <svg class="icon" @click.stop="toggleDropdown('01')">
-                  <use xlink:href="/images/sprite.svg#arrow-down" />
-                </svg>
-
-                <ul
-                  class="sub-menu sub-menu-right"
-                  :class="{ 'is-open': openDropdowns['01'] }"
-                >
-                  <li>
-                    <NuxtLink to="/"><span>Комплектуючі 1</span></NuxtLink>
-                  </li>
-                  <li>
-                    <NuxtLink to="/"><span>Комплектуючі 2</span></NuxtLink>
-                  </li>
-                  <li
-                    class="dropdown"
-                    :class="{ active: openDropdowns['001'] }"
-                  >
-                    <NuxtLink to="/"><span>Комплектуючі 3</span></NuxtLink>
-                    <svg class="icon" @click.stop="toggleDropdown('001')">
-                      <use xlink:href="/images/sprite.svg#arrow-down" />
-                    </svg>
-                    <ul
-                      class="sub-menu sub-menu-right"
-                      :class="{ 'is-open': openDropdowns['001'] }"
-                    >
-                      <li>
-                        <NuxtLink to="/"><span>Комплектуючі 11</span></NuxtLink>
-                      </li>
-                      <li>
-                        <NuxtLink to="/"><span>Комплектуючі 12</span></NuxtLink>
-                      </li>
-                      <li>
-                        <NuxtLink to="/"><span>Комплектуючі 13</span></NuxtLink>
-                      </li>
-                      <li>
-                        <NuxtLink to="/"><span>Комплектуючі 14</span></NuxtLink>
-                      </li>
-                      <li>
-                        <NuxtLink to="/"><span>Комплектуючі 15</span></NuxtLink>
-                      </li>
-                    </ul>
-                  </li>
-                  <li>
-                    <NuxtLink to="/"><span>Комплектуючі 4</span></NuxtLink>
-                  </li>
-                  <li>
-                    <NuxtLink to="/"><span>Комплектуючі 5</span></NuxtLink>
-                  </li>
-                </ul>
-              </li>
-
-              <li>
-                <NuxtLink to="/"><span>Аксесуари</span></NuxtLink>
-              </li>
-              <li>
-                <NuxtLink to="/"><span>Турнікети</span></NuxtLink>
-              </li>
-            </ul>
           </li>
 
           <li>
             <NuxtLink to="/about">про нас</NuxtLink>
           </li>
-
-          <li class="dropdown" :class="{ active: openDropdowns['1'] }">
-            <NuxtLink to="/">послуги</NuxtLink>
-            <svg class="icon" @click.stop="toggleDropdown('1')">
-              <use xlink:href="/images/sprite.svg#arrow-down" />
-            </svg>
-            <ul class="sub-menu" :class="{ 'is-open': openDropdowns['1'] }">
-              <li>
-                <NuxtLink to="/"><span>portfolio 1</span></NuxtLink>
-              </li>
-              <li>
-                <NuxtLink to="/"><span>portfolio 2</span></NuxtLink>
-              </li>
-              <li>
-                <NuxtLink to="/"><span>portfolio 3</span></NuxtLink>
-              </li>
-              <li class="dropdown" :class="{ active: openDropdowns['11'] }">
-                <NuxtLink to="/"><span>portfolio 4</span></NuxtLink>
-                <svg class="icon" @click.stop="toggleDropdown('11')">
-                  <use xlink:href="/images/sprite.svg#arrow-down" />
-                </svg>
-                <ul
-                  class="sub-menu sub-menu-left"
-                  :class="{ 'is-open': openDropdowns['11'] }"
-                >
-                  <li>
-                    <NuxtLink to="/"><span>portfolio 11</span></NuxtLink>
-                  </li>
-                  <li>
-                    <NuxtLink to="/"><span>portfolio 12</span></NuxtLink>
-                  </li>
-                  <li>
-                    <NuxtLink to="/"><span>portfolio 13</span></NuxtLink>
-                  </li>
-                  <li>
-                    <NuxtLink to="/"><span>portfolio 14</span></NuxtLink>
-                  </li>
-                  <li>
-                    <NuxtLink to="/"><span>portfolio 15</span></NuxtLink>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <NuxtLink to="/"><span>portfolio 5</span></NuxtLink>
-              </li>
-            </ul>
-          </li>
-          <li><NuxtLink to="/">новини</NuxtLink></li>
+          
           <li><NuxtLink to="/">контакти</NuxtLink></li>
         </ul>
       </nav>
@@ -241,7 +120,7 @@ a {
     }
   }
 
-  @media (max-width: 991rem) {
+  @media (max-width: 991px) {
     padding: 12rem 0;
   }
 }
@@ -261,7 +140,7 @@ a {
 .header .menu .head {
   display: none;
 
-  @media (max-width: 991rem) {
+  @media (max-width: 991px) {
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -272,7 +151,7 @@ a {
 .header .menu > ul > li {
   display: inline-block;
 
-  @media (max-width: 991rem) {
+  @media (max-width: 991px) {
     display: block;
   }
 }
@@ -280,7 +159,7 @@ a {
 .header .menu > ul > li:not(:last-child) {
   margin-right: 40rem;
 
-  @media (max-width: 991rem) {
+  @media (max-width: 991px) {
     margin-right: 0;
   }
 }
@@ -311,7 +190,7 @@ a {
 .header .menu > ul > li > svg {
   right: -5rem;
 
-  @media (max-width: 991rem) {
+  @media (max-width: 991px) {
     right: 0;
   }
 }
@@ -331,7 +210,7 @@ a {
   visibility: hidden;
   opacity: 0;
 
-  @media (max-width: 991rem) {
+  @media (max-width: 991px) {
     position: static;
     opacity: 1;
     transform: none;
@@ -370,7 +249,7 @@ a {
   padding: 6rem 24rem;
   font-size: 14rem;
 
-  @media (max-width: 991rem) {
+  @media (max-width: 991px) {
     padding: 12rem 0 12rem 15rem;
   }
 }
@@ -386,7 +265,7 @@ a {
   background-position: 0 100%;
   transition: background-size 0.5s ease;
 
-  @media (max-width: 991rem) {
+  @media (max-width: 991px) {
     background-image: none;
   }
 }
@@ -399,7 +278,7 @@ a {
   transform: rotate(-90deg);
   right: 24rem;
 
-  @media (max-width: 991rem) {
+  @media (max-width: 991px) {
     transform: none;
     right: 0;
   }
@@ -424,7 +303,7 @@ a {
 .header-right .open-menu-btn {
   display: none;
 
-  @media (max-width: 991rem) {
+  @media (max-width: 991px) {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -437,7 +316,7 @@ a {
   }
 }
 
-@media (max-width: 991rem) {
+@media (max-width: 991px) {
   .container {
     padding: 0 25rem;
   }

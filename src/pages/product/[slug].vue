@@ -53,6 +53,7 @@ const { data: product } = await useAsyncData(`product`, () =>
               </SwiperSlide>
             </Swiper>
             <Swiper
+              :direction="'vertical'"
               @swiper="thumbsSwiper = $event"
               :space-between="10"
               slides-per-view="auto"

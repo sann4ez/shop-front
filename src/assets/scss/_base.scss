@@ -54,7 +54,7 @@ a {
 .container {
   max-width: 1920rem;
   margin: 0 auto;
-  padding: 0 80rem;
+  padding: 0 150rem;
 }
 
 .card__title {
@@ -282,7 +282,7 @@ section:hover {
   }
 }
 
-@media (max-width: 991rem) {
+@media (max-width: 991px) {
   html {
     font-size: calc(1vw / 9.91);
   }

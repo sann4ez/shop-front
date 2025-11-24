@@ -20,6 +20,7 @@ const form = ref({
   payment: {
     gateway: "cash",
   },
+  client_comment: "",
 });
 
 const resetForm = () => {
@@ -40,6 +41,7 @@ const resetForm = () => {
     payment: {
       gateway: "cash",
     },
+    client_comment: "",
   };
 };
 

@@ -146,7 +146,7 @@ const prevEl = ref(null);
   }
 }
 
-  @media (max-width: 991rem) {
+  @media (max-width: 991px) {
     .product-section{
       padding-block: 25rem;
     }

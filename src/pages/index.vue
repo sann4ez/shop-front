@@ -247,7 +247,7 @@ const { data: page } = await useAsyncData(
 }
 
 :deep(.hero__slider .swiper) {
-  height: 500rem;
+  height: calc(70dvh - 72rem);
 }
 
 :deep(.swiper-navigation-icon) {

@@ -19,8 +19,8 @@ console.log(page.value)
 <template>
 <main class="main">
 
-  <div class="container">
-    <div class="typography">
+  <div class="container" v-if="page?.data?.body">
+    <div class="typography" v-html="page.data.body">
     </div>
   </div>
 </main>

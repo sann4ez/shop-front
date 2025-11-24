@@ -146,7 +146,7 @@ const { data: catalog } = await useAsyncData(
     list-style: none;
     padding: 0;
     margin: 0;
-    @media (max-width: 991rem) {
+    @media (max-width: 991px) {
       gap: 15rem;
     }
   }
@@ -155,7 +155,7 @@ const { data: catalog } = await useAsyncData(
     background-color: #fff;
     border-radius: 10rem;
     overflow: hidden;
-    width: calc((100% - 48rem) / 3);
+    width: calc((100% - 96rem) / 5);
     box-shadow: 0 2rem 8rem rgba(0, 0, 0, 0.05);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 
@@ -163,7 +163,7 @@ const { data: catalog } = await useAsyncData(
       transform: translateY(-4rem);
       box-shadow: 0 4rem 16rem rgba(0, 0, 0, 0.1);
     }
-    @media (max-width: 991rem) {
+    @media (max-width: 991px) {
       width: calc((100% - 15rem) / 2);
     }
   }

@@ -16,7 +16,7 @@ const props = defineProps({
 
 <template>
   <div class="product-card">
-    <NuxtLink v-if="product.images" :to="`/product/${product.slug}`">
+    <NuxtLink v-if="product?.images?.length > 0" :to="`/product/${product.slug}`">
 
       <img :src="product.images[0].url" :alt="product.name" class="product-card__img" />
     </NuxtLink>
