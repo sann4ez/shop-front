@@ -16,7 +16,7 @@ const props = defineProps({
 
 <template>
   <div class="product-card">
-    <NuxtLink v-if="product?.images?.length > 0" :to="`/product/${product.slug}`">
+    <NuxtLink v-if="product?.images?.length > 0" :to="`/product/${product.slug}`" class="product-card__img-wrapper">
 
       <img :src="product.images[0].url" :alt="product.name" class="product-card__img" />
     </NuxtLink>
@@ -60,6 +60,11 @@ const props = defineProps({
     display: block;
     width: 100%;
     height: auto;
+    object-fit: cover;
+    &-wrapper{
+      display: flex;
+      height: 300rem;
+    }
   }
 
   &__article,
