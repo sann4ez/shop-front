@@ -168,12 +168,14 @@ const { data: page } = await useAsyncData(
               class="projects-section__slide"
             >
               <div class="projects-card">
-                <img
-                  :src="product.img"
-                  :alt="product.name"
-                  class="projects-card__img"
-                  @click="openLightbox(product.img, index)"
-                />
+                <div class="projects-card__wrapper">
+                  <img
+                    :src="product.img"
+                    :alt="product.name"
+                    class="projects-card__img"
+                    @click="openLightbox(product.img, index)"
+                  />
+                </div>
                 <span class="projects-card__name">{{ product.name }}</span>
               </div>
             </SwiperSlide>
@@ -312,6 +314,9 @@ const { data: page } = await useAsyncData(
   &__img {
     width: 100%;
     height: 350rem;
+            @media (max-width: 991px) {
+      height: 200rem;
+    }
   }
 }
 
@@ -327,9 +332,19 @@ const { data: page } = await useAsyncData(
 .projects-card {
   display: flex;
   flex-direction: column;
+  &__wrapper{
+    width: 100%;
+    height: 500rem;
+        @media (max-width: 991px) {
+      height: 350rem;
+    }
+  }
 }
 
 .projects-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   border-radius: 5rem;
   cursor: zoom-in;
   transition: transform 0.3s ease;
@@ -337,6 +352,7 @@ const { data: page } = await useAsyncData(
   &:hover {
     transform: scale(1.02);
   }
+
 }
 
 .projects-card__name {
@@ -383,8 +399,8 @@ const { data: page } = await useAsyncData(
   &__icon{
     display: flex;
     img{
-      width: 30rem;
-      height: 30rem;
+      width: 50rem;
+      height: 50rem;
       flex-shrink: 0;
     }
   }

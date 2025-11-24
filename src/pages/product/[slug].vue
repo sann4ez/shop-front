@@ -188,7 +188,10 @@ const { data: product } = await useAsyncData(`product`, () =>
       }
     }
   }
-
+.swiper-thumbs{
+  flex-shrink: 0;
+  margin-right: 20rem;
+}
   &__thumbs {
     &-swiper {
       &-slide {
@@ -208,11 +211,13 @@ const { data: product } = await useAsyncData(`product`, () =>
       width: calc(50% - 5rem);
       height: auto;
       min-height: 350rem;
+      max-height: 600rem;
     }
     &-image {
       width: 100%;
       height: auto;
       min-height: 350rem;
+      max-height: 600rem;
       object-fit: cover;
     }
   }
@@ -224,7 +229,7 @@ const { data: product } = await useAsyncData(`product`, () =>
     justify-content: center;
   }
   &__name {
-    font-size: 20rem;
+    font-size: 45rem;
     font-weight: 500;
   }
   &__info {
@@ -297,9 +302,11 @@ const { data: product } = await useAsyncData(`product`, () =>
   &__wrapper {
     display: flex;
     flex-direction: row;
-    gap: 10rem;
+    gap: 50rem;
     &-right {
-      max-width: calc(60% - 5rem);
+      max-width: calc(60% - 25rem);
+      display: flex;
+      flex-direction: row-reverse;
     }
     &-left {
       display: flex;

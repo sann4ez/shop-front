@@ -133,8 +133,8 @@ a {
 
 .header .logo img {
   vertical-align: middle;
-  width: 50rem;
-  height: 50rem;
+  width: 150rem;
+  height: 35rem;
 }
 
 .header .menu .head {

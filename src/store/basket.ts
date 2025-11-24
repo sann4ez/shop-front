@@ -1,7 +1,7 @@
 export const useBasketStore = defineStore("basket", () => {
   const cartId = useCookie("cartId", { default: () => null });
   const cart = ref(null);
-  const cartCount = ref(null);
+  const cartCount = ref(0);
 
   const fetchCart = async () => {
     try {
@@ -9,7 +9,7 @@ export const useBasketStore = defineStore("basket", () => {
         ...fetchOptions(),
       });
       cart.value = data;
-      cartCount.value = data?.data?.purchases?.length
+      cartCount.value = data?.data?.purchases?.length || 0
       return data;
     } catch (error) {
       console.error("fetchCart error:", error);
@@ -25,9 +25,9 @@ export const useBasketStore = defineStore("basket", () => {
       });
 
       cartId.value = data?.cart_id ?? cartId.value;
-
+      await nextTick();
+      
       await fetchCart();
-
       return data;
     } catch (error) {
       console.error("addToCart error:", error);
