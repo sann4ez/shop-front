@@ -15,10 +15,8 @@ defineProps({
   },
 });
 
-const uuid = Math.random().toString(36).substring(2, 9);
-
-const nextEl = ref(null);
-const prevEl = ref(null);
+// 
+const btnId = useId();
 </script>
 
 <template>
@@ -29,8 +27,11 @@ const prevEl = ref(null);
 
         <!-- Кнопки навігації -->
         <div class="product-section__nav">
-          <button ref="prevEl" class="swiper-button-prev custom-prev"></button>
-          <button ref="nextEl" class="swiper-button-next custom-next"></button>
+          <button 
+            :class="`swiper-button-prev swiper-button-prev-${btnId} custom-prev`"></button>
+
+            <button 
+            :class="`swiper-button-next swiper-button-next-${btnId} custom-next`"></button>
         </div>
       </div>
 
@@ -39,8 +40,10 @@ const prevEl = ref(null);
           :modules="[Navigation, Autoplay]"
           :slides-per-view="2"
           :space-between="20"
-          :loop="true"
-          :navigation="{ nextEl: nextEl, prevEl: prevEl }"
+          :navigation="{
+            nextEl: `.swiper-button-next-${btnId}`,
+            prevEl: `.swiper-button-prev-${btnId}`,
+          }"
           :autoplay="{ delay: 5000 }"
           :breakpoints="{
             640: { slidesPerView: 3 },
@@ -116,6 +119,10 @@ const prevEl = ref(null);
           color: #fff;
         }
       }
+    }
+
+    .swiper-button-disabled {
+      opacity: 0.5;
     }
 
     .swiper-button-prev {
